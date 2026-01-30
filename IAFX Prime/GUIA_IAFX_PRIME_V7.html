@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IAFX Prime v7 - Guia Completo do Usuário</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        h2 {
+            color: #667eea;
+            font-size: 2em;
+            margin: 30px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        h3 {
+            color: #764ba2;
+            font-size: 1.5em;
+            margin: 25px 0 15px 0;
+        }
+
+        h4 {
+            color: #555;
+            font-size: 1.2em;
+            margin: 20px 0 10px 0;
+        }
+
+        p {
+            margin: 10px 0;
+            text-align: justify;
+        }
+
+        ul {
+            margin: 10px 0 10px 30px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        .feature-box {
+            background: #f8f9fa;
+            border-left: 5px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .alert-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .danger-box {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .config-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .config-card h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+        }
+
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin: 5px 5px 5px 0;
+        }
+
+        .badge-primary { background: #667eea; color: white; }
+        .badge-success { background: #28a745; color: white; }
+        .badge-warning { background: #ffc107; color: #333; }
+        .badge-danger { background: #dc3545; color: white; }
+        .badge-info { background: #17a2b8; color: white; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+        }
+
+        tr:hover {
+            background: #f5f5f5;
+        }
+
+        .emoji {
+            font-size: 1.3em;
+        }
+
+        footer {
+            background: #2d2d2d;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .toc {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .toc h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .toc ul {
+            list-style: none;
+            margin: 0;
+        }
+
+        .toc li {
+            padding: 8px 0;
+        }
+
+        .toc a {
+            color: #667eea;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .toc a:hover {
+            color: #764ba2;
+            padding-left: 10px;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 IAFX Prime v7</h1>
+            <p>Guia Completo do Usuário</p>
+        </header>
+
+        <div class="content">
+            <div class="toc">
+                <h3>📑 Índice</h3>
+                <ul>
+                    <li><a href="#intro">🎯 O Que é o IAFX Prime v7?</a></li>
+                    <li><a href="#funcionalidades">🚀 Principais Funcionalidades</a></li>
+                    <li><a href="#defesa">🛡️ Sistema de Defesa em 3 Camadas</a></li>
+                    <li><a href="#fechamento">💰 Sistema Inteligente de Fechamento</a></li>
+                    <li><a href="#meta">📅 Sistema de Meta Diária</a></li>
+                    <li><a href="#breakeven">🔐 Breakeven Cascata</a></li>
+                    <li><a href="#configs">⚙️ Configurações e Inputs</a></li>
+                    <li><a href="#dicas">🎓 Dicas de Uso</a></li>
+                    <li><a href="#avisos">⚠️ Avisos Importantes</a></li>
+                </ul>
+            </div>
+
+            <section id="intro">
+                <h2>🎯 O Que é o IAFX Prime v7?</h2>
+                <div class="feature-box">
+                    <p>O <strong>IAFX Prime v7</strong> é um Expert Advisor (robô de negociação) inteligente para MetaTrader 5 que opera com estratégias de Grid (grade) combinadas com sistemas avançados de proteção de capital e gestão de risco.</p>
+                </div>
+            </section>
+
+            <section id="funcionalidades">
+                <h2>🚀 Principais Funcionalidades</h2>
+
+                <h3>✅ Estratégias de Operação</h3>
+                <p>O robô trabalha com <strong>duas estratégias principais</strong> que se adaptam conforme o mercado:</p>
+
+                <div class="config-card">
+                    <h4>🔷 Grid Super (Agressivo)</h4>
+                    <p><span class="badge badge-danger">Agressivo</span></p>
+                    <ul>
+                        <li><strong>Quando usa:</strong> Quando identifica uma tendência forte</li>
+                        <li><strong>Como funciona:</strong>
+                            <ul>
+                                <li>Abre posições com volume multiplicado (mais agressivo)</li>
+                                <li>Fecha a posição mais antiga quando o conjunto fica lucrativo</li>
+                                <li>Mantém apenas as posições mais recentes</li>
+                            </ul>
+                        </li>
+                        <li><strong>Vantagem:</strong> Aproveita tendências fortes rapidamente</li>
+                        <li><strong>Cuidado:</strong> Mais agressivo, requer atenção ao DD%</li>
+                    </ul>
+                </div>
+
+                <div class="config-card">
+                    <h4>🔶 Grid Médio (Defensivo)</h4>
+                    <p><span class="badge badge-success">Conservador</span></p>
+                    <ul>
+                        <li><strong>Quando usa:</strong> Quando o mercado está em reversão</li>
+                        <li><strong>Como funciona:</strong>
+                            <ul>
+                                <li>Abre posições defensivas sem aumentar agressividade</li>
+                                <li>Limite máximo de 15 ordens para proteger a conta</li>
+                                <li>Espera o conjunto todo ficar lucrativo</li>
+                            </ul>
+                        </li>
+                        <li><strong>Vantagem:</strong> Mais seguro em mercados laterais</li>
+                        <li><strong>Limite:</strong> Máximo de 15 ordens (configurável)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="defesa">
+                <h2>🛡️ Sistema de Defesa em 3 Camadas</h2>
+                <p>O robô possui <strong>3 alertas de defesa</strong> que ativam automaticamente conforme o Drawdown (DD%) aumenta:</p>
+
+                <div class="success-box">
+                    <h3>🟡 Alerta A - Grid Adaptativo (10% DD)</h3>
+                    <ul>
+                        <li><strong>O que acontece:</strong> Grid aumenta 1.5x</li>
+                        <li><strong>Por quê:</strong> Espaça mais as ordens para dar mais "respiro" ao mercado</li>
+                        <li><strong>Exemplo:</strong> Se grid era 150 pontos, vira 225 pontos</li>
+                        <li><strong>Objetivo:</strong> Reduzir velocidade de abertura de novas posições</li>
+                    </ul>
+                </div>
+
+                <div class="alert-box">
+                    <h3>🟠 Alerta B - Mudança de Timeframe (20% DD)</h3>
+                    <ul>
+                        <li><strong>O que acontece:</strong> Todos os indicadores mudam para timeframe de segurança</li>
+                        <li><strong>Por quê:</strong> Timeframe maior = sinais mais confiáveis</li>
+                        <li><strong>Padrão:</strong> Muda para M15 (15 minutos)</li>
+                        <li><strong>Objetivo:</strong> Buscar sinais mais robustos e evitar ruído do mercado</li>
+                    </ul>
+                </div>
+
+                <div class="danger-box">
+                    <h3>🔴 Alerta C - Modo Emergência (30% DD)</h3>
+                    <ul>
+                        <li><strong>O que acontece:</strong> Grid Super entra em modo super conservador</li>
+                        <li><strong>Como funciona:</strong>
+                            <ul>
+                                <li>Reduz multiplicador de lote pela metade</li>
+                                <li>Mantém apenas 50% do multiplicador original</li>
+                            </ul>
+                        </li>
+                        <li><strong>Objetivo:</strong> Proteção máxima do capital em situação crítica</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="fechamento">
+                <h2>💰 Sistema Inteligente de Fechamento</h2>
+
+                <h3>🎯 Alvos Dinâmicos <span class="badge badge-info">NOVO!</span></h3>
+                <div class="feature-box">
+                    <p>Em vez de valores fixos em dólar, o robô agora trabalha com <strong>percentual do seu saldo</strong>:</p>
+                    <ul>
+                        <li><strong>Alvo Principal:</strong> 0.5% do balance (padrão)</li>
+                        <li><strong>Alvo Parcial:</strong> 0.25% do balance (padrão)</li>
+                        <li><strong>Vantagem:</strong> Se adapta automaticamente ao crescimento da sua conta</li>
+                    </ul>
+                </div>
+
+                <h4>📍 Fechamento em 2 Níveis</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nível</th>
+                            <th>Condição</th>
+                            <th>Alvo</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Nível 1</strong></td>
+                            <td>Poucas Ordens (&lt; 3)</td>
+                            <td>0.5% do balance</td>
+                            <td>Fecha todas de uma vez</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Nível 2</strong></td>
+                            <td>Muitas Ordens (≥ 3)</td>
+                            <td>0.25% → 0.5%</td>
+                            <td>Fecha 50% primeiro, depois o restante</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>🌙 Alvos por Horário <span class="badge badge-info">NOVO!</span></h3>
+                <div class="feature-box">
+                    <p>O robô reduz os alvos durante horários de <strong>baixa liquidez</strong>:</p>
+                    <ul>
+                        <li><strong>Horário reduzido:</strong> 22h às 6h (padrão)</li>
+                        <li><strong>Multiplicador:</strong> 0.5x (metade do alvo)</li>
+                        <li><strong>Por quê:</strong> Menos liquidez = menos ambição = mais segurança</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="meta">
+                <h2>📅 Sistema de Meta Diária - 3 Regras Inteligentes</h2>
+
+                <div class="config-card">
+                    <h3>🎯 Regra 1: Meta Diária de 1%</h3>
+                    <p><span class="badge badge-primary">Ativa o dia todo</span></p>
+                    <ul>
+                        <li><strong>Quando:</strong> A qualquer momento do dia</li>
+                        <li><strong>Condição:</strong> Se o lucro total do dia atingir 1% do balance inicial</li>
+                        <li><strong>Ação:</strong>
+                            <ul>
+                                <li>✅ Fecha TODAS as posições</li>
+                                <li>🔒 Bloqueia o robô até o próximo dia</li>
+                            </ul>
+                        </li>
+                        <li><strong>Objetivo:</strong> Garantir lucro consistente e evitar devolver ganhos</li>
+                    </ul>
+                    <div class="success-box">
+                        <strong>Exemplo Prático:</strong><br>
+                        Balance inicial do dia: R$ 10.000<br>
+                        Meta: R$ 100 (1%)<br>
+                        Às 14h você já ganhou R$ 100 → Robô fecha tudo e para até amanhã
+                    </div>
+                </div>
+
+                <div class="config-card">
+                    <h3>🕐 Regra 2: Proteção 17h-19h Brasília</h3>
+                    <p><span class="badge badge-warning">Janela de 2 horas</span></p>
+                    <ul>
+                        <li><strong>Quando:</strong> Entre 17h e 19h (horário de Brasília)</li>
+                        <li><strong>Condição:</strong> Se o lucro realizado do dia for maior que as perdas flutuantes</li>
+                        <li><strong>Ação:</strong>
+                            <ul>
+                                <li>✅ Fecha TODAS as posições</li>
+                                <li>🔒 Garante dia positivo</li>
+                            </ul>
+                        </li>
+                        <li><strong>Objetivo:</strong> Proteger lucros já realizados contra reversões</li>
+                    </ul>
+                    <div class="success-box">
+                        <strong>Exemplo Prático:</strong><br>
+                        Lucro realizado no dia: R$ 150<br>
+                        Posições abertas com perda flutuante: -R$ 80<br>
+                        São 18h → Como R$ 150 > R$ 80, fecha tudo garantindo +R$ 70 no dia
+                    </div>
+                </div>
+
+                <div class="config-card">
+                    <h3>📆 Regra 3: Sexta-feira com 3% Semanal</h3>
+                    <p><span class="badge badge-info">Fim de semana garantido</span></p>
+                    <ul>
+                        <li><strong>Quando:</strong> Sexta-feira, a partir das 12h</li>
+                        <li><strong>Condição:</strong> Se o lucro da semana (realizado + flutuante) for ≥ 3%</li>
+                        <li><strong>Ação:</strong>
+                            <ul>
+                                <li>✅ Fecha TODAS as posições (positivas e negativas)</li>
+                                <li>🔒 Garante 3% da semana</li>
+                                <li>📅 Só reabre domingo à noite</li>
+                            </ul>
+                        </li>
+                        <li><strong>Objetivo:</strong> Garantir semana lucrativa e descanso de fim de semana</li>
+                    </ul>
+                    <div class="success-box">
+                        <strong>Exemplo Prático:</strong><br>
+                        Balance: R$ 10.000<br>
+                        Meta semanal: R$ 300 (3%)<br>
+                        Sexta-feira 14h: Lucro da semana = R$ 320<br>
+                        → Robô fecha tudo, garante os 3% e descansa até domingo
+                    </div>
+                </div>
+            </section>
+
+            <section id="breakeven">
+                <h2>🔐 Breakeven Cascata</h2>
+                <div class="feature-box">
+                    <h3>O que é?</h3>
+                    <p>Sistema que <strong>move o Stop Loss de TODAS as posições juntas</strong> quando o preço médio se torna lucrativo.</p>
+
+                    <h3>Como funciona?</h3>
+                    <ol>
+                        <li>Calcula o preço médio de todas as posições abertas</li>
+                        <li>Quando o mercado passa desse preço médio (ficando positivo)</li>
+                        <li>Move o SL de todas as ordens para o breakeven (ponto de equilíbrio)</li>
+                        <li><strong>Resultado:</strong> Protege lucro em bloco</li>
+                    </ol>
+
+                    <h3>Vantagens:</h3>
+                    <ul>
+                        <li>✅ Protege todo o conjunto de ordens</li>
+                        <li>✅ Evita perder lucro já conquistado</li>
+                        <li>✅ Funciona automaticamente</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="configs">
+                <h2>⚙️ Configurações e Inputs - Explicação Detalhada</h2>
+
+                <h3>📋 Configurações Básicas</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Input</th>
+                            <th>Descrição</th>
+                            <th>Padrão</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>Chave de acesso - licença</code></td>
+                            <td>Código de ativação do robô fornecido pelo desenvolvedor</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td><code>Modo de operação</code></td>
+                            <td>1=Automático | 2=Manual-Semiautomático</td>
+                            <td>Automático</td>
+                        </tr>
+                        <tr>
+                            <td><code>Tipo de operação</code></td>
+                            <td>0=Compras e Vendas | 1=Só Compras | 2=Só Vendas | 3=Swap+</td>
+                            <td>Compras e Vendas</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>💵 Gestão Financeira</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Input</th>
+                            <th>Descrição</th>
+                            <th>Padrão</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>Tamanho do lote</code></td>
+                            <td>Volume inicial das ordens. Fórmula sugerida: Balance ÷ 10.000</td>
+                            <td>0.01</td>
+                        </tr>
+                        <tr>
+                            <td><code>x_lote</code></td>
+                            <td>Multiplicador para operações de tendência forte</td>
+                            <td>1.0</td>
+                        </tr>
+                        <tr>
+                            <td><code>Grid em pontos</code></td>
+                            <td>Distância entre ordens. Menor=mais agressivo | Maior=conservador</td>
+                            <td>150</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>🎯 Alvos Percentuais <span class="badge badge-info">NOVO!</span></h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Input</th>
+                            <th>Descrição</th>
+                            <th>Padrão</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>Usar alvo em % do balance</code></td>
+                            <td>Ativa sistema de alvo dinâmico que se adapta ao crescimento</td>
+                            <td>true</td>
+                        </tr>
+                        <tr>
+                            <td><code>Alvo em % do balance</code></td>
+                            <td>Percentual do saldo para fechar tudo</td>
+                            <td>0.5%</td>
+                        </tr>
+                        <tr>
+                            <td><code>Ativar fechamento parcial</code></td>
+                            <td>Fecha metade das ordens antes do alvo final</td>
+                            <td>true</td>
+                        </tr>
+                        <tr>
+                            <td><code>% de ordens a fechar no parcial</code></td>
+                            <td>Quantas ordens fechar no fechamento parcial</td>
+                            <td>50%</td>
+                        </tr>
+                        <tr>
+                            <td><code>% do balance para fechamento parcial</code></td>
+                            <td>Quando ativa o fechamento parcial</td>
+                            <td>0.25%</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>🌙 Alvos por Horário <span class="badge badge-info">NOVO!</span></h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Input</th>
+                            <th>Descrição</th>
+                            <th>Padrão</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>Alvos diferentes por horário</code></td>
+                            <td>Ativa/desativa sistema de horários</td>
+                            <td>true</td>
+                        </tr>
+                        <tr>
+                            <td><code>Hora início alvo reduzido</code></td>
+                            <td>Quando começa período de baixa liquidez</td>
+                            <td>22h</td>
+                        </tr>
+                        <tr>
+                            <td><code>Hora fim alvo reduzido</code></td>
+                            <td>Quando termina período de baixa liquidez</td>
+                            <td>6h</td>
+                        </tr>
+                        <tr>
+                            <td><code>Multiplicador alvo no horário reduzido</code></td>
+                            <td>Quanto reduz o alvo durante período noturno</td>
+                            <td>0.5</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>📅 Meta Diária <span class="badge badge-info">NOVO!</span></h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Input</th>
+                            <th>Descrição</th>
+                            <th>Padrão</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>Ativar meta diária</code></td>
+                            <td>Liga/desliga sistema de meta diária (recomendado manter ativo)</td>
+                            <td>true</td>
+                        </tr>
+                        <tr>
+                            <td><code>Meta diária em % do balance</code></td>
+                            <td>Percentual do saldo para meta do dia</td>
+                            <td>1.0%</td>
+                        </tr>
+                        <tr>
+                            <td><code>Hora início verificação meta</code></td>
+                            <td>Quando começa verificar Regra 2 (horário Brasília)</td>
+                            <td>17h</td>
+                        </tr>
+                        <tr>
+                            <td><code>Hora fim verificação meta</code></td>
+                            <td>Quando termina verificação Regra 2 (horário Brasília)</td>
+                            <td>19h</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>🛡️ Sistema de Defesa</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Input</th>
+                            <th>Descrição</th>
+                            <th>Padrão</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>% do alerta A</code></td>
+                            <td>DD% para ativar Alerta A (Grid Adaptativo)</td>
+                            <td>10%</td>
+                        </tr>
+                        <tr>
+                            <td><code>% do alerta B</code></td>
+                            <td>DD% para ativar Alerta B (Mudança de Timeframe)</td>
+                            <td>20%</td>
+                        </tr>
+                        <tr>
+                            <td><code>% do DD modo emergência</code></td>
+                            <td>DD% para ativar Alerta C (Modo Ultra Conservador)</td>
+                            <td>30%</td>
+                        </tr>
+                        <tr>
+                            <td><code>Limite máximo ordens Grid Médio</code></td>
+                            <td>Máximo de ordens na estratégia defensiva</td>
+                            <td>15</td>
+                        </tr>
+                        <tr>
+                            <td><code>Período de Segurança</code></td>
+                            <td>Timeframe usado no Alerta B</td>
+                            <td>M15</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>🛑 Stops</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Input</th>
+                            <th>Descrição</th>
+                            <th>Padrão</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>Valor do stop (em moeda)</code></td>
+                            <td>Stop loss fixo em dólar (0=desativado)</td>
+                            <td>0.00</td>
+                        </tr>
+                        <tr>
+                            <td><code>Valor do stop (em % DD)</code></td>
+                            <td>Stop loss baseado em DD% (0=desativado)</td>
+                            <td>0.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="dicas">
+                <h2>🎓 Dicas de Uso</h2>
+
+                <div class="config-card">
+                    <h3>✅ Configuração Conservadora</h3>
+                    <p><span class="badge badge-success">Recomendado para iniciantes</span></p>
+                    <pre>Lote: 0.01
+Grid: 200 pontos
+Alvo percentual: 0.5%
+Meta diária: 1%
+Alerta A: 10%
+Alerta B: 20%
+Alerta C: 30%
+Limite Grid Médio: 10 ordens</pre>
+                </div>
+
+                <div class="config-card">
+                    <h3>⚡ Configuração Moderada</h3>
+                    <p><span class="badge badge-warning">Para traders intermediários</span></p>
+                    <pre>Lote: 0.02
+Grid: 150 pontos
+Alvo percentual: 0.5%
+Meta diária: 1.5%
+Alerta A: 12%
+Alerta B: 22%
+Alerta C: 32%
+Limite Grid Médio: 15 ordens</pre>
+                </div>
+
+                <div class="config-card">
+                    <h3>🚀 Configuração Agressiva</h3>
+                    <p><span class="badge badge-danger">Apenas para experientes</span></p>
+                    <pre>Lote: 0.03
+Grid: 100 pontos
+Multiplicador tendência: 1.5
+Alvo percentual: 0.7%
+Meta diária: 2%
+Alerta A: 15%
+Alerta B: 25%
+Alerta C: 35%
+Limite Grid Médio: 20 ordens</pre>
+                </div>
+            </section>
+
+            <section id="avisos">
+                <h2>⚠️ Avisos Importantes</h2>
+
+                <div class="danger-box">
+                    <h3>🔴 Gestão de Risco</h3>
+                    <ul>
+                        <li><strong>Nunca</strong> opere com todo o capital de uma vez</li>
+                        <li>Reserve no mínimo <strong>40% do capital</strong> como margem de segurança</li>
+                        <li>Monitore o DD% diariamente</li>
+                        <li>Respeite os alertas de defesa</li>
+                    </ul>
+                </div>
+
+                <div class="alert-box">
+                    <h3>🟡 Manutenção</h3>
+                    <ul>
+                        <li>Acompanhe o desempenho semanalmente</li>
+                        <li>Ajuste configurações conforme resultados</li>
+                        <li>Teste em conta demo antes de usar em conta real</li>
+                        <li>Mantenha o robô atualizado</li>
+                    </ul>
+                </div>
+
+                <div class="success-box">
+                    <h3>🟢 Boas Práticas</h3>
+                    <ul>
+                        <li>Comece sempre com configuração conservadora</li>
+                        <li>Aumente risco gradualmente conforme ganha experiência</li>
+                        <li>Use a meta diária para garantir lucros consistentes</li>
+                        <li>Respeite os horários de baixa liquidez</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2>📞 Suporte</h2>
+                <div class="feature-box">
+                    <p>Para dúvidas, sugestões ou suporte:</p>
+                    <ul>
+                        <li>📧 Contate o desenvolvedor: <strong>Diego Justo</strong></li>
+                        <li>📅 Mantenha o robô sempre atualizado</li>
+                        <li>🔄 Versão atual: <strong>7.0</strong></li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2>⚖️ Isenção de Responsabilidade</h2>
+                <div class="danger-box">
+                    <h3>AVISO IMPORTANTE</h3>
+                    <p>Negociar com robôs envolve alto risco e pode não ser adequado para todos os investidores. Resultados anteriores não são garantia de performance futura. Você é o único responsável pelas operações realizadas.</p>
+                    <p>É <strong>fundamental</strong> testar em conta de demonstração antes de operar com capital real.</p>
+                    <p><strong>Trading de forex e CFDs pode resultar em perdas que excedem seu investimento inicial.</strong></p>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <p><strong>IAFX Prime v7</strong> - Guia do Usuário</p>
+            <p>Versão 1.0 - Janeiro 2026</p>
+            <p>Desenvolvido por Diego Justo</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+# Ignora tudo por padrão
+*
+
+# Permite as pastas específicas
+!Arquivos/
+!Arquivos/**
+!IAFX Prime/
+!IAFX Prime/**
+
+# Permite arquivos essenciais na raiz
+!.gitignore
+!README.md
+!CLAUDE.md
