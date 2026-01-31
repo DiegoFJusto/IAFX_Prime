@@ -12,13 +12,15 @@ O **IAFX Prime v7** é um Expert Advisor (robô de negociação) inteligente par
 
 O robô trabalha com **duas estratégias principais** que se adaptam conforme o mercado:
 
-#### 🔷 **Grid Super (Agressivo)**
-- **Quando usa**: Quando identifica uma tendência forte
+#### 🔷 **Grid Super (Agressivo) - Dinâmica VKGLinear**
+- **Quando usa**: Quando já existe mais de 1 ordem aberta e o preço se afasta `grid_super_pontos` pontos
 - **Como funciona**:
+  - Ativação puramente por distância em pontos (não depende de indicadores)
   - Abre posições com volume multiplicado (mais agressivo)
-  - Fecha a posição mais antiga quando o conjunto fica lucrativo
+  - Fecha a posição mais antiga quando o conjunto fica lucrativo (dinâmica VKGLinear)
   - Mantém apenas as posições mais recentes
-- **Vantagem**: Aproveita tendências fortes rapidamente
+- **Parâmetro**: `grid_super_pontos` (padrão: 75 pontos)
+- **Vantagem**: Aproveita tendências fortes rapidamente, sem filtros de indicadores
 - **Cuidado**: Mais agressivo, requer atenção ao DD%
 
 #### 🔶 **Grid Médio (Defensivo)**
@@ -142,15 +144,22 @@ O robô reduz os alvos durante horários de **baixa liquidez**:
 Sistema que **move o Stop Loss de TODAS as posições juntas** quando o preço médio se torna lucrativo.
 
 ### Como funciona?
-1. Calcula o preço médio de todas as posições abertas
-2. Quando o mercado passa desse preço médio (ficando positivo)
-3. Move o SL de todas as ordens para o breakeven (ponto de equilíbrio)
+1. Calcula o preço médio de todas as posições abertas (BUY e SELL separadamente)
+2. Quando o mercado se afasta `breakevan_pontos` pontos do preço médio (ficando positivo)
+3. Move o SL de todas as ordens daquela direção para o breakeven (ponto de equilíbrio)
 4. **Resultado**: Protege lucro em bloco
 
-### Vantagens:
+### Parâmetros:
+- **`usar_breakevan`**: Ativa/desativa o sistema (padrão: true)
+- **`breakevan_pontos`**: Distância em pontos para ativar o breakeven (padrão: 150)
+
+### Características:
 - ✅ Protege todo o conjunto de ordens
 - ✅ Evita perder lucro já conquistado
 - ✅ Funciona automaticamente
+- ✅ Processa posições BUY e SELL separadamente (não bloqueia com posições mistas)
+- ✅ Filtro por magic number (não interfere com outros EAs)
+- ✅ Trata corretamente posições sem Stop Loss prévio
 
 ---
 
@@ -177,9 +186,24 @@ Sistema que **move o Stop Loss de TODAS as posições juntas** quando o preço m
   - `3 - Swap +`: Opera apenas no lado com swap positivo
 - **Dica**: Use "Swap +" para minimizar custos overnight
 
+#### `Estratégia B ativar`
+- **O que é**: Ativa a estratégia de tendência (OP_Tendencia)
+- **Padrão**: false (desativado)
+- **Quando usar**: Para operações seguindo tendência com médias móveis
+
+#### `Modo TREND`
+- **O que é**: Define o modo de análise de tendência
+- **Opções**: 1=Alinhamento | 2=200 | 3=200+50 | 4=200+50+21
+- **Padrão**: 2 (Média de 200 períodos)
+
+#### `Acionar stop-cross estratégia B`
+- **O que é**: Stop em cruzamento de indicadores da estratégia B
+- **Padrão**: true (ativado)
+- **Uso**: Fecha posições da estratégia B quando indicadores cruzam contra
+
 ---
 
-### 💵 **Seção: Gestão Financeira**
+### 💵 **Seção: Lotes e Grid**
 
 #### `Tamanho do lote para ordens`
 - **O que é**: Volume inicial das ordens
@@ -194,11 +218,22 @@ Sistema que **move o Stop Loss de TODAS as posições juntas** quando o preço m
 - **Cuidado**: Valores altos aumentam risco
 
 #### `Grid em pontos`
-- **O que é**: Distância entre cada ordem em pontos
+- **O que é**: Distância entre cada ordem do Grid Médio em pontos
 - **Padrão**: 150 pontos
 - **Ajuste**:
   - Menor = Mais ordens (mais agressivo)
   - Maior = Menos ordens (mais conservador)
+
+#### `Distância em pontos para Grid Super (agressão)`
+- **O que é**: Distância em pontos para ativar o Grid Super (dinâmica VKGLinear)
+- **Padrão**: 75 pontos
+- **Importante**: Não depende de indicadores, apenas de distância
+- **Ajuste**: Valor menor = mais agressivo, valor maior = mais conservador
+
+#### `Limite máximo de ordens Grid Médio`
+- **O que é**: Máximo de ordens na estratégia defensiva
+- **Padrão**: 15 ordens
+- **Objetivo**: Evitar overtrading e proteger capital
 
 ---
 
@@ -302,7 +337,7 @@ Sistema que **move o Stop Loss de TODAS as posições juntas** quando o preço m
 
 ---
 
-### 🛑 **Seção: Stops**
+### 🛡️ **Seção: Stops e Defesa**
 
 #### `Valor do stop (em moeda)`
 - **O que é**: Stop loss fixo em dólar
@@ -313,15 +348,6 @@ Sistema que **move o Stop Loss de TODAS as posições juntas** quando o preço m
 - **O que é**: Stop loss baseado em DD%
 - **Padrão**: 0.00 (desativado)
 - **Exemplo**: 40 = fecha tudo se DD chegar a 40%
-
-#### `Acionar stop-cross estratégia B`
-- **O que é**: Stop em cruzamento de indicadores
-- **Padrão**: true (ativado)
-- **Uso**: Para estratégia de tendência
-
----
-
-### 🛡️ **Seção: Sistema de Defesa**
 
 #### `% do alerta A (defesa aumento de grid)`
 - **O que é**: DD% para ativar Alerta A
@@ -338,27 +364,15 @@ Sistema que **move o Stop Loss de TODAS as posições juntas** quando o preço m
 - **Padrão**: 30.00% (trinta porcento)
 - **Ação**: Modo ultra conservador
 
-#### `Limite máximo de ordens Grid Médio`
-- **O que é**: Máximo de ordens na estratégia defensiva
-- **Padrão**: 15 ordens
-- **Objetivo**: Evitar overtrading
+#### `Máximo exposição moeda por pares`
+- **O que é**: Quantos pares pode ter com a mesma moeda
+- **Padrão**: 1 (um par por moeda)
+- **Exemplo**: Se já tem EURUSD, não abre EURJPY (EUR repetido)
 
 #### `Período de Segurança`
 - **O que é**: Timeframe usado no Alerta B
 - **Padrão**: M15 (15 minutos)
 - **Opções**: M5, M15, M30, H1, H4
-
----
-
-### 🌍 **Seção: Gestão de Exposição**
-
-#### `Máximo exposição moeda por pares`
-- **O que é**: Quantos pares pode ter com a mesma moeda
-- **Padrão**: 1 (um par por moeda)
-- **Exemplo**:
-  - Se já tem EURUSD aberto
-  - Não abre EURJPY (EUR repetido)
-  - Objetivo: Evitar overexposição a uma moeda
 
 ---
 
@@ -403,6 +417,12 @@ Sistema que **move o Stop Loss de TODAS as posições juntas** quando o preço m
 - **Padrão**: true (ativado)
 - **Recomendação**: Sempre manter ativado
 
+#### `Distância em pontos para ativar breakeven`
+- **O que é**: Quantos pontos o mercado precisa andar além do preço médio para ativar o breakeven
+- **Padrão**: 150 pontos
+- **Ajuste**: Valor menor ativa mais cedo, valor maior dá mais margem
+- **Exemplo**: Se preço médio de compra = 1.1000 e breakeven = 150 pontos, ativa quando preço chega em 1.1150
+
 ---
 
 ## 🎓 Dicas de Uso
@@ -410,7 +430,9 @@ Sistema que **move o Stop Loss de TODAS as posições juntas** quando o preço m
 ### ✅ **Configuração Conservadora**
 ```
 Lote: 0.01
-Grid: 200 pontos
+Grid Médio: 200 pontos
+Grid Super: 100 pontos
+Breakeven: 200 pontos
 Alvo percentual: 0.5%
 Meta diária: 1%
 Alerta A: 10%
@@ -422,7 +444,9 @@ Limite Grid Médio: 10 ordens
 ### ⚡ **Configuração Moderada**
 ```
 Lote: 0.02
-Grid: 150 pontos
+Grid Médio: 150 pontos
+Grid Super: 75 pontos
+Breakeven: 150 pontos
 Alvo percentual: 0.5%
 Meta diária: 1.5%
 Alerta A: 12%
@@ -434,7 +458,9 @@ Limite Grid Médio: 15 ordens
 ### 🚀 **Configuração Agressiva** (Apenas para experientes)
 ```
 Lote: 0.03
-Grid: 100 pontos
+Grid Médio: 100 pontos
+Grid Super: 50 pontos
+Breakeven: 100 pontos
 Multiplicador tendência: 1.5
 Alvo percentual: 0.7%
 Meta diária: 2%
@@ -489,4 +515,4 @@ Negociar com robôs envolve alto risco e pode não ser adequado para todos os in
 
 ---
 
-*Documento criado para IAFX Prime v7 - Versão 1.0 - Janeiro 2026*
+*Documento criado para IAFX Prime v7 - Versão 1.1 - Janeiro 2026*

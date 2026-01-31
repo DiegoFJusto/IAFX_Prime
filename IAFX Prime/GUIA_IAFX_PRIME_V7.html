@@ -272,18 +272,20 @@
                 <p>O robô trabalha com <strong>duas estratégias principais</strong> que se adaptam conforme o mercado:</p>
 
                 <div class="config-card">
-                    <h4>🔷 Grid Super (Agressivo)</h4>
-                    <p><span class="badge badge-danger">Agressivo</span></p>
+                    <h4>🔷 Grid Super (Agressivo) - Dinâmica VKGLinear</h4>
+                    <p><span class="badge badge-danger">Agressivo</span> <span class="badge badge-info">Puramente por pontos</span></p>
                     <ul>
-                        <li><strong>Quando usa:</strong> Quando identifica uma tendência forte</li>
+                        <li><strong>Quando usa:</strong> Quando já existe mais de 1 ordem aberta e o preço se afasta <code>grid_super_pontos</code> pontos</li>
                         <li><strong>Como funciona:</strong>
                             <ul>
+                                <li>Ativação puramente por distância em pontos (não depende de indicadores)</li>
                                 <li>Abre posições com volume multiplicado (mais agressivo)</li>
-                                <li>Fecha a posição mais antiga quando o conjunto fica lucrativo</li>
+                                <li>Fecha a posição mais antiga quando o conjunto fica lucrativo (dinâmica VKGLinear)</li>
                                 <li>Mantém apenas as posições mais recentes</li>
                             </ul>
                         </li>
-                        <li><strong>Vantagem:</strong> Aproveita tendências fortes rapidamente</li>
+                        <li><strong>Parâmetro:</strong> <code>grid_super_pontos</code> (padrão: 75 pontos)</li>
+                        <li><strong>Vantagem:</strong> Aproveita tendências fortes rapidamente, sem filtros de indicadores</li>
                         <li><strong>Cuidado:</strong> Mais agressivo, requer atenção ao DD%</li>
                     </ul>
                 </div>
@@ -475,17 +477,26 @@
 
                     <h3>Como funciona?</h3>
                     <ol>
-                        <li>Calcula o preço médio de todas as posições abertas</li>
-                        <li>Quando o mercado passa desse preço médio (ficando positivo)</li>
-                        <li>Move o SL de todas as ordens para o breakeven (ponto de equilíbrio)</li>
+                        <li>Calcula o preço médio de todas as posições abertas (BUY e SELL separadamente)</li>
+                        <li>Quando o mercado se afasta <code>breakevan_pontos</code> pontos do preço médio (ficando positivo)</li>
+                        <li>Move o SL de todas as ordens daquela direção para o breakeven (ponto de equilíbrio)</li>
                         <li><strong>Resultado:</strong> Protege lucro em bloco</li>
                     </ol>
 
-                    <h3>Vantagens:</h3>
+                    <h3>Parâmetros:</h3>
+                    <ul>
+                        <li><strong><code>usar_breakevan</code>:</strong> Ativa/desativa o sistema (padrão: true)</li>
+                        <li><strong><code>breakevan_pontos</code>:</strong> Distância em pontos para ativar o breakeven (padrão: 150)</li>
+                    </ul>
+
+                    <h3>Características:</h3>
                     <ul>
                         <li>✅ Protege todo o conjunto de ordens</li>
                         <li>✅ Evita perder lucro já conquistado</li>
                         <li>✅ Funciona automaticamente</li>
+                        <li>✅ Processa posições BUY e SELL separadamente</li>
+                        <li>✅ Filtro por magic number (não interfere com outros EAs)</li>
+                        <li>✅ Trata corretamente posições sem Stop Loss prévio</li>
                     </ul>
                 </div>
             </section>
@@ -493,7 +504,7 @@
             <section id="configs">
                 <h2>⚙️ Configurações e Inputs - Explicação Detalhada</h2>
 
-                <h3>📋 Configurações Básicas</h3>
+                <h3>📋 Licença e Modo de Operação</h3>
 
                 <table>
                     <thead>
@@ -519,10 +530,25 @@
                             <td>0=Compras e Vendas | 1=Só Compras | 2=Só Vendas | 3=Swap+</td>
                             <td>Compras e Vendas</td>
                         </tr>
+                        <tr>
+                            <td><code>Estratégia B ativar</code></td>
+                            <td>Ativa a estratégia de tendência com médias móveis</td>
+                            <td>false</td>
+                        </tr>
+                        <tr>
+                            <td><code>Modo TREND</code></td>
+                            <td>1=Alinhamento | 2=200 | 3=200+50 | 4=200+50+21</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td><code>Stop-cross estratégia B</code></td>
+                            <td>Stop em cruzamento de indicadores da estratégia B</td>
+                            <td>true</td>
+                        </tr>
                     </tbody>
                 </table>
 
-                <h3>💵 Gestão Financeira</h3>
+                <h3>💵 Lotes e Grid</h3>
 
                 <table>
                     <thead>
@@ -545,8 +571,18 @@
                         </tr>
                         <tr>
                             <td><code>Grid em pontos</code></td>
-                            <td>Distância entre ordens. Menor=mais agressivo | Maior=conservador</td>
+                            <td>Distância entre ordens do Grid Médio. Menor=mais agressivo | Maior=conservador</td>
                             <td>150</td>
+                        </tr>
+                        <tr>
+                            <td><code>Grid Super em pontos</code></td>
+                            <td>Distância em pontos para Grid Super (dinâmica VKGLinear). Não depende de indicadores</td>
+                            <td>75</td>
+                        </tr>
+                        <tr>
+                            <td><code>Limite máximo ordens Grid Médio</code></td>
+                            <td>Máximo de ordens na estratégia defensiva</td>
+                            <td>15</td>
                         </tr>
                     </tbody>
                 </table>
@@ -658,46 +694,7 @@
                     </tbody>
                 </table>
 
-                <h3>🛡️ Sistema de Defesa</h3>
-
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Input</th>
-                            <th>Descrição</th>
-                            <th>Padrão</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code>% do alerta A</code></td>
-                            <td>DD% para ativar Alerta A (Grid Adaptativo)</td>
-                            <td>10%</td>
-                        </tr>
-                        <tr>
-                            <td><code>% do alerta B</code></td>
-                            <td>DD% para ativar Alerta B (Mudança de Timeframe)</td>
-                            <td>20%</td>
-                        </tr>
-                        <tr>
-                            <td><code>% do DD modo emergência</code></td>
-                            <td>DD% para ativar Alerta C (Modo Ultra Conservador)</td>
-                            <td>30%</td>
-                        </tr>
-                        <tr>
-                            <td><code>Limite máximo ordens Grid Médio</code></td>
-                            <td>Máximo de ordens na estratégia defensiva</td>
-                            <td>15</td>
-                        </tr>
-                        <tr>
-                            <td><code>Período de Segurança</code></td>
-                            <td>Timeframe usado no Alerta B</td>
-                            <td>M15</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h3>🛑 Stops</h3>
+                <h3>🛡️ Stops e Defesa</h3>
 
                 <table>
                     <thead>
@@ -718,6 +715,55 @@
                             <td>Stop loss baseado em DD% (0=desativado)</td>
                             <td>0.00</td>
                         </tr>
+                        <tr>
+                            <td><code>% do alerta A</code></td>
+                            <td>DD% para ativar Alerta A (Grid Adaptativo - aumenta grid 1.5x)</td>
+                            <td>10%</td>
+                        </tr>
+                        <tr>
+                            <td><code>% do alerta B</code></td>
+                            <td>DD% para ativar Alerta B (Mudança de Timeframe)</td>
+                            <td>20%</td>
+                        </tr>
+                        <tr>
+                            <td><code>% do DD modo emergência</code></td>
+                            <td>DD% para ativar Alerta C (Modo Ultra Conservador)</td>
+                            <td>30%</td>
+                        </tr>
+                        <tr>
+                            <td><code>Máximo exposição moeda por pares</code></td>
+                            <td>Quantos pares pode ter com a mesma moeda (evita overexposição)</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td><code>Período de Segurança</code></td>
+                            <td>Timeframe usado no Alerta B</td>
+                            <td>M15</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>🔐 Breakeven</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Input</th>
+                            <th>Descrição</th>
+                            <th>Padrão</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>Habilitar breakevan</code></td>
+                            <td>Ativa sistema de Breakeven Cascata (recomendado manter ativo)</td>
+                            <td>true</td>
+                        </tr>
+                        <tr>
+                            <td><code>Distância para breakeven</code></td>
+                            <td>Pontos que o mercado precisa andar além do preço médio para ativar</td>
+                            <td>150</td>
+                        </tr>
                     </tbody>
                 </table>
             </section>
@@ -729,7 +775,9 @@
                     <h3>✅ Configuração Conservadora</h3>
                     <p><span class="badge badge-success">Recomendado para iniciantes</span></p>
                     <pre>Lote: 0.01
-Grid: 200 pontos
+Grid Médio: 200 pontos
+Grid Super: 100 pontos
+Breakeven: 200 pontos
 Alvo percentual: 0.5%
 Meta diária: 1%
 Alerta A: 10%
@@ -742,7 +790,9 @@ Limite Grid Médio: 10 ordens</pre>
                     <h3>⚡ Configuração Moderada</h3>
                     <p><span class="badge badge-warning">Para traders intermediários</span></p>
                     <pre>Lote: 0.02
-Grid: 150 pontos
+Grid Médio: 150 pontos
+Grid Super: 75 pontos
+Breakeven: 150 pontos
 Alvo percentual: 0.5%
 Meta diária: 1.5%
 Alerta A: 12%
@@ -755,7 +805,9 @@ Limite Grid Médio: 15 ordens</pre>
                     <h3>🚀 Configuração Agressiva</h3>
                     <p><span class="badge badge-danger">Apenas para experientes</span></p>
                     <pre>Lote: 0.03
-Grid: 100 pontos
+Grid Médio: 100 pontos
+Grid Super: 50 pontos
+Breakeven: 100 pontos
 Multiplicador tendência: 1.5
 Alvo percentual: 0.7%
 Meta diária: 2%
@@ -825,7 +877,7 @@ Limite Grid Médio: 20 ordens</pre>
 
         <footer>
             <p><strong>IAFX Prime v7</strong> - Guia do Usuário</p>
-            <p>Versão 1.0 - Janeiro 2026</p>
+            <p>Versão 1.1 - Janeiro 2026</p>
             <p>Desenvolvido por Diego Justo</p>
         </footer>
     </div>
