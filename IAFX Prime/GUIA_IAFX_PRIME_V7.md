@@ -183,8 +183,12 @@ Sistema que **move o Stop Loss de TODAS as posições juntas** quando o preço m
   - `0 - Compras e Vendas`: Opera nos dois sentidos
   - `1 - Somente Compras`: Apenas LONG
   - `2 - Somente Vendas`: Apenas SHORT
-  - `3 - Swap +`: Opera apenas no lado com swap positivo
-- **Dica**: Use "Swap +" para minimizar custos overnight
+  - `3 - Swap +`: Opera apenas no lado com swap positivo da corretora
+  - `4 - Carry Trade`: Opera no lado favorável pelo diferencial de taxas de juros
+- **Swap+ vs Carry Trade**:
+  - **Swap+** consulta os valores reais de swap da corretora (`SYMBOL_SWAP_LONG` / `SYMBOL_SWAP_SHORT`). É pragmático: reflete o custo real que você vai ter. Porém, se a corretora cobrar swap negativo nos dois lados, retorna "NONE" e opera sem filtro nenhum.
+  - **Carry Trade** compara as taxas de juros dos bancos centrais informadas manualmente nos inputs. Representa a lógica macroeconômica pura. Requer atualização manual quando bancos centrais alteram taxas.
+- **Dica**: Use "Swap+" para minimizar custos overnight com base na corretora, ou "Carry Trade" para seguir o diferencial de juros real entre países
 
 #### `Estratégia B ativar`
 - **O que é**: Ativa a estratégia de tendência (OP_Tendencia)
@@ -425,6 +429,138 @@ Sistema que **move o Stop Loss de TODAS as posições juntas** quando o preço m
 
 ---
 
+## 🔄 Trailing Stop Individual
+
+### O que é?
+Sistema que **move o Stop Loss de cada posição individualmente** conforme o preço avança a favor, protegendo lucro progressivamente.
+
+### Como funciona?
+1. Quando uma posição individual atinge lucro de `trailing_step_pontos` (padrão: 150 pontos)
+2. O SL é movido para o breakeven + `trailing_buffer_pontos` (padrão: 0 = exato)
+3. A cada novo avanço de `trailing_step_pontos`, o SL avança junto
+4. **Resultado**: O lucro fica cada vez mais protegido à medida que o preço avança
+
+### Diferença do Breakeven Cascata:
+- **Breakeven Cascata**: Move o SL de TODAS as posições juntas baseado no preço médio
+- **Trailing Stop Individual**: Move o SL de CADA posição separadamente conforme seu próprio lucro
+
+### Parâmetros:
+- **`usar_trailing_individual`**: Ativa/desativa o sistema (padrão: true)
+- **`trailing_step_pontos`**: Distância em pontos para cada passo do trailing (padrão: 150)
+- **`trailing_buffer_pontos`**: Buffer em pontos acima do breakeven (padrão: 0 = exato)
+
+### Características:
+- ✅ Protege cada posição individualmente
+- ✅ Funciona em conjunto com o Breakeven Cascata
+- ✅ Avanço progressivo (quanto mais lucro, mais protegido)
+- ✅ Não interfere com outros EAs (filtro por magic number)
+
+---
+
+## 💎 Fechamento por Equity
+
+### O que é?
+Sistema de **saída automática** que fecha todas as posições e remove o EA do gráfico quando a equity (patrimônio) atinge um valor alvo.
+
+### Como funciona?
+1. A cada tick, verifica se `AccountEquity >= fechar_valor_equity`
+2. Se atingir, fecha TODAS as posições abertas
+3. Remove o EA do gráfico automaticamente
+4. **Resultado**: Garante que você saia do mercado com o patrimônio desejado
+
+### Parâmetro:
+- **`fechar_valor_equity`**: Valor de equity para fechar tudo e remover EA (padrão: 0.0 = desativado)
+
+### Quando usar:
+- Definir um objetivo de patrimônio final (ex: "quero sair quando a conta atingir R$ 15.000")
+- Proteção contra ganância: define um teto e para automaticamente
+- Útil para desafios de contas funded/prop firms
+
+### Exemplo:
+- Conta com R$ 10.000 de equity
+- `fechar_valor_equity = 12000`
+- Quando equity atingir R$ 12.000 → fecha tudo e remove o EA
+
+---
+
+## 📈 Carry Trade - Filtro por Diferencial de Juros
+
+### O que é?
+Estratégia que opera apenas na **direção favorável pelo diferencial de taxas de juros** entre os dois países do par de moedas.
+
+### Conceito:
+O Carry Trade é uma estratégia macroeconômica clássica: você "compra" a moeda do país com juros mais altos e "vende" a moeda do país com juros mais baixos, recebendo a diferença.
+
+### Como funciona no EA:
+1. Você informa manualmente as taxas de juros nos inputs:
+   - `taxa_juros_base`: Taxa da 1a moeda do par (ex: EUR em EURUSD)
+   - `taxa_juros_cotada`: Taxa da 2a moeda do par (ex: USD em EURUSD)
+2. O EA calcula o diferencial: `base - cotada`
+3. Se diferencial > 0 → Só compra (BUY)
+4. Se diferencial < 0 → Só vende (SELL)
+5. Se igual ou não configurado → Opera nos dois lados (sem filtro)
+
+### Parâmetros:
+- **`taxa_juros_base`**: Taxa de juros da moeda BASE (padrão: 0.0)
+- **`taxa_juros_cotada`**: Taxa de juros da moeda COTADA (padrão: 0.0)
+
+### Exemplo prático:
+- Par: USDJPY
+- Taxa EUA (base): 5.00%
+- Taxa Japão (cotada): 0.50%
+- Diferencial: 5.00 - 0.50 = +4.50 → **Só compra**
+- Lógica: Comprar USD (juros altos) e vender JPY (juros baixos)
+
+### Importante:
+- As taxas **não se atualizam sozinhas** - você precisa alterar os inputs quando os bancos centrais mudarem as taxas
+- Diferente do Swap+ que consulta a corretora automaticamente
+- Ative com `tipo_op = 4` (Carry Trade)
+
+---
+
+## ⚙️ Seção: Trailing Stop Individual (Configurações)
+
+#### `Habilitar trailing stop individual`
+- **O que é**: Ativa sistema de trailing stop por posição
+- **Padrão**: true (ativado)
+- **Recomendação**: Manter ativado junto com breakeven
+
+#### `Distância em pontos para cada passo do trailing`
+- **O que é**: Quantos pontos de lucro para mover o SL
+- **Padrão**: 150 pontos
+- **Ajuste**: Valor menor protege mais cedo, valor maior dá mais respiro
+
+#### `Buffer em pontos acima do breakeven`
+- **O que é**: Margem extra acima do ponto de equilíbrio
+- **Padrão**: 0 (move exatamente para o breakeven)
+- **Exemplo**: Se buffer = 10, o SL fica 10 pontos acima do breakeven
+
+---
+
+## ⚙️ Seção: Fechamento por Equity (Configurações)
+
+#### `Valor de equity para fechar tudo e remover EA`
+- **O que é**: Patrimônio alvo para encerrar operações
+- **Padrão**: 0.0 (desativado)
+- **Exemplo**: 15000 = fecha tudo quando equity atingir R$ 15.000
+- **Importante**: Ao atingir, o EA é removido do gráfico automaticamente
+
+---
+
+## ⚙️ Seção: Carry Trade (Configurações)
+
+#### `Taxa de juros moeda BASE`
+- **O que é**: Taxa de juros anual da primeira moeda do par
+- **Padrão**: 0.0 (não configurado)
+- **Exemplo**: Para EURUSD, informar a taxa do EUR (ex: 3.50)
+
+#### `Taxa de juros moeda COTADA`
+- **O que é**: Taxa de juros anual da segunda moeda do par
+- **Padrão**: 0.0 (não configurado)
+- **Exemplo**: Para EURUSD, informar a taxa do USD (ex: 5.00)
+
+---
+
 ## 🎓 Dicas de Uso
 
 ### ✅ **Configuração Conservadora**
@@ -515,4 +651,4 @@ Negociar com robôs envolve alto risco e pode não ser adequado para todos os in
 
 ---
 
-*Documento criado para IAFX Prime v7 - Versão 1.1 - Janeiro 2026*
+*Documento criado para IAFX Prime v7 - Versão 1.2 - Fevereiro 2026*

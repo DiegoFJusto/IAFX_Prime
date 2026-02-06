@@ -252,6 +252,9 @@
                     <li><a href="#fechamento">💰 Sistema Inteligente de Fechamento</a></li>
                     <li><a href="#meta">📅 Sistema de Meta Diária</a></li>
                     <li><a href="#breakeven">🔐 Breakeven Cascata</a></li>
+                    <li><a href="#trailing">🔄 Trailing Stop Individual</a></li>
+                    <li><a href="#equity">💎 Fechamento por Equity</a></li>
+                    <li><a href="#carry">📈 Carry Trade</a></li>
                     <li><a href="#configs">⚙️ Configurações e Inputs</a></li>
                     <li><a href="#dicas">🎓 Dicas de Uso</a></li>
                     <li><a href="#avisos">⚠️ Avisos Importantes</a></li>
@@ -501,6 +504,176 @@
                 </div>
             </section>
 
+            <section id="trailing">
+                <h2>🔄 Trailing Stop Individual</h2>
+                <div class="feature-box">
+                    <h3>O que é?</h3>
+                    <p>Sistema que <strong>move o Stop Loss de cada posição individualmente</strong> conforme o preço avança a favor, protegendo lucro progressivamente.</p>
+
+                    <h3>Como funciona?</h3>
+                    <ol>
+                        <li>Quando uma posição individual atinge lucro de <code>trailing_step_pontos</code> (padrão: 150 pontos)</li>
+                        <li>O SL é movido para o breakeven + <code>trailing_buffer_pontos</code> (padrão: 0 = exato)</li>
+                        <li>A cada novo avanço de <code>trailing_step_pontos</code>, o SL avança junto</li>
+                        <li><strong>Resultado:</strong> O lucro fica cada vez mais protegido à medida que o preço avança</li>
+                    </ol>
+
+                    <h3>Diferença do Breakeven Cascata:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Característica</th>
+                                <th>Breakeven Cascata</th>
+                                <th>Trailing Individual</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Escopo</td>
+                                <td>TODAS as posições juntas</td>
+                                <td>Cada posição separada</td>
+                            </tr>
+                            <tr>
+                                <td>Referência</td>
+                                <td>Preço médio do conjunto</td>
+                                <td>Preço de abertura individual</td>
+                            </tr>
+                            <tr>
+                                <td>Movimento do SL</td>
+                                <td>Uma vez (para o breakeven)</td>
+                                <td>Progressivo (avança com o preço)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Parâmetros:</h3>
+                    <ul>
+                        <li><strong><code>usar_trailing_individual</code>:</strong> Ativa/desativa o sistema (padrão: true)</li>
+                        <li><strong><code>trailing_step_pontos</code>:</strong> Distância em pontos para cada passo do trailing (padrão: 150)</li>
+                        <li><strong><code>trailing_buffer_pontos</code>:</strong> Buffer em pontos acima do breakeven (padrão: 0 = exato)</li>
+                    </ul>
+
+                    <h3>Características:</h3>
+                    <ul>
+                        <li>✅ Protege cada posição individualmente</li>
+                        <li>✅ Funciona em conjunto com o Breakeven Cascata</li>
+                        <li>✅ Avanço progressivo (quanto mais lucro, mais protegido)</li>
+                        <li>✅ Não interfere com outros EAs (filtro por magic number)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="equity">
+                <h2>💎 Fechamento por Equity</h2>
+                <div class="feature-box">
+                    <h3>O que é?</h3>
+                    <p>Sistema de <strong>saída automática</strong> que fecha todas as posições e remove o EA do gráfico quando a equity (patrimônio) atinge um valor alvo.</p>
+
+                    <h3>Como funciona?</h3>
+                    <ol>
+                        <li>A cada tick, verifica se <code>AccountEquity >= fechar_valor_equity</code></li>
+                        <li>Se atingir, fecha TODAS as posições abertas</li>
+                        <li>Remove o EA do gráfico automaticamente</li>
+                        <li><strong>Resultado:</strong> Garante que você saia do mercado com o patrimônio desejado</li>
+                    </ol>
+
+                    <h3>Parâmetro:</h3>
+                    <ul>
+                        <li><strong><code>fechar_valor_equity</code>:</strong> Valor de equity para fechar tudo e remover EA (padrão: 0.0 = desativado)</li>
+                    </ul>
+
+                    <h3>Quando usar:</h3>
+                    <ul>
+                        <li>Definir um objetivo de patrimônio final (ex: "quero sair quando a conta atingir R$ 15.000")</li>
+                        <li>Proteção contra ganância: define um teto e para automaticamente</li>
+                        <li>Útil para desafios de contas funded/prop firms</li>
+                    </ul>
+
+                    <div class="success-box">
+                        <strong>Exemplo Prático:</strong><br>
+                        Conta com R$ 10.000 de equity<br>
+                        <code>fechar_valor_equity = 12000</code><br>
+                        Quando equity atingir R$ 12.000 → fecha tudo e remove o EA
+                    </div>
+                </div>
+            </section>
+
+            <section id="carry">
+                <h2>📈 Carry Trade - Filtro por Diferencial de Juros</h2>
+                <div class="feature-box">
+                    <h3>O que é?</h3>
+                    <p>Estratégia que opera apenas na <strong>direção favorável pelo diferencial de taxas de juros</strong> entre os dois países do par de moedas.</p>
+
+                    <h3>Conceito:</h3>
+                    <p>O Carry Trade é uma estratégia macroeconômica clássica: você "compra" a moeda do país com juros mais altos e "vende" a moeda do país com juros mais baixos, recebendo a diferença.</p>
+
+                    <h3>Como funciona no EA:</h3>
+                    <ol>
+                        <li>Você informa manualmente as taxas de juros nos inputs:
+                            <ul>
+                                <li><code>taxa_juros_base</code>: Taxa da 1a moeda do par (ex: EUR em EURUSD)</li>
+                                <li><code>taxa_juros_cotada</code>: Taxa da 2a moeda do par (ex: USD em EURUSD)</li>
+                            </ul>
+                        </li>
+                        <li>O EA calcula o diferencial: <code>base - cotada</code></li>
+                        <li>Se diferencial &gt; 0 → Só compra (BUY)</li>
+                        <li>Se diferencial &lt; 0 → Só vende (SELL)</li>
+                        <li>Se igual ou não configurado → Opera nos dois lados (sem filtro)</li>
+                    </ol>
+
+                    <h3>Swap+ vs Carry Trade:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Característica</th>
+                                <th>Swap+ (tipo_op = 3)</th>
+                                <th>Carry Trade (tipo_op = 4)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Fonte de dados</td>
+                                <td>Corretora (automática)</td>
+                                <td>Taxas de juros (manual)</td>
+                            </tr>
+                            <tr>
+                                <td>Reflete custo real?</td>
+                                <td>Sim, com markup do broker</td>
+                                <td>Não necessariamente</td>
+                            </tr>
+                            <tr>
+                                <td>Pode dar NONE?</td>
+                                <td>Sim (ambos swaps negativos)</td>
+                                <td>Sim (taxas não preenchidas ou iguais)</td>
+                            </tr>
+                            <tr>
+                                <td>Manutenção</td>
+                                <td>Zero</td>
+                                <td>Atualizar quando bancos centrais mudam taxas</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Parâmetros:</h3>
+                    <ul>
+                        <li><strong><code>taxa_juros_base</code>:</strong> Taxa de juros da moeda BASE (padrão: 0.0)</li>
+                        <li><strong><code>taxa_juros_cotada</code>:</strong> Taxa de juros da moeda COTADA (padrão: 0.0)</li>
+                    </ul>
+
+                    <div class="success-box">
+                        <strong>Exemplo Prático (USDJPY):</strong><br>
+                        Taxa EUA (base): 5.00%<br>
+                        Taxa Japão (cotada): 0.50%<br>
+                        Diferencial: 5.00 - 0.50 = +4.50 → <strong>Só compra</strong><br>
+                        Lógica: Comprar USD (juros altos) e vender JPY (juros baixos)
+                    </div>
+
+                    <div class="alert-box">
+                        <strong>Importante:</strong> As taxas não se atualizam sozinhas. Você precisa alterar os inputs quando os bancos centrais mudarem as taxas de juros.
+                    </div>
+                </div>
+            </section>
+
             <section id="configs">
                 <h2>⚙️ Configurações e Inputs - Explicação Detalhada</h2>
 
@@ -527,7 +700,7 @@
                         </tr>
                         <tr>
                             <td><code>Tipo de operação</code></td>
-                            <td>0=Compras e Vendas | 1=Só Compras | 2=Só Vendas | 3=Swap+</td>
+                            <td>0=Compras e Vendas | 1=Só Compras | 2=Só Vendas | 3=Swap+ | 4=Carry Trade</td>
                             <td>Compras e Vendas</td>
                         </tr>
                         <tr>
@@ -766,6 +939,78 @@
                         </tr>
                     </tbody>
                 </table>
+
+                <h3>🔄 Trailing Stop Individual <span class="badge badge-info">NOVO!</span></h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Input</th>
+                            <th>Descrição</th>
+                            <th>Padrão</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>Habilitar trailing stop individual</code></td>
+                            <td>Ativa sistema de trailing stop por posição individual</td>
+                            <td>true</td>
+                        </tr>
+                        <tr>
+                            <td><code>Distância em pontos para cada passo</code></td>
+                            <td>Quantos pontos de lucro para mover o SL. Menor protege mais cedo, maior dá mais respiro</td>
+                            <td>150</td>
+                        </tr>
+                        <tr>
+                            <td><code>Buffer em pontos acima do breakeven</code></td>
+                            <td>Margem extra acima do ponto de equilíbrio (0 = move exatamente para o breakeven)</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>💎 Fechamento por Equity <span class="badge badge-info">NOVO!</span></h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Input</th>
+                            <th>Descrição</th>
+                            <th>Padrão</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>Valor de equity para fechar tudo</code></td>
+                            <td>Patrimônio alvo para encerrar operações e remover EA do gráfico (0 = desativado)</td>
+                            <td>0.0</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>📈 Carry Trade <span class="badge badge-info">NOVO!</span></h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Input</th>
+                            <th>Descrição</th>
+                            <th>Padrão</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>Taxa de juros moeda BASE</code></td>
+                            <td>Taxa de juros anual da 1a moeda do par (ex: 4.50 para USD em USDJPY)</td>
+                            <td>0.0</td>
+                        </tr>
+                        <tr>
+                            <td><code>Taxa de juros moeda COTADA</code></td>
+                            <td>Taxa de juros anual da 2a moeda do par (ex: 0.50 para JPY em USDJPY)</td>
+                            <td>0.0</td>
+                        </tr>
+                    </tbody>
+                </table>
             </section>
 
             <section id="dicas">
@@ -877,7 +1122,7 @@ Limite Grid Médio: 20 ordens</pre>
 
         <footer>
             <p><strong>IAFX Prime v7</strong> - Guia do Usuário</p>
-            <p>Versão 1.1 - Janeiro 2026</p>
+            <p>Versão 1.2 - Fevereiro 2026</p>
             <p>Desenvolvido por Diego Justo</p>
         </footer>
     </div>
