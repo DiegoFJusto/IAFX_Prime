@@ -3,1023 +3,831 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IAFX Prime v7 - Guia Completo do Usuário</title>
+    <title>IAFX Prime v7 - Guia Completo do Usuario</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
+            line-height: 1.6; color: #333;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding: 20px;
         }
-
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            overflow: hidden;
+            max-width: 1200px; margin: 0 auto; background: white;
+            border-radius: 15px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); overflow: hidden;
         }
-
         header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 40px;
-            text-align: center;
+            color: white; padding: 40px; text-align: center;
         }
-
-        header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-
-        header p {
-            font-size: 1.2em;
-            opacity: 0.9;
-        }
-
-        .content {
-            padding: 40px;
-        }
-
-        h2 {
-            color: #667eea;
-            font-size: 2em;
-            margin: 30px 0 20px 0;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #667eea;
-        }
-
-        h3 {
-            color: #764ba2;
-            font-size: 1.5em;
-            margin: 25px 0 15px 0;
-        }
-
-        h4 {
-            color: #555;
-            font-size: 1.2em;
-            margin: 20px 0 10px 0;
-        }
-
-        p {
-            margin: 10px 0;
-            text-align: justify;
-        }
-
-        ul {
-            margin: 10px 0 10px 30px;
-        }
-
-        li {
-            margin: 8px 0;
-        }
-
-        .feature-box {
-            background: #f8f9fa;
-            border-left: 5px solid #667eea;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 5px;
-        }
-
-        .alert-box {
-            background: #fff3cd;
-            border-left: 5px solid #ffc107;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 5px;
-        }
-
-        .danger-box {
-            background: #f8d7da;
-            border-left: 5px solid #dc3545;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 5px;
-        }
-
-        .success-box {
-            background: #d4edda;
-            border-left: 5px solid #28a745;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 5px;
-        }
-
-        .config-card {
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 15px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .config-card h4 {
-            color: #667eea;
-            margin-bottom: 15px;
-        }
-
+        header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        header p { font-size: 1.2em; opacity: 0.9; }
+        .content { padding: 40px; }
+        h2 { color: #667eea; font-size: 2em; margin: 30px 0 20px 0; padding-bottom: 10px; border-bottom: 3px solid #667eea; }
+        h3 { color: #764ba2; font-size: 1.5em; margin: 25px 0 15px 0; }
+        h4 { color: #555; font-size: 1.2em; margin: 20px 0 10px 0; }
+        p { margin: 10px 0; text-align: justify; }
+        ul { margin: 10px 0 10px 30px; }
+        li { margin: 8px 0; }
         code {
-            background: #f4f4f4;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-family: 'Courier New', monospace;
-            color: #d63384;
+            background: #f4f4f4; padding: 2px 6px; border-radius: 3px;
+            font-family: 'Courier New', monospace; color: #d63384;
         }
-
-        pre {
-            background: #2d2d2d;
-            color: #f8f8f2;
-            padding: 20px;
-            border-radius: 5px;
-            overflow-x: auto;
-            margin: 15px 0;
+        pre { background: #2d2d2d; color: #f8f8f2; padding: 20px; border-radius: 5px; overflow-x: auto; margin: 15px 0; }
+        pre code { background: transparent; color: #f8f8f2; padding: 0; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #667eea; color: white; }
+        tr:hover { background: #f5f5f5; }
+        blockquote {
+            background: #f8f9fa; border-left: 5px solid #667eea;
+            padding: 20px; margin: 20px 0; border-radius: 5px;
         }
-
-        .badge {
-            display: inline-block;
-            padding: 5px 12px;
-            border-radius: 15px;
-            font-size: 0.85em;
-            font-weight: bold;
-            margin: 5px 5px 5px 0;
-        }
-
-        .badge-primary { background: #667eea; color: white; }
-        .badge-success { background: #28a745; color: white; }
-        .badge-warning { background: #ffc107; color: #333; }
-        .badge-danger { background: #dc3545; color: white; }
-        .badge-info { background: #17a2b8; color: white; }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background: #667eea;
-            color: white;
-        }
-
-        tr:hover {
-            background: #f5f5f5;
-        }
-
-        .emoji {
-            font-size: 1.3em;
-        }
-
-        footer {
-            background: #2d2d2d;
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
-
-        .toc {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 25px;
-            margin: 30px 0;
-        }
-
-        .toc h3 {
-            color: #667eea;
-            margin-bottom: 15px;
-        }
-
-        .toc ul {
-            list-style: none;
-            margin: 0;
-        }
-
-        .toc li {
-            padding: 8px 0;
-        }
-
-        .toc a {
-            color: #667eea;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-
-        .toc a:hover {
-            color: #764ba2;
-            padding-left: 10px;
-        }
-
+        hr { border: none; border-top: 2px solid #e0e0e0; margin: 30px 0; }
+        strong { color: #444; }
+        footer { background: #2d2d2d; color: white; padding: 30px; text-align: center; }
         @media print {
-            body {
-                background: white;
-                padding: 0;
-            }
-            .container {
-                box-shadow: none;
-            }
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; }
         }
+
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>📊 IAFX Prime v7</h1>
-            <p>Guia Completo do Usuário</p>
+            <h1>IAFX Prime v7</h1>
+            <p>Guia Completo do Usuario</p>
         </header>
-
         <div class="content">
-            <div class="toc">
-                <h3>📑 Índice</h3>
-                <ul>
-                    <li><a href="#intro">🎯 O Que é o IAFX Prime v7?</a></li>
-                    <li><a href="#funcionalidades">🚀 Principais Funcionalidades</a></li>
-                    <li><a href="#defesa">🛡️ Sistema de Defesa em 3 Camadas</a></li>
-                    <li><a href="#fechamento">💰 Sistema Inteligente de Fechamento</a></li>
-                    <li><a href="#meta">📅 Sistema de Meta Diária</a></li>
-                    <li><a href="#breakeven">🔐 Breakeven Cascata</a></li>
-                    <li><a href="#trailing">🔄 Trailing Stop Individual</a></li>
-                    <li><a href="#equity">💎 Fechamento por Equity</a></li>
-                    <li><a href="#carry">📈 Carry Trade</a></li>
-                    <li><a href="#configs">⚙️ Configurações e Inputs</a></li>
-                    <li><a href="#dicas">🎓 Dicas de Uso</a></li>
-                    <li><a href="#avisos">⚠️ Avisos Importantes</a></li>
-                </ul>
-            </div>
+<h1 id="iafx-prime-v7-guia-completo-do-usuario">📊 IAFX Prime v7 - Guia Completo do Usuário</h1>
+<h2 id="o-que-e-o-iafx-prime-v7">🎯 O Que é o IAFX Prime v7?</h2>
+<p>O <strong>IAFX Prime v7</strong> é um Expert Advisor (robô de negociação) inteligente para MetaTrader 5 que opera com estratégias deGrid (grade) combinadas com sistemas avançados de proteção de capital e gestão de risco.</p>
+<hr />
+<h2 id="principais-funcionalidades">🚀 Principais Funcionalidades</h2>
+<h3 id="estrategias-de-operacao">✅ Estratégias de Operação</h3>
+<p>O robô trabalha com <strong>duas estratégias principais</strong> que se adaptam conforme o mercado:</p>
+<h4 id="grid-super-agressivo-dinamica-vkglinear">🔷 <strong>Grid Super (Agressivo) - Dinâmica VKGLinear</strong></h4>
+<ul>
+<li><strong>Quando usa</strong>: Quando já existe mais de 1 ordem aberta e o preço se afasta <code>grid_super_pontos</code> pontos</li>
+<li><strong>Como funciona</strong>:</li>
+<li>Ativação puramente por distância em pontos (não depende de indicadores)</li>
+<li>Abre posições com volume multiplicado (mais agressivo)</li>
+<li>Fecha a posição mais antiga quando o conjunto fica lucrativo (dinâmica VKGLinear)</li>
+<li>Mantém apenas as posições mais recentes</li>
+<li><strong>Parâmetro</strong>: <code>grid_super_pontos</code> (padrão: 75 pontos)</li>
+<li><strong>Vantagem</strong>: Aproveita tendências fortes rapidamente, sem filtros de indicadores</li>
+<li><strong>Cuidado</strong>: Mais agressivo, requer atenção ao DD%</li>
+</ul>
+<h4 id="grid-medio-defensivo">🔶 <strong>Grid Médio (Defensivo)</strong></h4>
+<ul>
+<li><strong>Quando usa</strong>: Quando o mercado está em reversão</li>
+<li><strong>Como funciona</strong>:</li>
+<li>Abre posições defensivas sem aumentar agressividade</li>
+<li>Limite máximo de 15 ordens para proteger a conta</li>
+<li>Espera o conjunto todo ficar lucrativo</li>
+<li><strong>Vantagem</strong>: Mais seguro em mercados laterais</li>
+<li><strong>Limite</strong>: Máximo de 15 ordens (configurável)</li>
+</ul>
+<hr />
+<h2 id="sistema-de-defesa-em-3-camadas">🛡️ Sistema de Defesa em 3 Camadas</h2>
+<p>O robô possui <strong>3 alertas de defesa</strong> que ativam automaticamente conforme o Drawdown (DD%) <strong>ou o VIX</strong> aumenta (quem chegar primeiro):</p>
+<h3 id="alerta-a-grid-adaptativo">🟡 <strong>Alerta A - Grid Adaptativo</strong></h3>
+<ul>
+<li><strong>Ativado por</strong>: DD% &gt;= <code>alertaDDA</code> (padrão 10%) <strong>OU</strong> VIX &gt;= <code>vix_alerta_a</code> (padrão 20.0)</li>
+<li><strong>O que acontece</strong>: Grid aumenta 1.5x</li>
+<li><strong>Por quê</strong>: Espaça mais as ordens para dar mais "respiro" ao mercado</li>
+<li><strong>Exemplo</strong>: Se grid era 150 pontos, vira 225 pontos</li>
+<li><strong>Desativa quando</strong>: DD% E VIX voltam abaixo dos thresholds (com histerese)</li>
+</ul>
+<h3 id="alerta-b-mudanca-de-timeframe">🟠 <strong>Alerta B - Mudança de Timeframe</strong></h3>
+<ul>
+<li><strong>Ativado por</strong>: DD% &gt;= <code>alertaDDB</code> (padrão 20%) <strong>OU</strong> VIX &gt;= <code>vix_alerta_b</code> (padrão 22.0) <strong>OU</strong> VIX spike &gt;= 30% em 1 dia</li>
+<li><strong>O que acontece</strong>: Todos os indicadores mudam para timeframe de segurança</li>
+<li><strong>Por quê</strong>: Timeframe maior = sinais mais confiáveis</li>
+<li><strong>Padrão</strong>: Muda para M15 (15 minutos)</li>
+<li><strong>Desativa quando</strong>: DD% E VIX voltam abaixo dos thresholds</li>
+</ul>
+<h3 id="alerta-c-modo-emergencia-30-dd">🔴 <strong>Alerta C - Modo Emergência (30% DD)</strong></h3>
+<ul>
+<li><strong>O que acontece</strong>: Grid Super entra em modo super conservador</li>
+<li><strong>Como funciona</strong>:</li>
+<li>Reduz multiplicador de lote pela metade</li>
+<li>Mantém apenas 50% do multiplicador original</li>
+<li><strong>Objetivo</strong>: Proteção máxima do capital em situação crítica</li>
+</ul>
+<hr />
+<h2 id="sistema-inteligente-de-fechamento">💰 Sistema Inteligente de Fechamento</h2>
+<h3 id="alvos-dinamicos-novo">🎯 <strong>Alvos Dinâmicos (Novo!)</strong></h3>
+<p>Em vez de valores fixos em dólar, o robô agora trabalha com <strong>percentual do seu saldo</strong>:</p>
+<ul>
+<li><strong>Alvo Principal</strong>: 0.5% do balance (padrão)</li>
+<li><strong>Alvo Parcial</strong>: 0.25% do balance (padrão)</li>
+<li><strong>Vantagem</strong>: Se adapta automaticamente ao crescimento da sua conta</li>
+</ul>
+<h4 id="fechamento-em-2-niveis">📍 <strong>Fechamento em 2 Níveis</strong></h4>
+<p><strong>Nível 1 - Poucas Ordens (&lt; 3 ordens)</strong>
+- Alvo: 0.5% do balance
+- Fecha: Todas as ordens de uma vez</p>
+<p><strong>Nível 2 - Muitas Ordens (≥ 3 ordens)</strong>
+- Primeiro: Fecha 50% das ordens quando atingir 0.25% (Fechamento Parcial)
+- Depois: Fecha o restante quando atingir 0.5% (Alvo Final)</p>
+<h3 id="alvos-por-horario-novo">🌙 <strong>Alvos por Horário (Novo!)</strong></h3>
+<p>O robô reduz os alvos durante horários de <strong>baixa liquidez</strong>:</p>
+<ul>
+<li><strong>Horário reduzido</strong>: 22h às 6h (padrão)</li>
+<li><strong>Multiplicador</strong>: 0.5x (metade do alvo)</li>
+<li><strong>Por quê</strong>: Menos liquidez = menos ambição = mais segurança</li>
+</ul>
+<hr />
+<h2 id="sistema-de-meta-diaria-3-regras-inteligentes">📅 Sistema de Meta Diária - 3 Regras Inteligentes</h2>
+<h3 id="regra-1-meta-diaria-de-1">🎯 <strong>Regra 1: Meta Diária de 1%</strong></h3>
+<p><strong>Quando</strong>: A qualquer momento do dia
+<strong>Condição</strong>: Se o lucro total do dia atingir 1% do balance inicial
+<strong>Ação</strong>:
+- ✅ Fecha TODAS as posições
+- 🔒 Bloqueia o robô até o próximo dia
+- 💡 <strong>Objetivo</strong>: Garantir lucro consistente e evitar devolver ganhos</p>
+<p><strong>Exemplo Prático</strong>:
+- Balance inicial do dia: R$ 10.000
+- Meta: R$ 100 (1%)
+- Às 14h você já ganhou R$ 100 → Robô fecha tudo e para até amanhã</p>
+<hr />
+<h3 id="regra-2-protecao-17h-19h-brasilia">🕐 <strong>Regra 2: Proteção 17h-19h Brasília</strong></h3>
+<p><strong>Quando</strong>: Entre 17h e 19h (horário de Brasília)
+<strong>Condição</strong>: Se o lucro realizado do dia for maior que as perdas flutuantes
+<strong>Ação</strong>:
+- ✅ Fecha TODAS as posições
+- 🔒 Garante dia positivo
+- 💡 <strong>Objetivo</strong>: Proteger lucros já realizados contra reversões</p>
+<p><strong>Exemplo Prático</strong>:
+- Lucro realizado no dia: R$ 150
+- Posições abertas com perda flutuante: -R$ 80
+- São 18h → Como R$ 150 &gt; R$ 80, fecha tudo garantindo +R$ 70 no dia</p>
+<hr />
+<h3 id="regra-3-sexta-feira-com-3-semanal">📆 <strong>Regra 3: Sexta-feira com 3% Semanal</strong></h3>
+<p><strong>Quando</strong>: Sexta-feira, a partir das 12h
+<strong>Condição</strong>: Se o lucro da semana (realizado + flutuante) for ≥ 3%
+<strong>Ação</strong>:
+- ✅ Fecha TODAS as posições (positivas e negativas)
+- 🔒 Garante 3% da semana
+- 📅 Só reabre domingo à noite
+- 💡 <strong>Objetivo</strong>: Garantir semana lucrativa e descanso de fim de semana</p>
+<p><strong>Exemplo Prático</strong>:
+- Balance: R$ 10.000
+- Meta semanal: R$ 300 (3%)
+- Sexta-feira 14h: Lucro da semana = R$ 320
+- → Robô fecha tudo, garante os 3% e descansa até domingo</p>
+<hr />
+<h2 id="breakeven-cascata">🔐 Breakeven Cascata</h2>
+<h3 id="o-que-e">O que é?</h3>
+<p>Sistema que <strong>move o Stop Loss de TODAS as posições juntas</strong> quando o preço médio se torna lucrativo.</p>
+<h3 id="como-funciona">Como funciona?</h3>
+<ol>
+<li>Calcula o preço médio de todas as posições abertas (BUY e SELL separadamente)</li>
+<li>Quando o mercado se afasta <code>breakevan_pontos</code> pontos do preço médio (ficando positivo)</li>
+<li>Move o SL de todas as ordens daquela direção para o breakeven (ponto de equilíbrio)</li>
+<li><strong>Resultado</strong>: Protege lucro em bloco</li>
+</ol>
+<h3 id="parametros">Parâmetros:</h3>
+<ul>
+<li><strong><code>usar_breakevan</code></strong>: Ativa/desativa o sistema (padrão: true)</li>
+<li><strong><code>breakevan_pontos</code></strong>: Distância em pontos para ativar o breakeven (padrão: 150)</li>
+</ul>
+<h3 id="caracteristicas">Características:</h3>
+<ul>
+<li>✅ Protege todo o conjunto de ordens</li>
+<li>✅ Evita perder lucro já conquistado</li>
+<li>✅ Funciona automaticamente</li>
+<li>✅ Processa posições BUY e SELL separadamente (não bloqueia com posições mistas)</li>
+<li>✅ Filtro por magic number (não interfere com outros EAs)</li>
+<li>✅ Trata corretamente posições sem Stop Loss prévio</li>
+</ul>
+<hr />
+<h2 id="configuracoes-e-inputs-explicacao-detalhada">⚙️ Configurações e Inputs - Explicação Detalhada</h2>
+<h3 id="secao-configuracoes-basicas">📋 <strong>Seção: Configurações Básicas</strong></h3>
+<h4 id="chave-de-acesso-licenca"><code>Chave de acesso - licença</code></h4>
+<ul>
+<li><strong>O que é</strong>: Código de ativação do robô</li>
+<li><strong>Valor</strong>: Fornecido pelo desenvolvedor</li>
+<li><strong>Importante</strong>: Sem a chave correta, o robô não opera</li>
+</ul>
+<h4 id="modo-de-operacao"><code>Modo de operação</code></h4>
+<ul>
+<li><strong>Opções</strong>:</li>
+<li><code>1 - Automático</code>: Robô decide tudo sozinho</li>
+<li><code>2 - Manual-Semiautomático</code>: Você inicia, robô gerencia</li>
+<li><strong>Recomendado</strong>: Automático para traders experientes</li>
+</ul>
+<h4 id="tipo-de-operacao"><code>Tipo de operação</code></h4>
+<ul>
+<li><strong>Opções</strong>:</li>
+<li><code>0 - Compras e Vendas</code>: Opera nos dois sentidos</li>
+<li><code>1 - Somente Compras</code>: Apenas LONG</li>
+<li><code>2 - Somente Vendas</code>: Apenas SHORT</li>
+<li><code>3 - Swap +</code>: Opera apenas no lado com swap positivo da corretora</li>
+<li><code>4 - Carry Trade</code>: Opera no lado favorável pelo diferencial de taxas de juros</li>
+<li><strong>Swap+ vs Carry Trade</strong>:</li>
+<li><strong>Swap+</strong> consulta os valores reais de swap da corretora (<code>SYMBOL_SWAP_LONG</code> / <code>SYMBOL_SWAP_SHORT</code>). É pragmático: reflete o custo real que você vai ter. Porém, se a corretora cobrar swap negativo nos dois lados, retorna "NONE" e opera sem filtro nenhum.</li>
+<li><strong>Carry Trade</strong> compara as taxas de juros dos bancos centrais informadas manualmente nos inputs. Representa a lógica macroeconômica pura. Requer atualização manual quando bancos centrais alteram taxas.</li>
+<li><strong>Dica</strong>: Use "Swap+" para minimizar custos overnight com base na corretora, ou "Carry Trade" para seguir o diferencial de juros real entre países</li>
+</ul>
+<h4 id="estrategia-b-ativar"><code>Estratégia B ativar</code></h4>
+<ul>
+<li><strong>O que é</strong>: Ativa a estratégia de tendência (OP_Tendencia)</li>
+<li><strong>Padrão</strong>: false (desativado)</li>
+<li><strong>Quando usar</strong>: Para operações seguindo tendência com médias móveis</li>
+</ul>
+<h4 id="modo-trend"><code>Modo TREND</code></h4>
+<ul>
+<li><strong>O que é</strong>: Define o modo de análise de tendência</li>
+<li><strong>Opções</strong>: 1=Alinhamento | 2=200 | 3=200+50 | 4=200+50+21</li>
+<li><strong>Padrão</strong>: 2 (Média de 200 períodos)</li>
+</ul>
+<h4 id="acionar-stop-cross-estrategia-b"><code>Acionar stop-cross estratégia B</code></h4>
+<ul>
+<li><strong>O que é</strong>: Stop em cruzamento de indicadores da estratégia B</li>
+<li><strong>Padrão</strong>: true (ativado)</li>
+<li><strong>Uso</strong>: Fecha posições da estratégia B quando indicadores cruzam contra</li>
+</ul>
+<hr />
+<h3 id="secao-lotes-e-grid">💵 <strong>Seção: Lotes e Grid</strong></h3>
+<h4 id="tamanho-do-lote-para-ordens"><code>Tamanho do lote para ordens</code></h4>
+<ul>
+<li><strong>O que é</strong>: Volume inicial das ordens</li>
+<li><strong>Padrão</strong>: 0.01 (micro lote)</li>
+<li><strong>Ajuste</strong>: Conforme tamanho da sua conta</li>
+<li><strong>Fórmula sugerida</strong>: Balance ÷ 10.000 = lote base</li>
+</ul>
+<h4 id="valor-acima-de-1-multiplica-lot-nas-agressoes-de-tendencia"><code>Valor acima de 1 multiplica lot nas agressões de tendência</code></h4>
+<ul>
+<li><strong>O que é</strong>: Multiplicador para operações de tendência forte</li>
+<li><strong>Padrão</strong>: 1.0 (sem multiplicar)</li>
+<li><strong>Exemplo</strong>: 1.5 = aumenta 50% o lote em tendências</li>
+<li><strong>Cuidado</strong>: Valores altos aumentam risco</li>
+</ul>
+<h4 id="grid-em-pontos"><code>Grid em pontos</code></h4>
+<ul>
+<li><strong>O que é</strong>: Distância entre cada ordem do Grid Médio em pontos</li>
+<li><strong>Padrão</strong>: 150 pontos</li>
+<li><strong>Ajuste</strong>:</li>
+<li>Menor = Mais ordens (mais agressivo)</li>
+<li>Maior = Menos ordens (mais conservador)</li>
+</ul>
+<h4 id="distancia-em-pontos-para-grid-super-agressao"><code>Distância em pontos para Grid Super (agressão)</code></h4>
+<ul>
+<li><strong>O que é</strong>: Distância em pontos para ativar o Grid Super (dinâmica VKGLinear)</li>
+<li><strong>Padrão</strong>: 75 pontos</li>
+<li><strong>Importante</strong>: Não depende de indicadores, apenas de distância</li>
+<li><strong>Ajuste</strong>: Valor menor = mais agressivo, valor maior = mais conservador</li>
+</ul>
+<h4 id="limite-maximo-de-ordens-grid-medio"><code>Limite máximo de ordens Grid Médio</code></h4>
+<ul>
+<li><strong>O que é</strong>: Máximo de ordens na estratégia defensiva</li>
+<li><strong>Padrão</strong>: 15 ordens</li>
+<li><strong>Objetivo</strong>: Evitar overtrading e proteger capital</li>
+</ul>
+<hr />
+<h3 id="secao-alvos-e-fechamentos">🎯 <strong>Seção: Alvos e Fechamentos</strong></h3>
+<h4 id="alvo-de-pl-para-fechar-ordens-em-moeda"><code>Alvo de PL para fechar ordens (em moeda)</code></h4>
+<ul>
+<li><strong>O que é</strong>: Antigo sistema de alvo fixo</li>
+<li><strong>Padrão</strong>: $0.54</li>
+<li><strong>Status</strong>: Substituído pelo sistema percentual</li>
+</ul>
+<h4 id="qtd-de-ordens-para-nivel-2"><code>Qtd de ordens para nivel 2</code></h4>
+<ul>
+<li><strong>O que é</strong>: A partir de quantas ordens muda o alvo</li>
+<li><strong>Padrão</strong>: 3 ordens</li>
+<li><strong>Explicação</strong>:</li>
+<li>Menos de 3 ordens = usa alvo maior</li>
+<li>3 ou mais ordens = usa alvo menor (mais fácil de atingir)</li>
+</ul>
+<h4 id="alvo-de-pl-para-fechar-ordens-nivel2-em-moeda"><code>Alvo de PL para fechar ordens nivel2 (em moeda)</code></h4>
+<ul>
+<li><strong>O que é</strong>: Alvo quando tem muitas ordens</li>
+<li><strong>Padrão</strong>: $0.10</li>
+<li><strong>Objetivo</strong>: Facilitar fechamento com muitas posições</li>
+</ul>
+<hr />
+<h3 id="secao-alvos-percentuais-novo">📊 <strong>Seção: Alvos Percentuais (NOVO!)</strong></h3>
+<h4 id="usar-alvo-em-do-balance"><code>Usar alvo em % do balance</code></h4>
+<ul>
+<li><strong>O que é</strong>: Ativa sistema de alvo dinâmico</li>
+<li><strong>Padrão</strong>: true (ativado)</li>
+<li><strong>Vantagem</strong>: Se adapta ao crescimento da conta</li>
+</ul>
+<h4 id="alvo-em-do-balance"><code>Alvo em % do balance</code></h4>
+<ul>
+<li><strong>O que é</strong>: Percentual do saldo para fechar tudo</li>
+<li><strong>Padrão</strong>: 0.5% (meio porcento)</li>
+<li><strong>Exemplo</strong>: Conta de R$ 10.000 → alvo de R$ 50</li>
+</ul>
+<h4 id="ativar-fechamento-parcial"><code>Ativar fechamento parcial</code></h4>
+<ul>
+<li><strong>O que é</strong>: Fecha metade das ordens antes do alvo final</li>
+<li><strong>Padrão</strong>: true (ativado)</li>
+<li><strong>Vantagem</strong>: Realiza lucro gradualmente</li>
+</ul>
+<h4 id="de-ordens-a-fechar-no-parcial"><code>% de ordens a fechar no parcial</code></h4>
+<ul>
+<li><strong>O que é</strong>: Quantas ordens fechar no fechamento parcial</li>
+<li><strong>Padrão</strong>: 50% (metade)</li>
+<li><strong>Exemplo</strong>: 10 ordens abertas → fecha 5 no parcial</li>
+</ul>
+<h4 id="do-balance-para-fechamento-parcial"><code>% do balance para fechamento parcial</code></h4>
+<ul>
+<li><strong>O que é</strong>: Quando ativa o fechamento parcial</li>
+<li><strong>Padrão</strong>: 0.25% (metade do alvo final)</li>
+<li><strong>Sequência</strong>:</li>
+<li>Atinge 0.25% → Fecha 50% das ordens</li>
+<li>Atinge 0.5% → Fecha o restante</li>
+</ul>
+<hr />
+<h3 id="secao-alvos-por-horario-novo">🌙 <strong>Seção: Alvos por Horário (NOVO!)</strong></h3>
+<h4 id="alvos-diferentes-por-horario"><code>Alvos diferentes por horário</code></h4>
+<ul>
+<li><strong>O que é</strong>: Ativa/desativa sistema de horários</li>
+<li><strong>Padrão</strong>: true (ativado)</li>
+<li><strong>Por quê</strong>: Adapta-se à liquidez do mercado</li>
+</ul>
+<h4 id="hora-inicio-alvo-reduzido-22-22h"><code>Hora início alvo reduzido (22 = 22h)</code></h4>
+<ul>
+<li><strong>O que é</strong>: Quando começa período de baixa liquidez</li>
+<li><strong>Padrão</strong>: 22h (10 da noite)</li>
+<li><strong>Ajuste</strong>: Conforme seu fuso horário</li>
+</ul>
+<h4 id="hora-fim-alvo-reduzido-6-6h"><code>Hora fim alvo reduzido (6 = 6h)</code></h4>
+<ul>
+<li><strong>O que é</strong>: Quando termina período de baixa liquidez</li>
+<li><strong>Padrão</strong>: 6h (manhã)</li>
+<li><strong>Período</strong>: Das 22h às 6h = 8 horas</li>
+</ul>
+<h4 id="multiplicador-alvo-no-horario-reduzido"><code>Multiplicador alvo no horário reduzido</code></h4>
+<ul>
+<li><strong>O que é</strong>: Quanto reduz o alvo durante esse período</li>
+<li><strong>Padrão</strong>: 0.5 (metade)</li>
+<li><strong>Exemplo</strong>: Alvo normal R$ 50 → vira R$ 25 à noite</li>
+</ul>
+<hr />
+<h3 id="secao-meta-diaria-novo">📅 <strong>Seção: Meta Diária (NOVO!)</strong></h3>
+<h4 id="ativar-meta-diaria-fecha-tudo-ao-atingir"><code>Ativar meta diária (fecha tudo ao atingir)</code></h4>
+<ul>
+<li><strong>O que é</strong>: Liga/desliga sistema de meta diária</li>
+<li><strong>Padrão</strong>: true (ativado)</li>
+<li><strong>Recomendação</strong>: Manter ativado para proteger lucros</li>
+</ul>
+<h4 id="meta-diaria-em-do-balance-inicial"><code>Meta diária em % do balance inicial</code></h4>
+<ul>
+<li><strong>O que é</strong>: Percentual do saldo para meta do dia</li>
+<li><strong>Padrão</strong>: 1.0% (um porcento)</li>
+<li><strong>Exemplo</strong>: Conta R$ 10.000 → meta de R$ 100/dia</li>
+</ul>
+<h4 id="hora-inicio-verificacao-meta-brasilia"><code>Hora início verificação meta (Brasília)</code></h4>
+<ul>
+<li><strong>O que é</strong>: Quando começa verificar Regra 2</li>
+<li><strong>Padrão</strong>: 17h (5 da tarde)</li>
+<li><strong>Importante</strong>: Horário de Brasília</li>
+</ul>
+<h4 id="hora-fim-verificacao-meta-brasilia"><code>Hora fim verificação meta (Brasília)</code></h4>
+<ul>
+<li><strong>O que é</strong>: Quando termina verificação Regra 2</li>
+<li><strong>Padrão</strong>: 19h (7 da noite)</li>
+<li><strong>Janela</strong>: 17h às 19h = 2 horas</li>
+</ul>
+<hr />
+<h3 id="secao-stops-e-defesa">🛡️ <strong>Seção: Stops e Defesa</strong></h3>
+<h4 id="valor-do-stop-em-moeda"><code>Valor do stop (em moeda)</code></h4>
+<ul>
+<li><strong>O que é</strong>: Stop loss fixo em dólar</li>
+<li><strong>Padrão</strong>: 0.00 (desativado)</li>
+<li><strong>Exemplo</strong>: 50 = fecha tudo ao perder $50</li>
+</ul>
+<h4 id="valor-do-stop-em-de-drawdown"><code>Valor do stop (em % de Drawdown)</code></h4>
+<ul>
+<li><strong>O que é</strong>: Stop loss baseado em DD%</li>
+<li><strong>Padrão</strong>: 0.00 (desativado)</li>
+<li><strong>Exemplo</strong>: 40 = fecha tudo se DD chegar a 40%</li>
+</ul>
+<h4 id="do-alerta-a-defesa-aumento-de-grid"><code>% do alerta A (defesa aumento de grid)</code></h4>
+<ul>
+<li><strong>O que é</strong>: DD% para ativar Alerta A</li>
+<li><strong>Padrão</strong>: 10.00% (dez porcento)</li>
+<li><strong>Ação</strong>: Aumenta grid em 1.5x</li>
+</ul>
+<h4 id="do-alerta-b-defesa-aumento-de-time-frame"><code>% do alerta B (defesa aumento de time frame)</code></h4>
+<ul>
+<li><strong>O que é</strong>: DD% para ativar Alerta B</li>
+<li><strong>Padrão</strong>: 20.00% (vinte porcento)</li>
+<li><strong>Ação</strong>: Muda para timeframe de segurança</li>
+</ul>
+<h4 id="do-dd-para-ativar-modo-emergencia"><code>% do DD para ativar modo emergência</code></h4>
+<ul>
+<li><strong>O que é</strong>: DD% para ativar Alerta C</li>
+<li><strong>Padrão</strong>: 30.00% (trinta porcento)</li>
+<li><strong>Ação</strong>: Modo ultra conservador</li>
+</ul>
+<h4 id="maximo-exposicao-moeda-por-pares"><code>Máximo exposição moeda por pares</code></h4>
+<ul>
+<li><strong>O que é</strong>: Quantos pares pode ter com a mesma moeda</li>
+<li><strong>Padrão</strong>: 1 (um par por moeda)</li>
+<li><strong>Exemplo</strong>: Se já tem EURUSD, não abre EURJPY (EUR repetido)</li>
+</ul>
+<h4 id="periodo-de-seguranca"><code>Período de Segurança</code></h4>
+<ul>
+<li><strong>O que é</strong>: Timeframe usado no Alerta B</li>
+<li><strong>Padrão</strong>: M15 (15 minutos)</li>
+<li><strong>Opções</strong>: M5, M15, M30, H1, H4</li>
+</ul>
+<hr />
+<h3 id="secao-indicadores">📈 <strong>Seção: Indicadores</strong></h3>
+<h4 id="usar-rsi-na-confluencia"><code>Usar RSI na confluência</code></h4>
+<ul>
+<li><strong>O que é</strong>: Incluir RSI nas análises</li>
+<li><strong>Padrão</strong>: false (desativado)</li>
+<li><strong>RSI</strong>: Força relativa</li>
+</ul>
+<h4 id="usar-macd-na-confluencia"><code>Usar MACD na confluência</code></h4>
+<ul>
+<li><strong>O que é</strong>: Incluir MACD nas análises</li>
+<li><strong>Padrão</strong>: true (ativado)</li>
+<li><strong>MACD</strong>: Convergência/Divergência de médias</li>
+</ul>
+<h4 id="usar-adx-na-confluencia"><code>Usar ADX na confluência</code></h4>
+<ul>
+<li><strong>O que é</strong>: Incluir ADX nas análises</li>
+<li><strong>Padrão</strong>: true (ativado)</li>
+<li><strong>ADX</strong>: Força da tendência</li>
+</ul>
+<h4 id="usar-bollinger-na-confluencia"><code>Usar Bollinger na confluência</code></h4>
+<ul>
+<li><strong>O que é</strong>: Incluir Bandas de Bollinger</li>
+<li><strong>Padrão</strong>: true (ativado)</li>
+<li><strong>Bollinger</strong>: Volatilidade</li>
+</ul>
+<h4 id="usar-bjacare-na-confluencia"><code>Usar Bjacare na confluência</code></h4>
+<ul>
+<li><strong>O que é</strong>: Incluir indicador Jacaré</li>
+<li><strong>Padrão</strong>: true (ativado)</li>
+<li><strong>Bjacare</strong>: Sistema de médias</li>
+</ul>
+<h4 id="usar-hh-na-confluencia"><code>Usar HH na confluência</code></h4>
+<ul>
+<li><strong>O que é</strong>: Incluir Heiken Ashi</li>
+<li><strong>Padrão</strong>: false (desativado)</li>
+<li><strong>HH</strong>: Candlesticks suavizados</li>
+</ul>
+<hr />
+<h3 id="secao-breakeven">🔒 <strong>Seção: Breakeven</strong></h3>
+<h4 id="habilitar-breakevan"><code>Habilitar breakevan</code></h4>
+<ul>
+<li><strong>O que é</strong>: Ativa sistema de Breakeven Cascata</li>
+<li><strong>Padrão</strong>: true (ativado)</li>
+<li><strong>Recomendação</strong>: Sempre manter ativado</li>
+</ul>
+<h4 id="distancia-em-pontos-para-ativar-breakeven"><code>Distância em pontos para ativar breakeven</code></h4>
+<ul>
+<li><strong>O que é</strong>: Quantos pontos o mercado precisa andar além do preço médio para ativar o breakeven</li>
+<li><strong>Padrão</strong>: 150 pontos</li>
+<li><strong>Ajuste</strong>: Valor menor ativa mais cedo, valor maior dá mais margem</li>
+<li><strong>Exemplo</strong>: Se preço médio de compra = 1.1000 e breakeven = 150 pontos, ativa quando preço chega em 1.1150</li>
+</ul>
+<hr />
+<h2 id="trailing-stop-individual">🔄 Trailing Stop Individual</h2>
+<h3 id="o-que-e_1">O que é?</h3>
+<p>Sistema que <strong>move o Stop Loss de cada posição individualmente</strong> conforme o preço avança a favor, protegendo lucro progressivamente.</p>
+<h3 id="como-funciona_1">Como funciona?</h3>
+<ol>
+<li>Quando uma posição individual atinge lucro de <code>trailing_step_pontos</code> (padrão: 150 pontos)</li>
+<li>O SL é movido para o breakeven + <code>trailing_buffer_pontos</code> (padrão: 0 = exato)</li>
+<li>A cada novo avanço de <code>trailing_step_pontos</code>, o SL avança junto</li>
+<li><strong>Resultado</strong>: O lucro fica cada vez mais protegido à medida que o preço avança</li>
+</ol>
+<h3 id="diferenca-do-breakeven-cascata">Diferença do Breakeven Cascata:</h3>
+<ul>
+<li><strong>Breakeven Cascata</strong>: Move o SL de TODAS as posições juntas baseado no preço médio</li>
+<li><strong>Trailing Stop Individual</strong>: Move o SL de CADA posição separadamente conforme seu próprio lucro</li>
+</ul>
+<h3 id="parametros_1">Parâmetros:</h3>
+<ul>
+<li><strong><code>usar_trailing_individual</code></strong>: Ativa/desativa o sistema (padrão: true)</li>
+<li><strong><code>trailing_step_pontos</code></strong>: Distância em pontos para cada passo do trailing (padrão: 150)</li>
+<li><strong><code>trailing_buffer_pontos</code></strong>: Buffer em pontos acima do breakeven (padrão: 0 = exato)</li>
+</ul>
+<h3 id="caracteristicas_1">Características:</h3>
+<ul>
+<li>✅ Protege cada posição individualmente</li>
+<li>✅ Funciona em conjunto com o Breakeven Cascata</li>
+<li>✅ Avanço progressivo (quanto mais lucro, mais protegido)</li>
+<li>✅ Não interfere com outros EAs (filtro por magic number)</li>
+</ul>
+<hr />
+<h2 id="fechamento-por-equity">💎 Fechamento por Equity</h2>
+<h3 id="o-que-e_2">O que é?</h3>
+<p>Sistema de <strong>saída automática</strong> que fecha todas as posições e remove o EA do gráfico quando a equity (patrimônio) atinge um valor alvo.</p>
+<h3 id="como-funciona_2">Como funciona?</h3>
+<ol>
+<li>A cada tick, verifica se <code>AccountEquity &gt;= fechar_valor_equity</code></li>
+<li>Se atingir, fecha TODAS as posições abertas</li>
+<li>Remove o EA do gráfico automaticamente</li>
+<li><strong>Resultado</strong>: Garante que você saia do mercado com o patrimônio desejado</li>
+</ol>
+<h3 id="parametro">Parâmetro:</h3>
+<ul>
+<li><strong><code>fechar_valor_equity</code></strong>: Valor de equity para fechar tudo e remover EA (padrão: 0.0 = desativado)</li>
+</ul>
+<h3 id="quando-usar">Quando usar:</h3>
+<ul>
+<li>Definir um objetivo de patrimônio final (ex: "quero sair quando a conta atingir R$ 15.000")</li>
+<li>Proteção contra ganância: define um teto e para automaticamente</li>
+<li>Útil para desafios de contas funded/prop firms</li>
+</ul>
+<h3 id="exemplo">Exemplo:</h3>
+<ul>
+<li>Conta com R$ 10.000 de equity</li>
+<li><code>fechar_valor_equity = 12000</code></li>
+<li>Quando equity atingir R$ 12.000 → fecha tudo e remove o EA</li>
+</ul>
+<hr />
+<h2 id="carry-trade-filtro-por-diferencial-de-juros">📈 Carry Trade - Filtro por Diferencial de Juros</h2>
+<h3 id="o-que-e_3">O que é?</h3>
+<p>Estratégia que opera apenas na <strong>direção favorável pelo diferencial de taxas de juros</strong> entre os dois países do par de moedas.</p>
+<h3 id="conceito">Conceito:</h3>
+<p>O Carry Trade é uma estratégia macroeconômica clássica: você "compra" a moeda do país com juros mais altos e "vende" a moeda do país com juros mais baixos, recebendo a diferença.</p>
+<h3 id="como-funciona-no-ea">Como funciona no EA:</h3>
+<ol>
+<li>Você informa manualmente as taxas de juros nos inputs:</li>
+<li><code>taxa_juros_base</code>: Taxa da 1a moeda do par (ex: EUR em EURUSD)</li>
+<li><code>taxa_juros_cotada</code>: Taxa da 2a moeda do par (ex: USD em EURUSD)</li>
+<li>O EA calcula o diferencial: <code>base - cotada</code></li>
+<li>Se diferencial &gt; 0 → Só compra (BUY)</li>
+<li>Se diferencial &lt; 0 → Só vende (SELL)</li>
+<li>Se igual ou não configurado → Opera nos dois lados (sem filtro)</li>
+</ol>
+<h3 id="parametros_2">Parâmetros:</h3>
+<ul>
+<li><strong><code>taxa_juros_base</code></strong>: Taxa de juros da moeda BASE (padrão: 0.0)</li>
+<li><strong><code>taxa_juros_cotada</code></strong>: Taxa de juros da moeda COTADA (padrão: 0.0)</li>
+</ul>
+<h3 id="exemplo-pratico">Exemplo prático:</h3>
+<ul>
+<li>Par: USDJPY</li>
+<li>Taxa EUA (base): 5.00%</li>
+<li>Taxa Japão (cotada): 0.50%</li>
+<li>Diferencial: 5.00 - 0.50 = +4.50 → <strong>Só compra</strong></li>
+<li>Lógica: Comprar USD (juros altos) e vender JPY (juros baixos)</li>
+</ul>
+<h3 id="importante">Importante:</h3>
+<ul>
+<li>As taxas <strong>não se atualizam sozinhas</strong> - você precisa alterar os inputs quando os bancos centrais mudarem as taxas</li>
+<li>Diferente do Swap+ que consulta a corretora automaticamente</li>
+<li>Ative com <code>tipo_op = 4</code> (Carry Trade)</li>
+</ul>
+<hr />
+<h2 id="secao-trailing-stop-individual-configuracoes">⚙️ Seção: Trailing Stop Individual (Configurações)</h2>
+<h4 id="habilitar-trailing-stop-individual"><code>Habilitar trailing stop individual</code></h4>
+<ul>
+<li><strong>O que é</strong>: Ativa sistema de trailing stop por posição</li>
+<li><strong>Padrão</strong>: true (ativado)</li>
+<li><strong>Recomendação</strong>: Manter ativado junto com breakeven</li>
+</ul>
+<h4 id="distancia-em-pontos-para-cada-passo-do-trailing"><code>Distância em pontos para cada passo do trailing</code></h4>
+<ul>
+<li><strong>O que é</strong>: Quantos pontos de lucro para mover o SL</li>
+<li><strong>Padrão</strong>: 150 pontos</li>
+<li><strong>Ajuste</strong>: Valor menor protege mais cedo, valor maior dá mais respiro</li>
+</ul>
+<h4 id="buffer-em-pontos-acima-do-breakeven"><code>Buffer em pontos acima do breakeven</code></h4>
+<ul>
+<li><strong>O que é</strong>: Margem extra acima do ponto de equilíbrio</li>
+<li><strong>Padrão</strong>: 0 (move exatamente para o breakeven)</li>
+<li><strong>Exemplo</strong>: Se buffer = 10, o SL fica 10 pontos acima do breakeven</li>
+</ul>
+<hr />
+<h2 id="secao-fechamento-por-equity-configuracoes">⚙️ Seção: Fechamento por Equity (Configurações)</h2>
+<h4 id="valor-de-equity-para-fechar-tudo-e-remover-ea"><code>Valor de equity para fechar tudo e remover EA</code></h4>
+<ul>
+<li><strong>O que é</strong>: Patrimônio alvo para encerrar operações</li>
+<li><strong>Padrão</strong>: 0.0 (desativado)</li>
+<li><strong>Exemplo</strong>: 15000 = fecha tudo quando equity atingir R$ 15.000</li>
+<li><strong>Importante</strong>: Ao atingir, o EA é removido do gráfico automaticamente</li>
+</ul>
+<hr />
+<h2 id="secao-carry-trade-configuracoes">⚙️ Seção: Carry Trade (Configurações)</h2>
+<h4 id="taxa-de-juros-moeda-base"><code>Taxa de juros moeda BASE</code></h4>
+<ul>
+<li><strong>O que é</strong>: Taxa de juros anual da primeira moeda do par</li>
+<li><strong>Padrão</strong>: 0.0 (não configurado)</li>
+<li><strong>Exemplo</strong>: Para EURUSD, informar a taxa do EUR (ex: 3.50)</li>
+</ul>
+<h4 id="taxa-de-juros-moeda-cotada"><code>Taxa de juros moeda COTADA</code></h4>
+<ul>
+<li><strong>O que é</strong>: Taxa de juros anual da segunda moeda do par</li>
+<li><strong>Padrão</strong>: 0.0 (não configurado)</li>
+<li><strong>Exemplo</strong>: Para EURUSD, informar a taxa do USD (ex: 5.00)</li>
+</ul>
+<hr />
+<h2 id="filtro-macro-carry-trade-vix-sp500-jpy">🌐 Filtro Macro Carry Trade (VIX + SP500 + JPY)</h2>
+<h3 id="o-que-e_4">O que é?</h3>
+<p>Sistema de <strong>proteção macroeconômica</strong> que monitora indicadores de risco global em tempo real para evitar abrir posições em ambientes adversos. Inspirado nas mesas de carry trade de grandes bancos (UBS, Goldman Sachs, JPMorgan).</p>
+<h3 id="conceito_1">Conceito:</h3>
+<p>O carry trade funciona bem em ambientes de <strong>risk-on</strong> (mercados calmos, apetite por risco). Quando o VIX sobe, o SP500 cai forte, ou o JPY se fortalece rapidamente, historicamente ocorrem <strong>carry unwinds</strong> - liquidação em massa de posições de carry trade que causam perdas severas.</p>
+<p>Este filtro age como um <strong>porteiro na entrada</strong>: só decide se você abre a primeira ordem. Uma vez com posições abertas, o grid médio/super e os Alerts A/B/C cuidam da gestão.</p>
+<h3 id="como-funciona_3">Como funciona:</h3>
+<h4 id="regra-principal">Regra principal:</h4>
+<ul>
+<li><strong>SEM posições abertas</strong> → Filtro macro decide se abre a primeira ordem</li>
+<li><strong>COM posições abertas</strong> → Filtro NÃO interfere. Grid continua normalmente</li>
+</ul>
+<h4 id="niveis-do-vix">Níveis do VIX:</h4>
+<table>
+<thead>
+<tr>
+<th>VIX</th>
+<th>Ambiente</th>
+<th>Ação</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&lt; 18.0</td>
+<td>RISK-ON</td>
+<td>Opera normalmente</td>
+</tr>
+<tr>
+<td>18.0 - 20.0</td>
+<td>NEUTRO</td>
+<td>Bloqueia primeira ordem</td>
+</tr>
+<tr>
+<td>20.0 - 22.0</td>
+<td>NEUTRO</td>
+<td>+ Alert A ativado (grid +50%)</td>
+</tr>
+<tr>
+<td>22.0 - 25.0</td>
+<td>RISK-OFF</td>
+<td>+ Alert B ativado (TF segurança)</td>
+</tr>
+<tr>
+<td>&gt; 25.0</td>
+<td>EMERGENCIA</td>
+<td>Bloqueia todas as novas ordens</td>
+</tr>
+<tr>
+<td>Spike +30% dia</td>
+<td>EMERGENCIA</td>
+<td>Alert B forçado automaticamente</td>
+</tr>
+</tbody>
+</table>
+<h4 id="carry-unwind-alerta-vermelho">Carry Unwind (alerta vermelho):</h4>
+<p>Quando <strong>dois sinais</strong> aparecem juntos:
+- USDJPY caindo &gt; 0.5% no dia (JPY fortalecendo)
+- VIX subindo &gt; 5% no dia</p>
+<p>O sistema classifica como <strong>carry unwind em curso</strong> e bloqueia novas aberturas até normalizar.</p>
+<h4 id="sp500">SP500:</h4>
+<ul>
+<li>Se SP500 cair mais de 1.5% no dia → Bloqueia primeira ordem (risk-off)</li>
+</ul>
+<h3 id="dashboard-no-grafico">Dashboard no gráfico:</h3>
+<p>O EA exibe no canto do gráfico:</p>
+<pre class="codehilite"><code>=============== MACRO CARRY ===============
+VIX: 17.50 (-2.1%) | SP500: +0.35%
+USDJPY: +0.12% | Unwind: nao
+Ambiente: RISK-ON | VIX-A:off VIX-B:off
+</code></pre>
 
-            <section id="intro">
-                <h2>🎯 O Que é o IAFX Prime v7?</h2>
-                <div class="feature-box">
-                    <p>O <strong>IAFX Prime v7</strong> é um Expert Advisor (robô de negociação) inteligente para MetaTrader 5 que opera com estratégias de Grid (grade) combinadas com sistemas avançados de proteção de capital e gestão de risco.</p>
-                </div>
-            </section>
-
-            <section id="funcionalidades">
-                <h2>🚀 Principais Funcionalidades</h2>
-
-                <h3>✅ Estratégias de Operação</h3>
-                <p>O robô trabalha com <strong>duas estratégias principais</strong> que se adaptam conforme o mercado:</p>
-
-                <div class="config-card">
-                    <h4>🔷 Grid Super (Agressivo) - Dinâmica VKGLinear</h4>
-                    <p><span class="badge badge-danger">Agressivo</span> <span class="badge badge-info">Puramente por pontos</span></p>
-                    <ul>
-                        <li><strong>Quando usa:</strong> Quando já existe mais de 1 ordem aberta e o preço se afasta <code>grid_super_pontos</code> pontos</li>
-                        <li><strong>Como funciona:</strong>
-                            <ul>
-                                <li>Ativação puramente por distância em pontos (não depende de indicadores)</li>
-                                <li>Abre posições com volume multiplicado (mais agressivo)</li>
-                                <li>Fecha a posição mais antiga quando o conjunto fica lucrativo (dinâmica VKGLinear)</li>
-                                <li>Mantém apenas as posições mais recentes</li>
-                            </ul>
-                        </li>
-                        <li><strong>Parâmetro:</strong> <code>grid_super_pontos</code> (padrão: 75 pontos)</li>
-                        <li><strong>Vantagem:</strong> Aproveita tendências fortes rapidamente, sem filtros de indicadores</li>
-                        <li><strong>Cuidado:</strong> Mais agressivo, requer atenção ao DD%</li>
-                    </ul>
-                </div>
-
-                <div class="config-card">
-                    <h4>🔶 Grid Médio (Defensivo)</h4>
-                    <p><span class="badge badge-success">Conservador</span></p>
-                    <ul>
-                        <li><strong>Quando usa:</strong> Quando o mercado está em reversão</li>
-                        <li><strong>Como funciona:</strong>
-                            <ul>
-                                <li>Abre posições defensivas sem aumentar agressividade</li>
-                                <li>Limite máximo de 15 ordens para proteger a conta</li>
-                                <li>Espera o conjunto todo ficar lucrativo</li>
-                            </ul>
-                        </li>
-                        <li><strong>Vantagem:</strong> Mais seguro em mercados laterais</li>
-                        <li><strong>Limite:</strong> Máximo de 15 ordens (configurável)</li>
-                    </ul>
-                </div>
-            </section>
-
-            <section id="defesa">
-                <h2>🛡️ Sistema de Defesa em 3 Camadas</h2>
-                <p>O robô possui <strong>3 alertas de defesa</strong> que ativam automaticamente conforme o Drawdown (DD%) aumenta:</p>
-
-                <div class="success-box">
-                    <h3>🟡 Alerta A - Grid Adaptativo (10% DD)</h3>
-                    <ul>
-                        <li><strong>O que acontece:</strong> Grid aumenta 1.5x</li>
-                        <li><strong>Por quê:</strong> Espaça mais as ordens para dar mais "respiro" ao mercado</li>
-                        <li><strong>Exemplo:</strong> Se grid era 150 pontos, vira 225 pontos</li>
-                        <li><strong>Objetivo:</strong> Reduzir velocidade de abertura de novas posições</li>
-                    </ul>
-                </div>
-
-                <div class="alert-box">
-                    <h3>🟠 Alerta B - Mudança de Timeframe (20% DD)</h3>
-                    <ul>
-                        <li><strong>O que acontece:</strong> Todos os indicadores mudam para timeframe de segurança</li>
-                        <li><strong>Por quê:</strong> Timeframe maior = sinais mais confiáveis</li>
-                        <li><strong>Padrão:</strong> Muda para M15 (15 minutos)</li>
-                        <li><strong>Objetivo:</strong> Buscar sinais mais robustos e evitar ruído do mercado</li>
-                    </ul>
-                </div>
-
-                <div class="danger-box">
-                    <h3>🔴 Alerta C - Modo Emergência (30% DD)</h3>
-                    <ul>
-                        <li><strong>O que acontece:</strong> Grid Super entra em modo super conservador</li>
-                        <li><strong>Como funciona:</strong>
-                            <ul>
-                                <li>Reduz multiplicador de lote pela metade</li>
-                                <li>Mantém apenas 50% do multiplicador original</li>
-                            </ul>
-                        </li>
-                        <li><strong>Objetivo:</strong> Proteção máxima do capital em situação crítica</li>
-                    </ul>
-                </div>
-            </section>
-
-            <section id="fechamento">
-                <h2>💰 Sistema Inteligente de Fechamento</h2>
-
-                <h3>🎯 Alvos Dinâmicos <span class="badge badge-info">NOVO!</span></h3>
-                <div class="feature-box">
-                    <p>Em vez de valores fixos em dólar, o robô agora trabalha com <strong>percentual do seu saldo</strong>:</p>
-                    <ul>
-                        <li><strong>Alvo Principal:</strong> 0.5% do balance (padrão)</li>
-                        <li><strong>Alvo Parcial:</strong> 0.25% do balance (padrão)</li>
-                        <li><strong>Vantagem:</strong> Se adapta automaticamente ao crescimento da sua conta</li>
-                    </ul>
-                </div>
-
-                <h4>📍 Fechamento em 2 Níveis</h4>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nível</th>
-                            <th>Condição</th>
-                            <th>Alvo</th>
-                            <th>Ação</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Nível 1</strong></td>
-                            <td>Poucas Ordens (&lt; 3)</td>
-                            <td>0.5% do balance</td>
-                            <td>Fecha todas de uma vez</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Nível 2</strong></td>
-                            <td>Muitas Ordens (≥ 3)</td>
-                            <td>0.25% → 0.5%</td>
-                            <td>Fecha 50% primeiro, depois o restante</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h3>🌙 Alvos por Horário <span class="badge badge-info">NOVO!</span></h3>
-                <div class="feature-box">
-                    <p>O robô reduz os alvos durante horários de <strong>baixa liquidez</strong>:</p>
-                    <ul>
-                        <li><strong>Horário reduzido:</strong> 22h às 6h (padrão)</li>
-                        <li><strong>Multiplicador:</strong> 0.5x (metade do alvo)</li>
-                        <li><strong>Por quê:</strong> Menos liquidez = menos ambição = mais segurança</li>
-                    </ul>
-                </div>
-            </section>
-
-            <section id="meta">
-                <h2>📅 Sistema de Meta Diária - 3 Regras Inteligentes</h2>
-
-                <div class="config-card">
-                    <h3>🎯 Regra 1: Meta Diária de 1%</h3>
-                    <p><span class="badge badge-primary">Ativa o dia todo</span></p>
-                    <ul>
-                        <li><strong>Quando:</strong> A qualquer momento do dia</li>
-                        <li><strong>Condição:</strong> Se o lucro total do dia atingir 1% do balance inicial</li>
-                        <li><strong>Ação:</strong>
-                            <ul>
-                                <li>✅ Fecha TODAS as posições</li>
-                                <li>🔒 Bloqueia o robô até o próximo dia</li>
-                            </ul>
-                        </li>
-                        <li><strong>Objetivo:</strong> Garantir lucro consistente e evitar devolver ganhos</li>
-                    </ul>
-                    <div class="success-box">
-                        <strong>Exemplo Prático:</strong><br>
-                        Balance inicial do dia: R$ 10.000<br>
-                        Meta: R$ 100 (1%)<br>
-                        Às 14h você já ganhou R$ 100 → Robô fecha tudo e para até amanhã
-                    </div>
-                </div>
-
-                <div class="config-card">
-                    <h3>🕐 Regra 2: Proteção 17h-19h Brasília</h3>
-                    <p><span class="badge badge-warning">Janela de 2 horas</span></p>
-                    <ul>
-                        <li><strong>Quando:</strong> Entre 17h e 19h (horário de Brasília)</li>
-                        <li><strong>Condição:</strong> Se o lucro realizado do dia for maior que as perdas flutuantes</li>
-                        <li><strong>Ação:</strong>
-                            <ul>
-                                <li>✅ Fecha TODAS as posições</li>
-                                <li>🔒 Garante dia positivo</li>
-                            </ul>
-                        </li>
-                        <li><strong>Objetivo:</strong> Proteger lucros já realizados contra reversões</li>
-                    </ul>
-                    <div class="success-box">
-                        <strong>Exemplo Prático:</strong><br>
-                        Lucro realizado no dia: R$ 150<br>
-                        Posições abertas com perda flutuante: -R$ 80<br>
-                        São 18h → Como R$ 150 > R$ 80, fecha tudo garantindo +R$ 70 no dia
-                    </div>
-                </div>
-
-                <div class="config-card">
-                    <h3>📆 Regra 3: Sexta-feira com 3% Semanal</h3>
-                    <p><span class="badge badge-info">Fim de semana garantido</span></p>
-                    <ul>
-                        <li><strong>Quando:</strong> Sexta-feira, a partir das 12h</li>
-                        <li><strong>Condição:</strong> Se o lucro da semana (realizado + flutuante) for ≥ 3%</li>
-                        <li><strong>Ação:</strong>
-                            <ul>
-                                <li>✅ Fecha TODAS as posições (positivas e negativas)</li>
-                                <li>🔒 Garante 3% da semana</li>
-                                <li>📅 Só reabre domingo à noite</li>
-                            </ul>
-                        </li>
-                        <li><strong>Objetivo:</strong> Garantir semana lucrativa e descanso de fim de semana</li>
-                    </ul>
-                    <div class="success-box">
-                        <strong>Exemplo Prático:</strong><br>
-                        Balance: R$ 10.000<br>
-                        Meta semanal: R$ 300 (3%)<br>
-                        Sexta-feira 14h: Lucro da semana = R$ 320<br>
-                        → Robô fecha tudo, garante os 3% e descansa até domingo
-                    </div>
-                </div>
-            </section>
-
-            <section id="breakeven">
-                <h2>🔐 Breakeven Cascata</h2>
-                <div class="feature-box">
-                    <h3>O que é?</h3>
-                    <p>Sistema que <strong>move o Stop Loss de TODAS as posições juntas</strong> quando o preço médio se torna lucrativo.</p>
-
-                    <h3>Como funciona?</h3>
-                    <ol>
-                        <li>Calcula o preço médio de todas as posições abertas (BUY e SELL separadamente)</li>
-                        <li>Quando o mercado se afasta <code>breakevan_pontos</code> pontos do preço médio (ficando positivo)</li>
-                        <li>Move o SL de todas as ordens daquela direção para o breakeven (ponto de equilíbrio)</li>
-                        <li><strong>Resultado:</strong> Protege lucro em bloco</li>
-                    </ol>
-
-                    <h3>Parâmetros:</h3>
-                    <ul>
-                        <li><strong><code>usar_breakevan</code>:</strong> Ativa/desativa o sistema (padrão: true)</li>
-                        <li><strong><code>breakevan_pontos</code>:</strong> Distância em pontos para ativar o breakeven (padrão: 150)</li>
-                    </ul>
-
-                    <h3>Características:</h3>
-                    <ul>
-                        <li>✅ Protege todo o conjunto de ordens</li>
-                        <li>✅ Evita perder lucro já conquistado</li>
-                        <li>✅ Funciona automaticamente</li>
-                        <li>✅ Processa posições BUY e SELL separadamente</li>
-                        <li>✅ Filtro por magic number (não interfere com outros EAs)</li>
-                        <li>✅ Trata corretamente posições sem Stop Loss prévio</li>
-                    </ul>
-                </div>
-            </section>
-
-            <section id="trailing">
-                <h2>🔄 Trailing Stop Individual</h2>
-                <div class="feature-box">
-                    <h3>O que é?</h3>
-                    <p>Sistema que <strong>move o Stop Loss de cada posição individualmente</strong> conforme o preço avança a favor, protegendo lucro progressivamente.</p>
-
-                    <h3>Como funciona?</h3>
-                    <ol>
-                        <li>Quando uma posição individual atinge lucro de <code>trailing_step_pontos</code> (padrão: 150 pontos)</li>
-                        <li>O SL é movido para o breakeven + <code>trailing_buffer_pontos</code> (padrão: 0 = exato)</li>
-                        <li>A cada novo avanço de <code>trailing_step_pontos</code>, o SL avança junto</li>
-                        <li><strong>Resultado:</strong> O lucro fica cada vez mais protegido à medida que o preço avança</li>
-                    </ol>
-
-                    <h3>Diferença do Breakeven Cascata:</h3>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Característica</th>
-                                <th>Breakeven Cascata</th>
-                                <th>Trailing Individual</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Escopo</td>
-                                <td>TODAS as posições juntas</td>
-                                <td>Cada posição separada</td>
-                            </tr>
-                            <tr>
-                                <td>Referência</td>
-                                <td>Preço médio do conjunto</td>
-                                <td>Preço de abertura individual</td>
-                            </tr>
-                            <tr>
-                                <td>Movimento do SL</td>
-                                <td>Uma vez (para o breakeven)</td>
-                                <td>Progressivo (avança com o preço)</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <h3>Parâmetros:</h3>
-                    <ul>
-                        <li><strong><code>usar_trailing_individual</code>:</strong> Ativa/desativa o sistema (padrão: true)</li>
-                        <li><strong><code>trailing_step_pontos</code>:</strong> Distância em pontos para cada passo do trailing (padrão: 150)</li>
-                        <li><strong><code>trailing_buffer_pontos</code>:</strong> Buffer em pontos acima do breakeven (padrão: 0 = exato)</li>
-                    </ul>
-
-                    <h3>Características:</h3>
-                    <ul>
-                        <li>✅ Protege cada posição individualmente</li>
-                        <li>✅ Funciona em conjunto com o Breakeven Cascata</li>
-                        <li>✅ Avanço progressivo (quanto mais lucro, mais protegido)</li>
-                        <li>✅ Não interfere com outros EAs (filtro por magic number)</li>
-                    </ul>
-                </div>
-            </section>
-
-            <section id="equity">
-                <h2>💎 Fechamento por Equity</h2>
-                <div class="feature-box">
-                    <h3>O que é?</h3>
-                    <p>Sistema de <strong>saída automática</strong> que fecha todas as posições e remove o EA do gráfico quando a equity (patrimônio) atinge um valor alvo.</p>
-
-                    <h3>Como funciona?</h3>
-                    <ol>
-                        <li>A cada tick, verifica se <code>AccountEquity >= fechar_valor_equity</code></li>
-                        <li>Se atingir, fecha TODAS as posições abertas</li>
-                        <li>Remove o EA do gráfico automaticamente</li>
-                        <li><strong>Resultado:</strong> Garante que você saia do mercado com o patrimônio desejado</li>
-                    </ol>
-
-                    <h3>Parâmetro:</h3>
-                    <ul>
-                        <li><strong><code>fechar_valor_equity</code>:</strong> Valor de equity para fechar tudo e remover EA (padrão: 0.0 = desativado)</li>
-                    </ul>
-
-                    <h3>Quando usar:</h3>
-                    <ul>
-                        <li>Definir um objetivo de patrimônio final (ex: "quero sair quando a conta atingir R$ 15.000")</li>
-                        <li>Proteção contra ganância: define um teto e para automaticamente</li>
-                        <li>Útil para desafios de contas funded/prop firms</li>
-                    </ul>
-
-                    <div class="success-box">
-                        <strong>Exemplo Prático:</strong><br>
-                        Conta com R$ 10.000 de equity<br>
-                        <code>fechar_valor_equity = 12000</code><br>
-                        Quando equity atingir R$ 12.000 → fecha tudo e remove o EA
-                    </div>
-                </div>
-            </section>
-
-            <section id="carry">
-                <h2>📈 Carry Trade - Filtro por Diferencial de Juros</h2>
-                <div class="feature-box">
-                    <h3>O que é?</h3>
-                    <p>Estratégia que opera apenas na <strong>direção favorável pelo diferencial de taxas de juros</strong> entre os dois países do par de moedas.</p>
-
-                    <h3>Conceito:</h3>
-                    <p>O Carry Trade é uma estratégia macroeconômica clássica: você "compra" a moeda do país com juros mais altos e "vende" a moeda do país com juros mais baixos, recebendo a diferença.</p>
-
-                    <h3>Como funciona no EA:</h3>
-                    <ol>
-                        <li>Você informa manualmente as taxas de juros nos inputs:
-                            <ul>
-                                <li><code>taxa_juros_base</code>: Taxa da 1a moeda do par (ex: EUR em EURUSD)</li>
-                                <li><code>taxa_juros_cotada</code>: Taxa da 2a moeda do par (ex: USD em EURUSD)</li>
-                            </ul>
-                        </li>
-                        <li>O EA calcula o diferencial: <code>base - cotada</code></li>
-                        <li>Se diferencial &gt; 0 → Só compra (BUY)</li>
-                        <li>Se diferencial &lt; 0 → Só vende (SELL)</li>
-                        <li>Se igual ou não configurado → Opera nos dois lados (sem filtro)</li>
-                    </ol>
-
-                    <h3>Swap+ vs Carry Trade:</h3>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Característica</th>
-                                <th>Swap+ (tipo_op = 3)</th>
-                                <th>Carry Trade (tipo_op = 4)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Fonte de dados</td>
-                                <td>Corretora (automática)</td>
-                                <td>Taxas de juros (manual)</td>
-                            </tr>
-                            <tr>
-                                <td>Reflete custo real?</td>
-                                <td>Sim, com markup do broker</td>
-                                <td>Não necessariamente</td>
-                            </tr>
-                            <tr>
-                                <td>Pode dar NONE?</td>
-                                <td>Sim (ambos swaps negativos)</td>
-                                <td>Sim (taxas não preenchidas ou iguais)</td>
-                            </tr>
-                            <tr>
-                                <td>Manutenção</td>
-                                <td>Zero</td>
-                                <td>Atualizar quando bancos centrais mudam taxas</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <h3>Parâmetros:</h3>
-                    <ul>
-                        <li><strong><code>taxa_juros_base</code>:</strong> Taxa de juros da moeda BASE (padrão: 0.0)</li>
-                        <li><strong><code>taxa_juros_cotada</code>:</strong> Taxa de juros da moeda COTADA (padrão: 0.0)</li>
-                    </ul>
-
-                    <div class="success-box">
-                        <strong>Exemplo Prático (USDJPY):</strong><br>
-                        Taxa EUA (base): 5.00%<br>
-                        Taxa Japão (cotada): 0.50%<br>
-                        Diferencial: 5.00 - 0.50 = +4.50 → <strong>Só compra</strong><br>
-                        Lógica: Comprar USD (juros altos) e vender JPY (juros baixos)
-                    </div>
-
-                    <div class="alert-box">
-                        <strong>Importante:</strong> As taxas não se atualizam sozinhas. Você precisa alterar os inputs quando os bancos centrais mudarem as taxas de juros.
-                    </div>
-                </div>
-            </section>
-
-            <section id="configs">
-                <h2>⚙️ Configurações e Inputs - Explicação Detalhada</h2>
-
-                <h3>📋 Licença e Modo de Operação</h3>
-
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Input</th>
-                            <th>Descrição</th>
-                            <th>Padrão</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code>Chave de acesso - licença</code></td>
-                            <td>Código de ativação do robô fornecido pelo desenvolvedor</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td><code>Modo de operação</code></td>
-                            <td>1=Automático | 2=Manual-Semiautomático</td>
-                            <td>Automático</td>
-                        </tr>
-                        <tr>
-                            <td><code>Tipo de operação</code></td>
-                            <td>0=Compras e Vendas | 1=Só Compras | 2=Só Vendas | 3=Swap+ | 4=Carry Trade</td>
-                            <td>Compras e Vendas</td>
-                        </tr>
-                        <tr>
-                            <td><code>Estratégia B ativar</code></td>
-                            <td>Ativa a estratégia de tendência com médias móveis</td>
-                            <td>false</td>
-                        </tr>
-                        <tr>
-                            <td><code>Modo TREND</code></td>
-                            <td>1=Alinhamento | 2=200 | 3=200+50 | 4=200+50+21</td>
-                            <td>2</td>
-                        </tr>
-                        <tr>
-                            <td><code>Stop-cross estratégia B</code></td>
-                            <td>Stop em cruzamento de indicadores da estratégia B</td>
-                            <td>true</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h3>💵 Lotes e Grid</h3>
-
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Input</th>
-                            <th>Descrição</th>
-                            <th>Padrão</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code>Tamanho do lote</code></td>
-                            <td>Volume inicial das ordens. Fórmula sugerida: Balance ÷ 10.000</td>
-                            <td>0.01</td>
-                        </tr>
-                        <tr>
-                            <td><code>x_lote</code></td>
-                            <td>Multiplicador para operações de tendência forte</td>
-                            <td>1.0</td>
-                        </tr>
-                        <tr>
-                            <td><code>Grid em pontos</code></td>
-                            <td>Distância entre ordens do Grid Médio. Menor=mais agressivo | Maior=conservador</td>
-                            <td>150</td>
-                        </tr>
-                        <tr>
-                            <td><code>Grid Super em pontos</code></td>
-                            <td>Distância em pontos para Grid Super (dinâmica VKGLinear). Não depende de indicadores</td>
-                            <td>75</td>
-                        </tr>
-                        <tr>
-                            <td><code>Limite máximo ordens Grid Médio</code></td>
-                            <td>Máximo de ordens na estratégia defensiva</td>
-                            <td>15</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h3>🎯 Alvos Percentuais <span class="badge badge-info">NOVO!</span></h3>
-
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Input</th>
-                            <th>Descrição</th>
-                            <th>Padrão</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code>Usar alvo em % do balance</code></td>
-                            <td>Ativa sistema de alvo dinâmico que se adapta ao crescimento</td>
-                            <td>true</td>
-                        </tr>
-                        <tr>
-                            <td><code>Alvo em % do balance</code></td>
-                            <td>Percentual do saldo para fechar tudo</td>
-                            <td>0.5%</td>
-                        </tr>
-                        <tr>
-                            <td><code>Ativar fechamento parcial</code></td>
-                            <td>Fecha metade das ordens antes do alvo final</td>
-                            <td>true</td>
-                        </tr>
-                        <tr>
-                            <td><code>% de ordens a fechar no parcial</code></td>
-                            <td>Quantas ordens fechar no fechamento parcial</td>
-                            <td>50%</td>
-                        </tr>
-                        <tr>
-                            <td><code>% do balance para fechamento parcial</code></td>
-                            <td>Quando ativa o fechamento parcial</td>
-                            <td>0.25%</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h3>🌙 Alvos por Horário <span class="badge badge-info">NOVO!</span></h3>
-
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Input</th>
-                            <th>Descrição</th>
-                            <th>Padrão</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code>Alvos diferentes por horário</code></td>
-                            <td>Ativa/desativa sistema de horários</td>
-                            <td>true</td>
-                        </tr>
-                        <tr>
-                            <td><code>Hora início alvo reduzido</code></td>
-                            <td>Quando começa período de baixa liquidez</td>
-                            <td>22h</td>
-                        </tr>
-                        <tr>
-                            <td><code>Hora fim alvo reduzido</code></td>
-                            <td>Quando termina período de baixa liquidez</td>
-                            <td>6h</td>
-                        </tr>
-                        <tr>
-                            <td><code>Multiplicador alvo no horário reduzido</code></td>
-                            <td>Quanto reduz o alvo durante período noturno</td>
-                            <td>0.5</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h3>📅 Meta Diária <span class="badge badge-info">NOVO!</span></h3>
-
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Input</th>
-                            <th>Descrição</th>
-                            <th>Padrão</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code>Ativar meta diária</code></td>
-                            <td>Liga/desliga sistema de meta diária (recomendado manter ativo)</td>
-                            <td>true</td>
-                        </tr>
-                        <tr>
-                            <td><code>Meta diária em % do balance</code></td>
-                            <td>Percentual do saldo para meta do dia</td>
-                            <td>1.0%</td>
-                        </tr>
-                        <tr>
-                            <td><code>Hora início verificação meta</code></td>
-                            <td>Quando começa verificar Regra 2 (horário Brasília)</td>
-                            <td>17h</td>
-                        </tr>
-                        <tr>
-                            <td><code>Hora fim verificação meta</code></td>
-                            <td>Quando termina verificação Regra 2 (horário Brasília)</td>
-                            <td>19h</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h3>🛡️ Stops e Defesa</h3>
-
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Input</th>
-                            <th>Descrição</th>
-                            <th>Padrão</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code>Valor do stop (em moeda)</code></td>
-                            <td>Stop loss fixo em dólar (0=desativado)</td>
-                            <td>0.00</td>
-                        </tr>
-                        <tr>
-                            <td><code>Valor do stop (em % DD)</code></td>
-                            <td>Stop loss baseado em DD% (0=desativado)</td>
-                            <td>0.00</td>
-                        </tr>
-                        <tr>
-                            <td><code>% do alerta A</code></td>
-                            <td>DD% para ativar Alerta A (Grid Adaptativo - aumenta grid 1.5x)</td>
-                            <td>10%</td>
-                        </tr>
-                        <tr>
-                            <td><code>% do alerta B</code></td>
-                            <td>DD% para ativar Alerta B (Mudança de Timeframe)</td>
-                            <td>20%</td>
-                        </tr>
-                        <tr>
-                            <td><code>% do DD modo emergência</code></td>
-                            <td>DD% para ativar Alerta C (Modo Ultra Conservador)</td>
-                            <td>30%</td>
-                        </tr>
-                        <tr>
-                            <td><code>Máximo exposição moeda por pares</code></td>
-                            <td>Quantos pares pode ter com a mesma moeda (evita overexposição)</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td><code>Período de Segurança</code></td>
-                            <td>Timeframe usado no Alerta B</td>
-                            <td>M15</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h3>🔐 Breakeven</h3>
-
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Input</th>
-                            <th>Descrição</th>
-                            <th>Padrão</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code>Habilitar breakevan</code></td>
-                            <td>Ativa sistema de Breakeven Cascata (recomendado manter ativo)</td>
-                            <td>true</td>
-                        </tr>
-                        <tr>
-                            <td><code>Distância para breakeven</code></td>
-                            <td>Pontos que o mercado precisa andar além do preço médio para ativar</td>
-                            <td>150</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h3>🔄 Trailing Stop Individual <span class="badge badge-info">NOVO!</span></h3>
-
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Input</th>
-                            <th>Descrição</th>
-                            <th>Padrão</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code>Habilitar trailing stop individual</code></td>
-                            <td>Ativa sistema de trailing stop por posição individual</td>
-                            <td>true</td>
-                        </tr>
-                        <tr>
-                            <td><code>Distância em pontos para cada passo</code></td>
-                            <td>Quantos pontos de lucro para mover o SL. Menor protege mais cedo, maior dá mais respiro</td>
-                            <td>150</td>
-                        </tr>
-                        <tr>
-                            <td><code>Buffer em pontos acima do breakeven</code></td>
-                            <td>Margem extra acima do ponto de equilíbrio (0 = move exatamente para o breakeven)</td>
-                            <td>0</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h3>💎 Fechamento por Equity <span class="badge badge-info">NOVO!</span></h3>
-
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Input</th>
-                            <th>Descrição</th>
-                            <th>Padrão</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code>Valor de equity para fechar tudo</code></td>
-                            <td>Patrimônio alvo para encerrar operações e remover EA do gráfico (0 = desativado)</td>
-                            <td>0.0</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h3>📈 Carry Trade <span class="badge badge-info">NOVO!</span></h3>
-
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Input</th>
-                            <th>Descrição</th>
-                            <th>Padrão</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code>Taxa de juros moeda BASE</code></td>
-                            <td>Taxa de juros anual da 1a moeda do par (ex: 4.50 para USD em USDJPY)</td>
-                            <td>0.0</td>
-                        </tr>
-                        <tr>
-                            <td><code>Taxa de juros moeda COTADA</code></td>
-                            <td>Taxa de juros anual da 2a moeda do par (ex: 0.50 para JPY em USDJPY)</td>
-                            <td>0.0</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <section id="dicas">
-                <h2>🎓 Dicas de Uso</h2>
-
-                <div class="config-card">
-                    <h3>✅ Configuração Conservadora</h3>
-                    <p><span class="badge badge-success">Recomendado para iniciantes</span></p>
-                    <pre>Lote: 0.01
+<hr />
+<h2 id="secao-filtro-macro-configuracoes">⚙️ Seção: Filtro Macro (Configurações)</h2>
+<h4 id="ativar-filtro-macro-carry-trade"><code>Ativar filtro macro carry trade</code></h4>
+<ul>
+<li><strong>O que é</strong>: Liga/desliga todo o sistema de filtro macro</li>
+<li><strong>Padrão</strong>: true (ativado)</li>
+<li><strong>Nota</strong>: Se desativado, o EA opera como antes sem nenhum filtro macro</li>
+</ul>
+<h4 id="simbolo-do-vix-no-broker"><code>Simbolo do VIX no broker</code></h4>
+<ul>
+<li><strong>O que é</strong>: Nome do símbolo VIX na sua corretora</li>
+<li><strong>Padrão</strong>: "Vix.s" (VT Markets)</li>
+<li><strong>Outros brokers</strong>: Pode ser "VIX", "VIXM", "VIX.f" - verifique na sua corretora</li>
+</ul>
+<h4 id="simbolo-do-sp500-no-broker"><code>Simbolo do SP500 no broker</code></h4>
+<ul>
+<li><strong>O que é</strong>: Nome do símbolo SP500 na sua corretora</li>
+<li><strong>Padrão</strong>: "SP500.s" (VT Markets)</li>
+</ul>
+<h4 id="vix-maximo-para-abrir-primeira-ordem"><code>VIX maximo para abrir primeira ordem</code></h4>
+<ul>
+<li><strong>O que é</strong>: Acima deste valor, não abre a primeira ordem</li>
+<li><strong>Padrão</strong>: 18.0</li>
+<li><strong>Conservador</strong>: 16.0 | <strong>Moderado</strong>: 18.0 | <strong>Agressivo</strong>: 20.0</li>
+</ul>
+<h4 id="vix-para-acionar-alert-a"><code>VIX para acionar Alert A</code></h4>
+<ul>
+<li><strong>O que é</strong>: VIX que aciona o Alert A (grid aumentado) mesmo sem DD alto</li>
+<li><strong>Padrão</strong>: 20.0</li>
+</ul>
+<h4 id="vix-para-acionar-alert-b"><code>VIX para acionar Alert B</code></h4>
+<ul>
+<li><strong>O que é</strong>: VIX que aciona o Alert B (timeframe segurança) mesmo sem DD alto</li>
+<li><strong>Padrão</strong>: 22.0</li>
+</ul>
+<h4 id="vix-para-bloquear-novas-ordens"><code>VIX para bloquear novas ordens</code></h4>
+<ul>
+<li><strong>O que é</strong>: Acima deste valor, bloqueia QUALQUER nova ordem (emergência)</li>
+<li><strong>Padrão</strong>: 25.0</li>
+</ul>
+<h4 id="de-spike-vix-em-1-dia-para-alerta"><code>% de spike VIX em 1 dia para alerta</code></h4>
+<ul>
+<li><strong>O que é</strong>: Se VIX subir este percentual em um dia, força Alert B</li>
+<li><strong>Padrão</strong>: 30.0%</li>
+<li><strong>Exemplo</strong>: VIX abre em 15, sobe para 19.5 (+30%) → Alert B forçado</li>
+</ul>
+<h4 id="queda-sp500-no-dia-para-bloquear"><code>Queda % SP500 no dia para bloquear</code></h4>
+<ul>
+<li><strong>O que é</strong>: Queda percentual do SP500 que bloqueia a primeira ordem</li>
+<li><strong>Padrão</strong>: -1.5%</li>
+</ul>
+<h4 id="detectar-carry-unwind"><code>Detectar carry unwind</code></h4>
+<ul>
+<li><strong>O que é</strong>: Monitora JPY + VIX simultaneamente para detectar carry unwind</li>
+<li><strong>Padrão</strong>: true</li>
+<li><strong>Lógica</strong>: USDJPY caindo + VIX subindo = bloqueio</li>
+</ul>
+<h4 id="simbolo-usdjpy-para-monitorar-jpy"><code>Simbolo USDJPY para monitorar JPY</code></h4>
+<ul>
+<li><strong>O que é</strong>: Símbolo do USDJPY para medir força do JPY</li>
+<li><strong>Padrão</strong>: "USDJPY"</li>
+</ul>
+<h3 id="pares-recomendados-para-carry-trade-somente-compra">Pares recomendados para carry trade (somente compra):</h3>
+<table>
+<thead>
+<tr>
+<th>Par</th>
+<th>Moeda alta</th>
+<th>Moeda baixa</th>
+<th>Direção</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EURJPY</td>
+<td>EUR</td>
+<td>JPY</td>
+<td>Compra</td>
+</tr>
+<tr>
+<td>GBPJPY</td>
+<td>GBP</td>
+<td>JPY</td>
+<td>Compra</td>
+</tr>
+<tr>
+<td>USDJPY</td>
+<td>USD</td>
+<td>JPY</td>
+<td>Compra</td>
+</tr>
+<tr>
+<td>AUDJPY</td>
+<td>AUD</td>
+<td>JPY</td>
+<td>Compra</td>
+</tr>
+<tr>
+<td>NZDJPY</td>
+<td>NZD</td>
+<td>JPY</td>
+<td>Compra</td>
+</tr>
+<tr>
+<td>USDCHF</td>
+<td>USD</td>
+<td>CHF</td>
+<td>Compra</td>
+</tr>
+<tr>
+<td>AUDCHF</td>
+<td>AUD</td>
+<td>CHF</td>
+<td>Compra</td>
+</tr>
+<tr>
+<td>GBPCHF</td>
+<td>GBP</td>
+<td>CHF</td>
+<td>Compra</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Dica</strong>: Configure <code>tipo_op = 1</code> (Somente Compras) para estes pares. O filtro macro protege a entrada e os Alerts A/B/C protegem durante a operação.</p>
+</blockquote>
+<hr />
+<h2 id="dicas-de-uso">🎓 Dicas de Uso</h2>
+<h3 id="configuracao-conservadora">✅ <strong>Configuração Conservadora</strong></h3>
+<pre class="codehilite"><code>Lote: 0.01
 Grid Médio: 200 pontos
 Grid Super: 100 pontos
 Breakeven: 200 pontos
@@ -1028,13 +836,11 @@ Meta diária: 1%
 Alerta A: 10%
 Alerta B: 20%
 Alerta C: 30%
-Limite Grid Médio: 10 ordens</pre>
-                </div>
+Limite Grid Médio: 10 ordens
+</code></pre>
 
-                <div class="config-card">
-                    <h3>⚡ Configuração Moderada</h3>
-                    <p><span class="badge badge-warning">Para traders intermediários</span></p>
-                    <pre>Lote: 0.02
+<h3 id="configuracao-moderada">⚡ <strong>Configuração Moderada</strong></h3>
+<pre class="codehilite"><code>Lote: 0.02
 Grid Médio: 150 pontos
 Grid Super: 75 pontos
 Breakeven: 150 pontos
@@ -1043,13 +849,11 @@ Meta diária: 1.5%
 Alerta A: 12%
 Alerta B: 22%
 Alerta C: 32%
-Limite Grid Médio: 15 ordens</pre>
-                </div>
+Limite Grid Médio: 15 ordens
+</code></pre>
 
-                <div class="config-card">
-                    <h3>🚀 Configuração Agressiva</h3>
-                    <p><span class="badge badge-danger">Apenas para experientes</span></p>
-                    <pre>Lote: 0.03
+<h3 id="configuracao-agressiva-apenas-para-experientes">🚀 <strong>Configuração Agressiva</strong> (Apenas para experientes)</h3>
+<pre class="codehilite"><code>Lote: 0.03
 Grid Médio: 100 pontos
 Grid Super: 50 pontos
 Breakeven: 100 pontos
@@ -1059,71 +863,50 @@ Meta diária: 2%
 Alerta A: 15%
 Alerta B: 25%
 Alerta C: 35%
-Limite Grid Médio: 20 ordens</pre>
-                </div>
-            </section>
+Limite Grid Médio: 20 ordens
+</code></pre>
 
-            <section id="avisos">
-                <h2>⚠️ Avisos Importantes</h2>
-
-                <div class="danger-box">
-                    <h3>🔴 Gestão de Risco</h3>
-                    <ul>
-                        <li><strong>Nunca</strong> opere com todo o capital de uma vez</li>
-                        <li>Reserve no mínimo <strong>40% do capital</strong> como margem de segurança</li>
-                        <li>Monitore o DD% diariamente</li>
-                        <li>Respeite os alertas de defesa</li>
-                    </ul>
-                </div>
-
-                <div class="alert-box">
-                    <h3>🟡 Manutenção</h3>
-                    <ul>
-                        <li>Acompanhe o desempenho semanalmente</li>
-                        <li>Ajuste configurações conforme resultados</li>
-                        <li>Teste em conta demo antes de usar em conta real</li>
-                        <li>Mantenha o robô atualizado</li>
-                    </ul>
-                </div>
-
-                <div class="success-box">
-                    <h3>🟢 Boas Práticas</h3>
-                    <ul>
-                        <li>Comece sempre com configuração conservadora</li>
-                        <li>Aumente risco gradualmente conforme ganha experiência</li>
-                        <li>Use a meta diária para garantir lucros consistentes</li>
-                        <li>Respeite os horários de baixa liquidez</li>
-                    </ul>
-                </div>
-            </section>
-
-            <section>
-                <h2>📞 Suporte</h2>
-                <div class="feature-box">
-                    <p>Para dúvidas, sugestões ou suporte:</p>
-                    <ul>
-                        <li>📧 Contate o desenvolvedor: <strong>Diego Justo</strong></li>
-                        <li>📅 Mantenha o robô sempre atualizado</li>
-                        <li>🔄 Versão atual: <strong>7.0</strong></li>
-                    </ul>
-                </div>
-            </section>
-
-            <section>
-                <h2>⚖️ Isenção de Responsabilidade</h2>
-                <div class="danger-box">
-                    <h3>AVISO IMPORTANTE</h3>
-                    <p>Negociar com robôs envolve alto risco e pode não ser adequado para todos os investidores. Resultados anteriores não são garantia de performance futura. Você é o único responsável pelas operações realizadas.</p>
-                    <p>É <strong>fundamental</strong> testar em conta de demonstração antes de operar com capital real.</p>
-                    <p><strong>Trading de forex e CFDs pode resultar em perdas que excedem seu investimento inicial.</strong></p>
-                </div>
-            </section>
+<hr />
+<h2 id="avisos-importantes">⚠️ Avisos Importantes</h2>
+<h3 id="gestao-de-risco">🔴 <strong>Gestão de Risco</strong></h3>
+<ul>
+<li><strong>Nunca</strong> opere com todo o capital de uma vez</li>
+<li>Reserve no mínimo <strong>40% do capital</strong> como margem de segurança</li>
+<li>Monitore o DD% diariamente</li>
+<li>Respeite os alertas de defesa</li>
+</ul>
+<h3 id="manutencao">🟡 <strong>Manutenção</strong></h3>
+<ul>
+<li>Acompanhe o desempenho semanalmente</li>
+<li>Ajuste configurações conforme resultados</li>
+<li>Teste em conta demo antes de usar em conta real</li>
+<li>Mantenha o robô atualizado</li>
+</ul>
+<h3 id="boas-praticas">🟢 <strong>Boas Práticas</strong></h3>
+<ul>
+<li>Comece sempre com configuração conservadora</li>
+<li>Aumente risco gradualmente conforme ganha experiência</li>
+<li>Use a meta diária para garantir lucros consistentes</li>
+<li>Respeite os horários de baixa liquidez</li>
+</ul>
+<hr />
+<h2 id="suporte">📞 Suporte</h2>
+<p>Para dúvidas, sugestões ou suporte:
+- 📧 Contate o desenvolvedor: Diego Justo
+- 📅 Mantenha o robô sempre atualizado
+- 🔄 Versão atual: 7.0</p>
+<hr />
+<h2 id="isencao-de-responsabilidade">⚖️ Isenção de Responsabilidade</h2>
+<p><strong>AVISO IMPORTANTE</strong>:</p>
+<p>Negociar com robôs envolve alto risco e pode não ser adequado para todos os investidores. Resultados anteriores não são garantia de performance futura. Você é o único responsável pelas operações realizadas.</p>
+<p>É <strong>fundamental</strong> testar em conta de demonstração antes de operar com capital real.</p>
+<p><strong>Trading de forex e CFDs pode resultar em perdas que excedem seu investimento inicial.</strong></p>
+<hr />
+<p><em>Documento criado para IAFX Prime v7 - Versão 1.2 - Fevereiro 2026</em></p>
         </div>
-
         <footer>
-            <p><strong>IAFX Prime v7</strong> - Guia do Usuário</p>
-            <p>Versão 1.2 - Fevereiro 2026</p>
-            <p>Desenvolvido por Diego Justo</p>
+            <p>IAFX Prime v7 - Criado por Diego Justo - Copyright 2025</p>
+            <p>Todos os direitos reservados</p>
         </footer>
     </div>
 </body>

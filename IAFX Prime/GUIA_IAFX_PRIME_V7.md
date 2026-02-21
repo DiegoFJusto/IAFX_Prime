@@ -36,19 +36,21 @@ O robô trabalha com **duas estratégias principais** que se adaptam conforme o 
 
 ## 🛡️ Sistema de Defesa em 3 Camadas
 
-O robô possui **3 alertas de defesa** que ativam automaticamente conforme o Drawdown (DD%) aumenta:
+O robô possui **3 alertas de defesa** que ativam automaticamente conforme o Drawdown (DD%) **ou o VIX** aumenta (quem chegar primeiro):
 
-### 🟡 **Alerta A - Grid Adaptativo (10% DD)**
+### 🟡 **Alerta A - Grid Adaptativo**
+- **Ativado por**: DD% >= `alertaDDA` (padrão 10%) **OU** VIX >= `vix_alerta_a` (padrão 20.0)
 - **O que acontece**: Grid aumenta 1.5x
 - **Por quê**: Espaça mais as ordens para dar mais "respiro" ao mercado
 - **Exemplo**: Se grid era 150 pontos, vira 225 pontos
-- **Objetivo**: Reduzir velocidade de abertura de novas posições
+- **Desativa quando**: DD% E VIX voltam abaixo dos thresholds (com histerese)
 
-### 🟠 **Alerta B - Mudança de Timeframe (20% DD)**
+### 🟠 **Alerta B - Mudança de Timeframe**
+- **Ativado por**: DD% >= `alertaDDB` (padrão 20%) **OU** VIX >= `vix_alerta_b` (padrão 22.0) **OU** VIX spike >= 30% em 1 dia
 - **O que acontece**: Todos os indicadores mudam para timeframe de segurança
 - **Por quê**: Timeframe maior = sinais mais confiáveis
 - **Padrão**: Muda para M15 (15 minutos)
-- **Objetivo**: Buscar sinais mais robustos e evitar ruído do mercado
+- **Desativa quando**: DD% E VIX voltam abaixo dos thresholds
 
 ### 🔴 **Alerta C - Modo Emergência (30% DD)**
 - **O que acontece**: Grid Super entra em modo super conservador
@@ -558,6 +560,120 @@ O Carry Trade é uma estratégia macroeconômica clássica: você "compra" a moe
 - **O que é**: Taxa de juros anual da segunda moeda do par
 - **Padrão**: 0.0 (não configurado)
 - **Exemplo**: Para EURUSD, informar a taxa do USD (ex: 5.00)
+
+---
+
+## 🌐 Filtro Macro Carry Trade (VIX + SP500 + JPY)
+
+### O que é?
+Sistema de **proteção macroeconômica** que monitora indicadores de risco global em tempo real para evitar abrir posições em ambientes adversos. Inspirado nas mesas de carry trade de grandes bancos (UBS, Goldman Sachs, JPMorgan).
+
+### Conceito:
+O carry trade funciona bem em ambientes de **risk-on** (mercados calmos, apetite por risco). Quando o VIX sobe, o SP500 cai forte, ou o JPY se fortalece rapidamente, historicamente ocorrem **carry unwinds** - liquidação em massa de posições de carry trade que causam perdas severas.
+
+Este filtro age como um **porteiro na entrada**: só decide se você abre a primeira ordem. Uma vez com posições abertas, o grid médio/super e os Alerts A/B/C cuidam da gestão.
+
+### Como funciona:
+
+#### Regra principal:
+- **SEM posições abertas** → Filtro macro decide se abre a primeira ordem
+- **COM posições abertas** → Filtro NÃO interfere. Grid continua normalmente
+
+#### Níveis do VIX:
+| VIX | Ambiente | Ação |
+|-----|----------|------|
+| < 18.0 | RISK-ON | Opera normalmente |
+| 18.0 - 20.0 | NEUTRO | Bloqueia primeira ordem |
+| 20.0 - 22.0 | NEUTRO | + Alert A ativado (grid +50%) |
+| 22.0 - 25.0 | RISK-OFF | + Alert B ativado (TF segurança) |
+| > 25.0 | EMERGENCIA | Bloqueia todas as novas ordens |
+| Spike +30% dia | EMERGENCIA | Alert B forçado automaticamente |
+
+#### Carry Unwind (alerta vermelho):
+Quando **dois sinais** aparecem juntos:
+- USDJPY caindo > 0.5% no dia (JPY fortalecendo)
+- VIX subindo > 5% no dia
+
+O sistema classifica como **carry unwind em curso** e bloqueia novas aberturas até normalizar.
+
+#### SP500:
+- Se SP500 cair mais de 1.5% no dia → Bloqueia primeira ordem (risk-off)
+
+### Dashboard no gráfico:
+O EA exibe no canto do gráfico:
+```
+=============== MACRO CARRY ===============
+VIX: 17.50 (-2.1%) | SP500: +0.35%
+USDJPY: +0.12% | Unwind: nao
+Ambiente: RISK-ON | VIX-A:off VIX-B:off
+```
+
+---
+
+## ⚙️ Seção: Filtro Macro (Configurações)
+
+#### `Ativar filtro macro carry trade`
+- **O que é**: Liga/desliga todo o sistema de filtro macro
+- **Padrão**: true (ativado)
+- **Nota**: Se desativado, o EA opera como antes sem nenhum filtro macro
+
+#### `Simbolo do VIX no broker`
+- **O que é**: Nome do símbolo VIX na sua corretora
+- **Padrão**: "Vix.s" (VT Markets)
+- **Outros brokers**: Pode ser "VIX", "VIXM", "VIX.f" - verifique na sua corretora
+
+#### `Simbolo do SP500 no broker`
+- **O que é**: Nome do símbolo SP500 na sua corretora
+- **Padrão**: "SP500.s" (VT Markets)
+
+#### `VIX maximo para abrir primeira ordem`
+- **O que é**: Acima deste valor, não abre a primeira ordem
+- **Padrão**: 18.0
+- **Conservador**: 16.0 | **Moderado**: 18.0 | **Agressivo**: 20.0
+
+#### `VIX para acionar Alert A`
+- **O que é**: VIX que aciona o Alert A (grid aumentado) mesmo sem DD alto
+- **Padrão**: 20.0
+
+#### `VIX para acionar Alert B`
+- **O que é**: VIX que aciona o Alert B (timeframe segurança) mesmo sem DD alto
+- **Padrão**: 22.0
+
+#### `VIX para bloquear novas ordens`
+- **O que é**: Acima deste valor, bloqueia QUALQUER nova ordem (emergência)
+- **Padrão**: 25.0
+
+#### `% de spike VIX em 1 dia para alerta`
+- **O que é**: Se VIX subir este percentual em um dia, força Alert B
+- **Padrão**: 30.0%
+- **Exemplo**: VIX abre em 15, sobe para 19.5 (+30%) → Alert B forçado
+
+#### `Queda % SP500 no dia para bloquear`
+- **O que é**: Queda percentual do SP500 que bloqueia a primeira ordem
+- **Padrão**: -1.5%
+
+#### `Detectar carry unwind`
+- **O que é**: Monitora JPY + VIX simultaneamente para detectar carry unwind
+- **Padrão**: true
+- **Lógica**: USDJPY caindo + VIX subindo = bloqueio
+
+#### `Simbolo USDJPY para monitorar JPY`
+- **O que é**: Símbolo do USDJPY para medir força do JPY
+- **Padrão**: "USDJPY"
+
+### Pares recomendados para carry trade (somente compra):
+| Par | Moeda alta | Moeda baixa | Direção |
+|-----|-----------|-------------|---------|
+| EURJPY | EUR | JPY | Compra |
+| GBPJPY | GBP | JPY | Compra |
+| USDJPY | USD | JPY | Compra |
+| AUDJPY | AUD | JPY | Compra |
+| NZDJPY | NZD | JPY | Compra |
+| USDCHF | USD | CHF | Compra |
+| AUDCHF | AUD | CHF | Compra |
+| GBPCHF | GBP | CHF | Compra |
+
+> **Dica**: Configure `tipo_op = 1` (Somente Compras) para estes pares. O filtro macro protege a entrada e os Alerts A/B/C protegem durante a operação.
 
 ---
 
