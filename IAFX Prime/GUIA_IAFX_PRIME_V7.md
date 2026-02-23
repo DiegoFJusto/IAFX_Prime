@@ -39,14 +39,14 @@ O robô trabalha com **duas estratégias principais** que se adaptam conforme o 
 O robô possui **3 alertas de defesa** que ativam automaticamente conforme o Drawdown (DD%) **ou o VIX** aumenta (quem chegar primeiro):
 
 ### 🟡 **Alerta A - Grid Adaptativo**
-- **Ativado por**: DD% >= `alertaDDA` (padrão 10%) **OU** VIX >= `vix_alerta_a` (padrão 20.0)
+- **Ativado por**: DD% >= `alertaDDA` (padrão 10%) **OU** VIX >= `vix_alerta_a` (padrão 21.0)
 - **O que acontece**: Grid aumenta 1.5x
 - **Por quê**: Espaça mais as ordens para dar mais "respiro" ao mercado
 - **Exemplo**: Se grid era 150 pontos, vira 225 pontos
 - **Desativa quando**: DD% E VIX voltam abaixo dos thresholds (com histerese)
 
 ### 🟠 **Alerta B - Mudança de Timeframe**
-- **Ativado por**: DD% >= `alertaDDB` (padrão 20%) **OU** VIX >= `vix_alerta_b` (padrão 22.0) **OU** VIX spike >= 30% em 1 dia
+- **Ativado por**: DD% >= `alertaDDB` (padrão 20%) **OU** VIX >= `vix_alerta_b` (padrão 24.0) **OU** VIX spike >= 30% em 1 dia
 - **O que acontece**: Todos os indicadores mudam para timeframe de segurança
 - **Por quê**: Timeframe maior = sinais mais confiáveis
 - **Padrão**: Muda para M15 (15 minutos)
@@ -140,6 +140,19 @@ O robô reduz os alvos durante horários de **baixa liquidez**:
 
 ---
 
+## ⏰ Horário de Operação
+
+O robô possui uma **janela de bloqueio** configurada automaticamente:
+
+- **Horário bloqueado**: 17:30 às 20:30 (horário de Brasília)
+- **Motivo**: Período de fechamento dos mercados europeus — spreads elevados e volatilidade pontual
+- **O que acontece**: Nenhuma nova ordem (primeira ou grid) é aberta neste período
+- **Posições existentes**: Continuam abertas e gerenciadas normalmente
+
+> O cálculo usa o parâmetro `offset_servidor_brasilia` para converter horário do servidor para Brasília.
+
+---
+
 ## 🔐 Breakeven Cascata
 
 ### O que é?
@@ -192,20 +205,10 @@ Sistema que **move o Stop Loss de TODAS as posições juntas** quando o preço m
   - **Carry Trade** compara as taxas de juros dos bancos centrais informadas manualmente nos inputs. Representa a lógica macroeconômica pura. Requer atualização manual quando bancos centrais alteram taxas.
 - **Dica**: Use "Swap+" para minimizar custos overnight com base na corretora, ou "Carry Trade" para seguir o diferencial de juros real entre países
 
-#### `Estratégia B ativar`
-- **O que é**: Ativa a estratégia de tendência (OP_Tendencia)
-- **Padrão**: false (desativado)
-- **Quando usar**: Para operações seguindo tendência com médias móveis
-
 #### `Modo TREND`
-- **O que é**: Define o modo de análise de tendência
+- **O que é**: Define o modo de análise de tendência usado pelo Grid Super para evitar abrir contra tendência
 - **Opções**: 1=Alinhamento | 2=200 | 3=200+50 | 4=200+50+21
 - **Padrão**: 2 (Média de 200 períodos)
-
-#### `Acionar stop-cross estratégia B`
-- **O que é**: Stop em cruzamento de indicadores da estratégia B
-- **Padrão**: true (ativado)
-- **Uso**: Fecha posições da estratégia B quando indicadores cruzam contra
 
 ---
 
@@ -395,9 +398,10 @@ Sistema que **move o Stop Loss de TODAS as posições juntas** quando o preço m
 - **MACD**: Convergência/Divergência de médias
 
 #### `Usar ADX na confluência`
-- **O que é**: Incluir ADX nas análises
+- **O que é**: Ativa o ADX como filtro obrigatório de entrada
 - **Padrão**: true (ativado)
 - **ADX**: Força da tendência
+- **Importante**: Quando ativado, o ADX funciona como **condição obrigatória** (não como sinal contável). A primeira ordem só abre se ADX estiver ativo, independente dos outros sinais de confluência
 
 #### `Usar Bollinger na confluência`
 - **O que é**: Incluir Bandas de Bollinger
@@ -576,28 +580,27 @@ Este filtro age como um **porteiro na entrada**: só decide se você abre a prim
 ### Como funciona:
 
 #### Regra principal:
-- **SEM posições abertas** → Filtro macro decide se abre a primeira ordem
-- **COM posições abertas** → Filtro NÃO interfere. Grid continua normalmente
+- **SEM posições abertas** → Filtro macro completo decide se abre a primeira ordem
+- **COM posições abertas** → Apenas verificação de emergência real (VIX ≥ 27 ou carry unwind). Grid continua normalmente sem bloqueios desnecessários
 
 #### Níveis do VIX:
 | VIX | Ambiente | Ação |
 |-----|----------|------|
-| < 18.0 | RISK-ON | Opera normalmente |
-| 18.0 - 20.0 | NEUTRO | Bloqueia primeira ordem |
-| 20.0 - 22.0 | NEUTRO | + Alert A ativado (grid +50%) |
-| 22.0 - 25.0 | RISK-OFF | + Alert B ativado (TF segurança) |
-| > 25.0 | EMERGENCIA | Bloqueia todas as novas ordens |
+| < 21.0 | RISK-ON | Opera normalmente |
+| 21.0 - 24.0 | NEUTRO | Alert A ativado (grid +50%) |
+| 24.0 - 27.0 | RISK-OFF | Alert B ativado (TF segurança) |
+| ≥ 27.0 | EMERGENCIA | Bloqueia novas ordens (primeira e grid) |
 | Spike +30% dia | EMERGENCIA | Alert B forçado automaticamente |
 
 #### Carry Unwind (alerta vermelho):
 Quando **dois sinais** aparecem juntos:
-- USDJPY caindo > 0.5% no dia (JPY fortalecendo)
-- VIX subindo > 5% no dia
+- USDJPY caindo > 1.2% no dia (JPY fortalecendo com força relevante)
+- VIX subindo > 10% no dia
 
 O sistema classifica como **carry unwind em curso** e bloqueia novas aberturas até normalizar.
 
 #### SP500:
-- Se SP500 cair mais de 1.5% no dia → Bloqueia primeira ordem (risk-off)
+- Se SP500 cair mais de 3.0% no dia → Bloqueia primeira ordem (risk-off)
 
 ### Dashboard no gráfico:
 O EA exibe no canto do gráfico:
@@ -628,20 +631,20 @@ Ambiente: RISK-ON | VIX-A:off VIX-B:off
 
 #### `VIX maximo para abrir primeira ordem`
 - **O que é**: Acima deste valor, não abre a primeira ordem
-- **Padrão**: 18.0
-- **Conservador**: 16.0 | **Moderado**: 18.0 | **Agressivo**: 20.0
+- **Padrão**: 21.0
+- **Conservador**: 18.0 | **Moderado**: 21.0 | **Agressivo**: 24.0
 
 #### `VIX para acionar Alert A`
 - **O que é**: VIX que aciona o Alert A (grid aumentado) mesmo sem DD alto
-- **Padrão**: 20.0
+- **Padrão**: 21.0
 
 #### `VIX para acionar Alert B`
 - **O que é**: VIX que aciona o Alert B (timeframe segurança) mesmo sem DD alto
-- **Padrão**: 22.0
+- **Padrão**: 24.0
 
 #### `VIX para bloquear novas ordens`
-- **O que é**: Acima deste valor, bloqueia QUALQUER nova ordem (emergência)
-- **Padrão**: 25.0
+- **O que é**: Acima deste valor, bloqueia QUALQUER nova ordem — inclusive grid (emergência real)
+- **Padrão**: 27.0
 
 #### `% de spike VIX em 1 dia para alerta`
 - **O que é**: Se VIX subir este percentual em um dia, força Alert B
@@ -650,12 +653,12 @@ Ambiente: RISK-ON | VIX-A:off VIX-B:off
 
 #### `Queda % SP500 no dia para bloquear`
 - **O que é**: Queda percentual do SP500 que bloqueia a primeira ordem
-- **Padrão**: -1.5%
+- **Padrão**: -3.0%
 
 #### `Detectar carry unwind`
 - **O que é**: Monitora JPY + VIX simultaneamente para detectar carry unwind
 - **Padrão**: true
-- **Lógica**: USDJPY caindo + VIX subindo = bloqueio
+- **Lógica**: USDJPY caindo > 1.2% **e** VIX subindo > 10% no mesmo dia = bloqueio
 
 #### `Simbolo USDJPY para monitorar JPY`
 - **O que é**: Símbolo do USDJPY para medir força do JPY
@@ -767,4 +770,4 @@ Negociar com robôs envolve alto risco e pode não ser adequado para todos os in
 
 ---
 
-*Documento criado para IAFX Prime v7 - Versão 1.2 - Fevereiro 2026*
+*Documento criado para IAFX Prime v7 - Versão 1.3 - Fevereiro 2026*
