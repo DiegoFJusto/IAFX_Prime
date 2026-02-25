@@ -214,11 +214,28 @@ Sistema que **move o Stop Loss de TODAS as posições juntas** quando o preço m
 
 ### 💵 **Seção: Lotes e Grid**
 
-#### `Tamanho do lote para ordens`
-- **O que é**: Volume inicial das ordens
+#### `Perfil do lote`
+- **O que é**: Define como o tamanho do lote é calculado
+- **Opções**:
+  | Perfil | Comportamento | DD Máximo Alvo |
+  |--------|---------------|----------------|
+  | **Fixo** | Usa exatamente o valor do input `lote` | — |
+  | **Conservador** | Calcula automaticamente para ~10% DD máximo | ~10% |
+  | **Moderado** | Calcula automaticamente para ~20% DD máximo | ~20% |
+  | **Agressivo** | Calcula automaticamente para ~30% DD máximo | ~30% |
+- **Padrão**: Fixo
+- **Como o cálculo funciona** (perfis automáticos):
+  ```
+  lote = (DD_alvo × balance) ÷ (max_ordens × grid_pts × valor_por_ponto)
+  ```
+  - O lote escala proporcionalmente ao saldo — contas maiores usam lotes maiores automaticamente
+  - O resultado nunca é menor que o `lote` definido no input abaixo
+  - O divisor GBP (2×) é aplicado automaticamente para pares com GBP
+
+#### `Lote base`
+- **O que é**: Volume das ordens (usado diretamente no modo **Fixo**; serve como mínimo nos demais)
 - **Padrão**: 0.01 (micro lote)
-- **Ajuste**: Conforme tamanho da sua conta
-- **Fórmula sugerida**: Balance ÷ 10.000 = lote base
+- **Ajuste**: No modo Fixo, use Balance ÷ 10.000 como referência
 
 #### `Valor acima de 1 multiplica lot nas agressões de tendência`
 - **O que é**: Multiplicador para operações de tendência forte
@@ -684,7 +701,8 @@ Ambiente: RISK-ON | VIX-A:off VIX-B:off
 
 ### ✅ **Configuração Conservadora**
 ```
-Lote: 0.01
+Perfil lote: Conservador  ← lote ajusta automaticamente ao saldo
+Lote base: 0.01           ← mínimo garantido
 Grid Médio: 200 pontos
 Grid Super: 100 pontos
 Breakeven: 200 pontos
@@ -695,10 +713,12 @@ Alerta B: 20%
 Alerta C: 30%
 Limite Grid Médio: 10 ordens
 ```
+> Exemplo: conta de $1.000 → ~0.04 lot calculado automaticamente
 
 ### ⚡ **Configuração Moderada**
 ```
-Lote: 0.02
+Perfil lote: Moderado     ← lote ajusta automaticamente ao saldo
+Lote base: 0.01           ← mínimo garantido
 Grid Médio: 150 pontos
 Grid Super: 75 pontos
 Breakeven: 150 pontos
@@ -709,10 +729,12 @@ Alerta B: 22%
 Alerta C: 32%
 Limite Grid Médio: 15 ordens
 ```
+> Exemplo: conta de $1.000 → ~0.09 lot calculado automaticamente
 
 ### 🚀 **Configuração Agressiva** (Apenas para experientes)
 ```
-Lote: 0.03
+Perfil lote: Agressivo    ← lote ajusta automaticamente ao saldo
+Lote base: 0.01           ← mínimo garantido
 Grid Médio: 100 pontos
 Grid Super: 50 pontos
 Breakeven: 100 pontos
@@ -724,6 +746,14 @@ Alerta B: 25%
 Alerta C: 35%
 Limite Grid Médio: 20 ordens
 ```
+> Exemplo: conta de $1.000 → ~0.13 lot calculado automaticamente
+
+### 🔒 **Modo Fixo** (comportamento anterior)
+```
+Perfil lote: Fixo
+Lote base: 0.01  (ou o valor desejado — sem cálculo automático)
+```
+> Use quando preferir controle manual total sobre o lote.
 
 ---
 

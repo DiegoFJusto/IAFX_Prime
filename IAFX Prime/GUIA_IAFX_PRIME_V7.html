@@ -254,12 +254,28 @@
 </ul>
 <hr />
 <h3>💵 <strong>Seção: Lotes e Grid</strong></h3>
-<h4><code>Tamanho do lote para ordens</code></h4>
+<h4><code>Perfil do lote</code></h4>
 <ul>
-<li><strong>O que é</strong>: Volume inicial das ordens</li>
+<li><strong>O que é</strong>: Define como o tamanho do lote é calculado</li>
+<li><strong>Opções</strong>:<br />
+  | Perfil | Comportamento | DD Máximo Alvo |<br />
+  |--------|---------------|----------------|<br />
+  | <strong>Fixo</strong> | Usa exatamente o valor do input <code>lote</code> | — |<br />
+  | <strong>Conservador</strong> | Calcula automaticamente para ~10% DD máximo | ~10% |<br />
+  | <strong>Moderado</strong> | Calcula automaticamente para ~20% DD máximo | ~20% |<br />
+  | <strong>Agressivo</strong> | Calcula automaticamente para ~30% DD máximo | ~30% |</li>
+<li><strong>Padrão</strong>: Fixo</li>
+<li><strong>Como o cálculo funciona</strong> (perfis automáticos):<br />
+<code>lote = (DD_alvo × balance) ÷ (max_ordens × grid_pts × valor_por_ponto)</code></li>
+<li>O lote escala proporcionalmente ao saldo — contas maiores usam lotes maiores automaticamente</li>
+<li>O resultado nunca é menor que o <code>lote</code> definido no input abaixo</li>
+<li>O divisor GBP (2×) é aplicado automaticamente para pares com GBP</li>
+</ul>
+<h4><code>Lote base</code></h4>
+<ul>
+<li><strong>O que é</strong>: Volume das ordens (usado diretamente no modo <strong>Fixo</strong>; serve como mínimo nos demais)</li>
 <li><strong>Padrão</strong>: 0.01 (micro lote)</li>
-<li><strong>Ajuste</strong>: Conforme tamanho da sua conta</li>
-<li><strong>Fórmula sugerida</strong>: Balance ÷ 10.000 = lote base</li>
+<li><strong>Ajuste</strong>: No modo Fixo, use Balance ÷ 10.000 como referência</li>
 </ul>
 <h4><code>Valor acima de 1 multiplica lot nas agressões de tendência</code></h4>
 <ul>
@@ -824,7 +840,8 @@ Ambiente: RISK-ON | VIX-A:off VIX-B:off
 <hr />
 <h2>🎓 Dicas de Uso</h2>
 <h3>✅ <strong>Configuração Conservadora</strong></h3>
-<pre><code>Lote: 0.01
+<pre><code>Perfil lote: Conservador  ← lote ajusta automaticamente ao saldo
+Lote base: 0.01           ← mínimo garantido
 Grid Médio: 200 pontos
 Grid Super: 100 pontos
 Breakeven: 200 pontos
@@ -835,8 +852,12 @@ Alerta B: 20%
 Alerta C: 30%
 Limite Grid Médio: 10 ordens
 </code></pre>
+<blockquote>
+<p>Exemplo: conta de $1.000 → ~0.04 lot calculado automaticamente</p>
+</blockquote>
 <h3>⚡ <strong>Configuração Moderada</strong></h3>
-<pre><code>Lote: 0.02
+<pre><code>Perfil lote: Moderado     ← lote ajusta automaticamente ao saldo
+Lote base: 0.01           ← mínimo garantido
 Grid Médio: 150 pontos
 Grid Super: 75 pontos
 Breakeven: 150 pontos
@@ -847,8 +868,12 @@ Alerta B: 22%
 Alerta C: 32%
 Limite Grid Médio: 15 ordens
 </code></pre>
+<blockquote>
+<p>Exemplo: conta de $1.000 → ~0.09 lot calculado automaticamente</p>
+</blockquote>
 <h3>🚀 <strong>Configuração Agressiva</strong> (Apenas para experientes)</h3>
-<pre><code>Lote: 0.03
+<pre><code>Perfil lote: Agressivo    ← lote ajusta automaticamente ao saldo
+Lote base: 0.01           ← mínimo garantido
 Grid Médio: 100 pontos
 Grid Super: 50 pontos
 Breakeven: 100 pontos
@@ -860,6 +885,16 @@ Alerta B: 25%
 Alerta C: 35%
 Limite Grid Médio: 20 ordens
 </code></pre>
+<blockquote>
+<p>Exemplo: conta de $1.000 → ~0.13 lot calculado automaticamente</p>
+</blockquote>
+<h3>🔒 <strong>Modo Fixo</strong> (comportamento anterior)</h3>
+<pre><code>Perfil lote: Fixo
+Lote base: 0.01  (ou o valor desejado — sem cálculo automático)
+</code></pre>
+<blockquote>
+<p>Use quando preferir controle manual total sobre o lote.</p>
+</blockquote>
 <hr />
 <h2>⚠️ Avisos Importantes</h2>
 <h3>🔴 <strong>Gestão de Risco</strong></h3>
@@ -899,10 +934,9 @@ Limite Grid Médio: 20 ordens
 <p><em>Documento criado para IAFX Prime v7 - Versão 1.3 - Fevereiro 2026</em></p>
         </div>
         <footer>
-            <p>IAFX Prime v7 &copy; 2025 Diego Justo | Versão 1.3 | Fevereiro 2026</p>
-            <p style="margin-top: 10px; opacity: 0.7; font-size: 0.9em;">
-                Negociar com robôs envolve alto risco. Resultados passados não garantem resultados futuros.
-            </p>
+            <p><strong>IAFX Prime v7</strong> - Guia do Usuario</p>
+            <p>Criado por Diego Justo | Copyright 2025</p>
+            <p>⚠️ Negociar com robos envolve alto risco. Resultados anteriores nao garantem performance futura.</p>
         </footer>
     </div>
 </body>
