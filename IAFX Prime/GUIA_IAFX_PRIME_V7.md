@@ -391,9 +391,11 @@ Sistema que **move o Stop Loss de TODAS as posições juntas** quando o preço m
 - **Ação**: Modo ultra conservador
 
 #### `Máximo exposição moeda por pares`
-- **O que é**: Quantos pares pode ter com a mesma moeda
+- **O que é**: Quantos pares pode ter com a mesma moeda simultaneamente (quando VIX está abaixo do limite)
 - **Padrão**: 1 (um par por moeda)
-- **Exemplo**: Se já tem EURUSD, não abre EURJPY (EUR repetido)
+- **Exemplo com valor 1**: Se já tem EURUSD, não abre EURJPY (EUR repetido)
+- **Exemplo com valor 2**: Pode ter EURUSD e EURGBP ao mesmo tempo
+- **Nota**: Quando VIX superar `vix_limite_ativos`, este valor é ignorado e o limite cai para 1 automaticamente
 
 #### `Período de Segurança`
 - **O que é**: Timeframe usado no Alerta B
@@ -663,6 +665,18 @@ Ambiente: RISK-ON | VIX-A:off VIX-B:off
 - **O que é**: Acima deste valor, bloqueia QUALQUER nova ordem — inclusive grid (emergência real)
 - **Padrão**: 27.0
 
+#### `VIX acima do qual limita a 1 par por moeda`
+- **O que é**: Quando VIX supera este valor, o limite de exposição por moeda é forçado para 1, independente do `MaxParesComMoedaComum`
+- **Padrão**: 25.0
+- **Lógica**:
+  | VIX | Limite efetivo |
+  |-----|----------------|
+  | ≤ 25.0 | `MaxParesComMoedaComum` (o que você configurou) |
+  | > 25.0 | 1 (forçado automaticamente) |
+- **Pares já abertos**: Se um par já tem posições abertas quando o VIX dispara, o EA **continua gerenciando normalmente** (grid, breakeven, etc.). O bloqueio se aplica apenas à abertura de novos pares
+- **Desativar**: Coloque `0` para desabilitar completamente esta regra
+- **Exemplo**: Com `MaxParesComMoedaComum = 3` e VIX em 26 → o EA opera como se fosse 1
+
 #### `% de spike VIX em 1 dia para alerta`
 - **O que é**: Se VIX subir este percentual em um dia, força Alert B
 - **Padrão**: 30.0%
@@ -800,4 +814,4 @@ Negociar com robôs envolve alto risco e pode não ser adequado para todos os in
 
 ---
 
-*Documento criado para IAFX Prime v7 - Versão 1.3 - Fevereiro 2026*
+*Documento criado para IAFX Prime v7 - Versão 1.4 - Março 2026*

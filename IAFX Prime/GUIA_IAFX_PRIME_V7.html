@@ -1,67 +1,30 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IAFX Prime v7 - Guia Completo do Usuario</title>
-    <style>
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6; color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 20px;
-        }
-        .container {
-            max-width: 1200px; margin: 0 auto; background: white;
-            border-radius: 15px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); overflow: hidden;
-        }
-        header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white; padding: 40px; text-align: center;
-        }
-        header h1 { font-size: 2.5em; margin-bottom: 10px; }
-        header p { font-size: 1.2em; opacity: 0.9; }
-        .content { padding: 40px; }
-        h1 { display: none; }
-        h2 { color: #667eea; font-size: 2em; margin: 30px 0 20px 0; padding-bottom: 10px; border-bottom: 3px solid #667eea; }
-        h3 { color: #764ba2; font-size: 1.5em; margin: 25px 0 15px 0; }
-        h4 { color: #555; font-size: 1.2em; margin: 20px 0 10px 0; }
-        p { margin: 10px 0; text-align: justify; }
-        ul { margin: 10px 0 10px 30px; }
-        li { margin: 8px 0; }
-        code {
-            background: #f4f4f4; padding: 2px 6px; border-radius: 3px;
-            font-family: 'Courier New', monospace; color: #d63384;
-        }
-        pre { background: #2d2d2d; color: #f8f8f2; padding: 20px; border-radius: 5px; overflow-x: auto; margin: 15px 0; }
-        pre code { background: transparent; color: #f8f8f2; padding: 0; }
-        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
-        th { background: #667eea; color: white; }
-        tr:hover { background: #f5f5f5; }
-        blockquote {
-            background: #f8f9fa; border-left: 5px solid #667eea;
-            padding: 20px; margin: 20px 0; border-radius: 5px;
-        }
-        hr { border: none; border-top: 2px solid #e0e0e0; margin: 30px 0; }
-        strong { color: #444; }
-        footer { background: #2d2d2d; color: white; padding: 30px; text-align: center; }
-        @media print {
-            body { background: white; padding: 0; }
-            .container { box-shadow: none; }
-        }
-
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IAFX Prime v7 - Guia Completo</title>
+<style>
+body { font-family: Arial, sans-serif; max-width: 900px; margin: 40px auto; padding: 0 20px; color: #222; line-height: 1.7; }
+h1 { color: #1a1a2e; border-bottom: 3px solid #e94560; padding-bottom: 10px; }
+h2 { color: #16213e; border-bottom: 2px solid #0f3460; padding-bottom: 6px; margin-top: 40px; }
+h3 { color: #0f3460; margin-top: 25px; }
+h4 { color: #533483; margin-top: 20px; }
+code { background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-family: Consolas, monospace; font-size: 0.92em; }
+pre { background: #1e1e2e; color: #cdd6f4; padding: 16px; border-radius: 6px; overflow-x: auto; }
+pre code { background: none; color: inherit; }
+table { border-collapse: collapse; width: 100%; margin: 16px 0; }
+th { background: #0f3460; color: white; padding: 10px 14px; text-align: left; }
+td { border: 1px solid #ddd; padding: 8px 14px; }
+tr:nth-child(even) { background: #f7f7f7; }
+blockquote { border-left: 4px solid #e94560; margin: 16px 0; padding: 8px 16px; background: #fff5f5; color: #555; }
+hr { border: none; border-top: 2px solid #eee; margin: 30px 0; }
+a { color: #0f3460; }
+ul, ol { padding-left: 24px; }
+li { margin: 4px 0; }
+</style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>IAFX Prime v7</h1>
-            <p>Guia Completo do Usuario</p>
-        </header>
-        <div class="content">
 <h1>📊 IAFX Prime v7 - Guia Completo do Usuário</h1>
 <h2>🎯 O Que é o IAFX Prime v7?</h2>
 <p>O <strong>IAFX Prime v7</strong> é um Expert Advisor (robô de negociação) inteligente para MetaTrader 5 que opera com estratégias deGrid (grade) combinadas com sistemas avançados de proteção de capital e gestão de risco.</p>
@@ -128,11 +91,11 @@
 <li><strong>Vantagem</strong>: Se adapta automaticamente ao crescimento da sua conta</li>
 </ul>
 <h4>📍 <strong>Fechamento em 2 Níveis</strong></h4>
-<p><strong>Nível 1 - Poucas Ordens (&lt; 3 ordens)</strong><br />
-- Alvo: 0.5% do balance<br />
+<p><strong>Nível 1 - Poucas Ordens (&lt; 3 ordens)</strong>
+- Alvo: 0.5% do balance
 - Fecha: Todas as ordens de uma vez</p>
-<p><strong>Nível 2 - Muitas Ordens (≥ 3 ordens)</strong><br />
-- Primeiro: Fecha 50% das ordens quando atingir 0.25% (Fechamento Parcial)<br />
+<p><strong>Nível 2 - Muitas Ordens (≥ 3 ordens)</strong>
+- Primeiro: Fecha 50% das ordens quando atingir 0.25% (Fechamento Parcial)
 - Depois: Fecha o restante quando atingir 0.5% (Alvo Final)</p>
 <h3>🌙 <strong>Alvos por Horário (Novo!)</strong></h3>
 <p>O robô reduz os alvos durante horários de <strong>baixa liquidez</strong>:</p>
@@ -144,41 +107,41 @@
 <hr />
 <h2>📅 Sistema de Meta Diária - 3 Regras Inteligentes</h2>
 <h3>🎯 <strong>Regra 1: Meta Diária de 1%</strong></h3>
-<p><strong>Quando</strong>: A qualquer momento do dia<br />
-<strong>Condição</strong>: Se o lucro total do dia atingir 1% do balance inicial<br />
-<strong>Ação</strong>:<br />
-- ✅ Fecha TODAS as posições<br />
-- 🔒 Bloqueia o robô até o próximo dia<br />
+<p><strong>Quando</strong>: A qualquer momento do dia
+<strong>Condição</strong>: Se o lucro total do dia atingir 1% do balance inicial
+<strong>Ação</strong>:
+- ✅ Fecha TODAS as posições
+- 🔒 Bloqueia o robô até o próximo dia
 - 💡 <strong>Objetivo</strong>: Garantir lucro consistente e evitar devolver ganhos</p>
-<p><strong>Exemplo Prático</strong>:<br />
-- Balance inicial do dia: R$ 10.000<br />
-- Meta: R$ 100 (1%)<br />
+<p><strong>Exemplo Prático</strong>:
+- Balance inicial do dia: R$ 10.000
+- Meta: R$ 100 (1%)
 - Às 14h você já ganhou R$ 100 → Robô fecha tudo e para até amanhã</p>
 <hr />
 <h3>🕐 <strong>Regra 2: Proteção 17h-19h Brasília</strong></h3>
-<p><strong>Quando</strong>: Entre 17h e 19h (horário de Brasília)<br />
-<strong>Condição</strong>: Se o lucro realizado do dia for maior que as perdas flutuantes<br />
-<strong>Ação</strong>:<br />
-- ✅ Fecha TODAS as posições<br />
-- 🔒 Garante dia positivo<br />
+<p><strong>Quando</strong>: Entre 17h e 19h (horário de Brasília)
+<strong>Condição</strong>: Se o lucro realizado do dia for maior que as perdas flutuantes
+<strong>Ação</strong>:
+- ✅ Fecha TODAS as posições
+- 🔒 Garante dia positivo
 - 💡 <strong>Objetivo</strong>: Proteger lucros já realizados contra reversões</p>
-<p><strong>Exemplo Prático</strong>:<br />
-- Lucro realizado no dia: R$ 150<br />
-- Posições abertas com perda flutuante: -R$ 80<br />
+<p><strong>Exemplo Prático</strong>:
+- Lucro realizado no dia: R$ 150
+- Posições abertas com perda flutuante: -R$ 80
 - São 18h → Como R$ 150 &gt; R$ 80, fecha tudo garantindo +R$ 70 no dia</p>
 <hr />
 <h3>📆 <strong>Regra 3: Sexta-feira com 3% Semanal</strong></h3>
-<p><strong>Quando</strong>: Sexta-feira, a partir das 12h<br />
-<strong>Condição</strong>: Se o lucro da semana (realizado + flutuante) for ≥ 3%<br />
-<strong>Ação</strong>:<br />
-- ✅ Fecha TODAS as posições (positivas e negativas)<br />
-- 🔒 Garante 3% da semana<br />
-- 📅 Só reabre domingo à noite<br />
+<p><strong>Quando</strong>: Sexta-feira, a partir das 12h
+<strong>Condição</strong>: Se o lucro da semana (realizado + flutuante) for ≥ 3%
+<strong>Ação</strong>:
+- ✅ Fecha TODAS as posições (positivas e negativas)
+- 🔒 Garante 3% da semana
+- 📅 Só reabre domingo à noite
 - 💡 <strong>Objetivo</strong>: Garantir semana lucrativa e descanso de fim de semana</p>
-<p><strong>Exemplo Prático</strong>:<br />
-- Balance: R$ 10.000<br />
-- Meta semanal: R$ 300 (3%)<br />
-- Sexta-feira 14h: Lucro da semana = R$ 320<br />
+<p><strong>Exemplo Prático</strong>:
+- Balance: R$ 10.000
+- Meta semanal: R$ 300 (3%)
+- Sexta-feira 14h: Lucro da semana = R$ 320
 - → Robô fecha tudo, garante os 3% e descansa até domingo</p>
 <hr />
 <h2>⏰ Horário de Operação</h2>
@@ -257,16 +220,16 @@
 <h4><code>Perfil do lote</code></h4>
 <ul>
 <li><strong>O que é</strong>: Define como o tamanho do lote é calculado</li>
-<li><strong>Opções</strong>:<br />
-  | Perfil | Comportamento | DD Máximo Alvo |<br />
-  |--------|---------------|----------------|<br />
-  | <strong>Fixo</strong> | Usa exatamente o valor do input <code>lote</code> | — |<br />
-  | <strong>Conservador</strong> | Calcula automaticamente para ~10% DD máximo | ~10% |<br />
-  | <strong>Moderado</strong> | Calcula automaticamente para ~20% DD máximo | ~20% |<br />
+<li><strong>Opções</strong>:
+  | Perfil | Comportamento | DD Máximo Alvo |
+  |--------|---------------|----------------|
+  | <strong>Fixo</strong> | Usa exatamente o valor do input <code>lote</code> | — |
+  | <strong>Conservador</strong> | Calcula automaticamente para ~10% DD máximo | ~10% |
+  | <strong>Moderado</strong> | Calcula automaticamente para ~20% DD máximo | ~20% |
   | <strong>Agressivo</strong> | Calcula automaticamente para ~30% DD máximo | ~30% |</li>
 <li><strong>Padrão</strong>: Fixo</li>
-<li><strong>Como o cálculo funciona</strong> (perfis automáticos):<br />
-<code>lote = (DD_alvo × balance) ÷ (max_ordens × grid_pts × valor_por_ponto)</code></li>
+<li><strong>Como o cálculo funciona</strong> (perfis automáticos):
+  <code>lote = (DD_alvo × balance) ÷ (max_ordens × grid_pts × valor_por_ponto)</code></li>
 <li>O lote escala proporcionalmente ao saldo — contas maiores usam lotes maiores automaticamente</li>
 <li>O resultado nunca é menor que o <code>lote</code> definido no input abaixo</li>
 <li>O divisor GBP (2×) é aplicado automaticamente para pares com GBP</li>
@@ -447,9 +410,11 @@
 </ul>
 <h4><code>Máximo exposição moeda por pares</code></h4>
 <ul>
-<li><strong>O que é</strong>: Quantos pares pode ter com a mesma moeda</li>
+<li><strong>O que é</strong>: Quantos pares pode ter com a mesma moeda simultaneamente (quando VIX está abaixo do limite)</li>
 <li><strong>Padrão</strong>: 1 (um par por moeda)</li>
-<li><strong>Exemplo</strong>: Se já tem EURUSD, não abre EURJPY (EUR repetido)</li>
+<li><strong>Exemplo com valor 1</strong>: Se já tem EURUSD, não abre EURJPY (EUR repetido)</li>
+<li><strong>Exemplo com valor 2</strong>: Pode ter EURUSD e EURGBP ao mesmo tempo</li>
+<li><strong>Nota</strong>: Quando VIX superar <code>vix_limite_ativos</code>, este valor é ignorado e o limite cai para 1 automaticamente</li>
 </ul>
 <h4><code>Período de Segurança</code></h4>
 <ul>
@@ -696,8 +661,8 @@
 </tbody>
 </table>
 <h4>Carry Unwind (alerta vermelho):</h4>
-<p>Quando <strong>dois sinais</strong> aparecem juntos:<br />
-- USDJPY caindo &gt; 1.2% no dia (JPY fortalecendo com força relevante)<br />
+<p>Quando <strong>dois sinais</strong> aparecem juntos:
+- USDJPY caindo &gt; 1.2% no dia (JPY fortalecendo com força relevante)
 - VIX subindo &gt; 10% no dia</p>
 <p>O sistema classifica como <strong>carry unwind em curso</strong> e bloqueia novas aberturas até normalizar.</p>
 <h4>SP500:</h4>
@@ -750,6 +715,19 @@ Ambiente: RISK-ON | VIX-A:off VIX-B:off
 <ul>
 <li><strong>O que é</strong>: Acima deste valor, bloqueia QUALQUER nova ordem — inclusive grid (emergência real)</li>
 <li><strong>Padrão</strong>: 27.0</li>
+</ul>
+<h4><code>VIX acima do qual limita a 1 par por moeda</code></h4>
+<ul>
+<li><strong>O que é</strong>: Quando VIX supera este valor, o limite de exposição por moeda é forçado para 1, independente do <code>MaxParesComMoedaComum</code></li>
+<li><strong>Padrão</strong>: 25.0</li>
+<li><strong>Lógica</strong>:
+  | VIX | Limite efetivo |
+  |-----|----------------|
+  | ≤ 25.0 | <code>MaxParesComMoedaComum</code> (o que você configurou) |
+  | &gt; 25.0 | 1 (forçado automaticamente) |</li>
+<li><strong>Pares já abertos</strong>: Se um par já tem posições abertas quando o VIX dispara, o EA <strong>continua gerenciando normalmente</strong> (grid, breakeven, etc.). O bloqueio se aplica apenas à abertura de novos pares</li>
+<li><strong>Desativar</strong>: Coloque <code>0</code> para desabilitar completamente esta regra</li>
+<li><strong>Exemplo</strong>: Com <code>MaxParesComMoedaComum = 3</code> e VIX em 26 → o EA opera como se fosse 1</li>
 </ul>
 <h4><code>% de spike VIX em 1 dia para alerta</code></h4>
 <ul>
@@ -920,9 +898,9 @@ Lote base: 0.01  (ou o valor desejado — sem cálculo automático)
 </ul>
 <hr />
 <h2>📞 Suporte</h2>
-<p>Para dúvidas, sugestões ou suporte:<br />
-- 📧 Contate o desenvolvedor: Diego Justo<br />
-- 📅 Mantenha o robô sempre atualizado<br />
+<p>Para dúvidas, sugestões ou suporte:
+- 📧 Contate o desenvolvedor: Diego Justo
+- 📅 Mantenha o robô sempre atualizado
 - 🔄 Versão atual: 7.0</p>
 <hr />
 <h2>⚖️ Isenção de Responsabilidade</h2>
@@ -931,13 +909,6 @@ Lote base: 0.01  (ou o valor desejado — sem cálculo automático)
 <p>É <strong>fundamental</strong> testar em conta de demonstração antes de operar com capital real.</p>
 <p><strong>Trading de forex e CFDs pode resultar em perdas que excedem seu investimento inicial.</strong></p>
 <hr />
-<p><em>Documento criado para IAFX Prime v7 - Versão 1.3 - Fevereiro 2026</em></p>
-        </div>
-        <footer>
-            <p><strong>IAFX Prime v7</strong> - Guia do Usuario</p>
-            <p>Criado por Diego Justo | Copyright 2025</p>
-            <p>⚠️ Negociar com robos envolve alto risco. Resultados anteriores nao garantem performance futura.</p>
-        </footer>
-    </div>
+<p><em>Documento criado para IAFX Prime v7 - Versão 1.4 - Março 2026</em></p>
 </body>
 </html>
