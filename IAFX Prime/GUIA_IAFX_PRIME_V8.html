@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IAFX Prime v8 - Guia Completo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        h2 {
+            color: #34495e;
+            font-size: 1.8em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+        }
+        
+        h3 {
+            color: #555;
+            font-size: 1.3em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        th {
+            background-color: #3498db;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+        
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+        
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+        }
+        
+        pre {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 15px 0;
+            border-left: 4px solid #3498db;
+        }
+        
+        .alert {
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .alert-danger {
+            background-color: #f8d7da;
+            border-left: 4px solid #f5222d;
+            color: #721c24;
+        }
+        
+        .alert-warning {
+            background-color: #fff3cd;
+            border-left: 4px solid #faad14;
+            color: #856404;
+        }
+        
+        .alert-success {
+            background-color: #d4edda;
+            border-left: 4px solid #52c41a;
+            color: #155724;
+        }
+        
+        .alert-info {
+            background-color: #d1ecf1;
+            border-left: 4px solid #1890ff;
+            color: #0c5460;
+        }
+        
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #ddd;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-weight: bold;
+            font-size: 0.85em;
+            margin-right: 5px;
+        }
+        
+        .badge-new {
+            background-color: #52c41a;
+            color: white;
+        }
+        
+        .badge-updated {
+            background-color: #1890ff;
+            color: white;
+        }
+        
+        .config-box {
+            background-color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 4px solid #2c3e50;
+        }
+        
+        hr {
+            border: none;
+            height: 2px;
+            background: linear-gradient(to right, #3498db, transparent);
+            margin: 30px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 IAFX Prime v8 - Guia Completo do Usuário</h1>
+        
+        <h2>🎯 O Que é o IAFX Prime v8?</h2>
+        <p>O <strong>IAFX Prime v8</strong> é a versão 2.0 do Expert Advisor inteligente para MetaTrader 5. Mantém toda a robustez da v7 e <strong>adiciona uma nova estratégia de negociação: FIMATHE</strong> (estratégia de canais e rompimentos).</p>
+        <p>Agora você tem <strong>2 estratégias independentes</strong> para gerar o primeiro sinal:</p>
+        <ul>
+            <li>✅ <strong>IAFX</strong> (Confluência de Indicadores)</li>
+            <li>✅ <strong>FIMATHE</strong> (Canais e Rompimentos)</li>
+        </ul>
+        <p><strong>Ambas podem ser habilitadas/desabilitadas</strong> via inputs, oferecendo flexibilidade total!</p>
+        
+        <hr>
+        
+        <h2>🚀 O Que Mudou da v7 para v8?</h2>
+        <table>
+            <tr>
+                <th>Característica</th>
+                <th>v7</th>
+                <th>v8</th>
+            </tr>
+            <tr>
+                <td>Grid (Médio + Super)</td>
+                <td style="text-align: center;">✅</td>
+                <td style="text-align: center;">✅</td>
+            </tr>
+            <tr>
+                <td>Indicadores (RSI, MACD, Bollinger, etc)</td>
+                <td style="text-align: center;">✅</td>
+                <td style="text-align: center;">✅</td>
+            </tr>
+            <tr>
+                <td>Breakeven Cascading</td>
+                <td style="text-align: center;">✅</td>
+                <td style="text-align: center;">✅</td>
+            </tr>
+            <tr>
+                <td>Trailing Stop Individual</td>
+                <td style="text-align: center;">✅</td>
+                <td style="text-align: center;">✅</td>
+            </tr>
+            <tr>
+                <td>Sistema de 3 Alertas (A/B/C)</td>
+                <td style="text-align: center;">✅</td>
+                <td style="text-align: center;">✅</td>
+            </tr>
+            <tr>
+                <td>Meta Diária (3 regras)</td>
+                <td style="text-align: center;">✅</td>
+                <td style="text-align: center;">✅</td>
+            </tr>
+            <tr>
+                <td>Filtro Macro (VIX, Carry)</td>
+                <td style="text-align: center;">✅</td>
+                <td style="text-align: center;">✅</td>
+            </tr>
+            <tr>
+                <td><strong>Estratégia FIMATHE</strong></td>
+                <td style="text-align: center;">❌</td>
+                <td style="text-align: center;">✅ <span class="badge badge-new">NOVO</span></td>
+            </tr>
+            <tr>
+                <td><strong>Dual Strategy (IAFX + FIMATHE)</strong></td>
+                <td style="text-align: center;">❌</td>
+                <td style="text-align: center;">✅ <span class="badge badge-new">NOVO</span></td>
+            </tr>
+        </table>
+        
+        <hr>
+        
+        <h2>🎯 Estratégia FIMATHE (Novo!)</h2>
+        <h3>O que é?</h3>
+        <p>Sistema de identificação de canais de consolidação que opera com base em rompimentos de preço.</p>
+        
+        <h3>Como funciona?</h3>
+        <ol>
+            <li>Mede o <strong>topo</strong> (highest high) dos últimas N barras</li>
+            <li>Mede o <strong>fundo</strong> (lowest low) dos últimas N barras</li>
+            <li>Calcula <strong>zona neutra</strong> = 50% do canal (ponto de equilíbrio)</li>
+            <li>Calcula <strong>zona de rompimento</strong> = % configurável do canal</li>
+            <li>Gera sinal:
+                <ul>
+                    <li><strong>"C" (Compra)</strong>: quando preço rompe ABAIXO da zona de rompimento</li>
+                    <li><strong>"V" (Venda)</strong>: quando preço rompe ACIMA da zona de rompimento</li>
+                    <li><strong>"X" (Neutro)</strong>: fora das zonas de rompimento</li>
+                </ul>
+            </li>
+        </ol>
+        
+        <h3>Parâmetros</h3>
+        <div class="config-box">
+            <p><strong>fimathe_barras</strong> (Padrão: 50)</p>
+            <p>Número de barras para calcular o canal. Valores recomendados:</p>
+            <ul>
+                <li>30-50 para timeframes M5/M15 (mais sensível)</li>
+                <li>50-100 para timeframes M30/H1 (balanceado)</li>
+                <li>100+ para timeframes H4/D1 (mais confiável)</li>
+            </ul>
+        </div>
+        
+        <div class="config-box">
+            <p><strong>fimathe_percentual_ruptura</strong> (Padrão: 0.5)</p>
+            <p>Percentual da zona de rompimento (0.5 = 50%)</p>
+            <ul>
+                <li><strong>0.3</strong> = Zona mais aberta → Mais sinais (mais agressivo)</li>
+                <li><strong>0.5</strong> = Balanceado (recomendado)</li>
+                <li><strong>0.7</strong> = Zona mais restritiva → Menos sinais (mais conservador)</li>
+            </ul>
+        </div>
+        
+        <hr>
+        
+        <h2>⚙️ Lógica de Entrada Dual</h2>
+        <p>Quando <strong>ambas as estratégias</strong> estão habilitadas, o primeiro sinal a aparecer abre a ordem:</p>
+        
+        <pre>if (usar_IAFX && usar_FIMATHE)
+   // Avalia IAFX primeiro
+   if (sinal_IAFX == "C" ou "V")
+      → Abre ordem com IAFX
+   
+   // Se IAFX não sinalizou, avalia FIMATHE
+   else if (sinal_FIMATHE == "C" ou "V")
+      → Abre ordem com FIMATHE
+
+   // Se ambas na mesma candle:
+   // IAFX tem prioridade (é avaliada primeiro)
+</pre>
+        
+        <h3>Configurações Possíveis</h3>
+        <table>
+            <tr>
+                <th>Config</th>
+                <th>Comportamento</th>
+            </tr>
+            <tr>
+                <td><code>usar_IAFX=true, usar_FIMATHE=false</code></td>
+                <td>Apenas IAFX (como v7)</td>
+            </tr>
+            <tr>
+                <td><code>usar_IAFX=false, usar_FIMATHE=true</code></td>
+                <td>Apenas FIMATHE (novo sistema)</td>
+            </tr>
+            <tr>
+                <td><code>usar_IAFX=true, usar_FIMATHE=true</code></td>
+                <td>Dual: IAFX → FIMATHE</td>
+            </tr>
+        </table>
+        
+        <hr>
+        
+        <h2>⚡ Sistema de Defesa (Idêntico à v7)</h2>
+        <p>Todos os mecanismos de proteção funcionam igual à v7:</p>
+        
+        <div class="alert alert-warning">
+            <h3>🟡 Alerta A - Grid Adaptativo</h3>
+            <p><strong>Ativado por:</strong> DD% ≥ 10% OU VIX ≥ 21.0</p>
+            <p><strong>Ação:</strong> Grid aumenta 1.5x</p>
+        </div>
+        
+        <div class="alert alert-warning">
+            <h3>🟠 Alerta B - Mudança de Timeframe</h3>
+            <p><strong>Ativado por:</strong> DD% ≥ 20% OU VIX ≥ 24.0</p>
+            <p><strong>Ação:</strong> Todos os indicadores mudam para M15</p>
+        </div>
+        
+        <div class="alert alert-danger">
+            <h3>🔴 Alerta C - Modo Emergência</h3>
+            <p><strong>Ativado por:</strong> DD% ≥ 30%</p>
+            <p><strong>Ação:</strong> Reduz lote pela metade</p>
+        </div>
+        
+        <hr>
+        
+        <h2>📋 Inputs Novos da v8</h2>
+        <table>
+            <tr>
+                <th>Parâmetro</th>
+                <th>Descrição</th>
+                <th>Valor Padrão</th>
+            </tr>
+            <tr>
+                <td><code>usar_IAFX</code></td>
+                <td>Ativar estratégia IAFX</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td><code>usar_FIMATHE</code></td>
+                <td>Ativar estratégia FIMATHE</td>
+                <td>false</td>
+            </tr>
+            <tr>
+                <td><code>fimathe_barras</code></td>
+                <td>Número de barras do canal</td>
+                <td>50</td>
+            </tr>
+            <tr>
+                <td><code>fimathe_percentual_ruptura</code></td>
+                <td>Percentual da zona de rompimento</td>
+                <td>0.5</td>
+            </tr>
+        </table>
+        
+        <hr>
+        
+        <h2>🚀 Primeiros Passos com v8</h2>
+        
+        <h3>1. Teste Inicial (Demo)</h3>
+        <div class="alert alert-success">
+            <pre>usar_IAFX = true
+usar_FIMATHE = true
+fimathe_barras = 50
+fimathe_percentual_ruptura = 0.5
+Grid Médio: 150 pontos
+Grid Super: 75 pontos
+Lote base: 0.01
+Meta diária: 1%</pre>
+        </div>
+        
+        <h3>2. Migração da v7</h3>
+        <ol>
+            <li>Baixe <code>IAFX Prime v8.ex5</code></li>
+            <li>Copie para pasta de Experts do MT5</li>
+            <li>Configure: <code>usar_IAFX=true, usar_FIMATHE=false</code></li>
+            <li>Teste em demo 1-2 semanas (como v7)</li>
+            <li>Depois ative FIMATHE se desejar</li>
+        </ol>
+        
+        <hr>
+        
+        <div class="alert alert-danger">
+            <h2>⚠️ Avisos Importantes</h2>
+            <ul>
+                <li>Reserve no mínimo <strong>40% do capital</strong> como margem de segurança</li>
+                <li>Teste FIMATHE em <strong>demo</strong> antes de usar em conta real</li>
+                <li>Monitore DD% diariamente</li>
+                <li><strong>Nunca</strong> opere com todo o capital de uma vez</li>
+                <li>Trading de forex pode resultar em perdas maiores que o investimento inicial</li>
+            </ul>
+        </div>
+        
+        <div class="footer">
+            <p>Documento criado para IAFX Prime v8 - Versão 1.0 - Março 2026</p>
+            <p>Para dúvidas ou sugestões, contate o desenvolvedor</p>
+        </div>
+    </div>
+</body>
+</html>
