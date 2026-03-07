@@ -47,16 +47,16 @@ Agora você tem **2 estratégias independentes** para gerar o primeiro sinal:
 - **Sinal ADX**: Requer ADX_F = "ON" (ADX acima do threshold)
 - **Entrada**: Sinais de compra/venda simultâneos bloqueados (evita confusão)
 
-#### 🟦 **Estratégia FIMATHE (Canais e Rompimentos)** ← NOVO!
-- **O que é**: Sistema de identificação de canais de consolidação
+#### 🟦 **Estratégia FIMATHE (Canais e Rompimentos com Trend Following)** ← NOVO!
+- **O que é**: Sistema de identificação de canais de consolidação com sinais de TREND FOLLOWING
 - **Como funciona**:
   1. Mede o **topo** (highest high) dos últimas N barras
   2. Mede o **fundo** (lowest low) dos últimas N barras
   3. Calcula **zona neutra** = 50% do canal (ponto de equilíbrio)
   4. Calcula **zona de rompimento** = % configurável do canal
-  5. Gera sinal:
-     - **"C" (Compra)**: quando preço rompe ABAIXO da zona de rompimento
-     - **"V" (Venda)**: quando preço rompe ACIMA da zona de rompimento
+  5. Gera sinal baseado em **TREND FOLLOWING**:
+     - **"C" (Compra)**: quando preço rompe ACIMA da zona de rompimento (seguir tendência de ALTA)
+     - **"V" (Venda)**: quando preço rompe ABAIXO da zona de rompimento (seguir tendência de BAIXA)
      - **"X" (Neutro)**: fora das zonas de rompimento
 - **Parâmetros**:
   - `fimathe_barras`: Número de barras para calcular o canal (default: 50)
